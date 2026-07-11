@@ -1,0 +1,149 @@
+[
+  {
+    "id": "vel-ban-001",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 1",
+    "color": "blanca",
+    "alto_cm": 15,
+    "diametro_cm": 1.5,
+    "destacado": true
+  },
+  {
+    "id": "vel-ban-002",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 2",
+    "color": "marfil",
+    "alto_cm": 20,
+    "diametro_cm": 2
+  },
+  {
+    "id": "vel-ban-003",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 3",
+    "color": "blanca",
+    "alto_cm": 25,
+    "diametro_cm": 2.2
+  },
+  {
+    "id": "vel-ban-004",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 4",
+    "color": "marfil",
+    "alto_cm": 30,
+    "diametro_cm": 2.5
+  },
+  {
+    "id": "vel-ban-005",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 5",
+    "color": "blanca",
+    "alto_cm": 35,
+    "diametro_cm": 3
+  },
+  {
+    "id": "vel-ban-006",
+    "categoria": "banqueteria",
+    "nombre": "Vela nº 6",
+    "color": "marfil",
+    "alto_cm": 40,
+    "diametro_cm": 3.5
+  },
+  {
+    "id": "vel-rel-001",
+    "categoria": "religiosas",
+    "nombre": "Cirio nº 1",
+    "color": "blanca",
+    "alto_cm": 40,
+    "diametro_cm": 4,
+    "destacado": true
+  },
+  {
+    "id": "vel-rel-002",
+    "categoria": "religiosas",
+    "nombre": "Cirio nº 2",
+    "color": "marfil",
+    "alto_cm": 50,
+    "diametro_cm": 5
+  },
+  {
+    "id": "vel-rel-003",
+    "categoria": "religiosas",
+    "nombre": "Velón nº 1",
+    "color": "blanca",
+    "alto_cm": 25,
+    "diametro_cm": 6
+  },
+  {
+    "id": "vel-rel-004",
+    "categoria": "religiosas",
+    "nombre": "Velón nº 2",
+    "color": "marfil",
+    "alto_cm": 30,
+    "diametro_cm": 7
+  },
+  {
+    "id": "vel-rel-005",
+    "categoria": "religiosas",
+    "nombre": "Cirio Pascual",
+    "color": "blanca",
+    "alto_cm": 80,
+    "diametro_cm": 8
+  },
+  {
+    "id": "vel-rel-006",
+    "categoria": "religiosas",
+    "nombre": "Velón nº 3",
+    "color": "marfil",
+    "alto_cm": 20,
+    "diametro_cm": 5
+  },
+  {
+    "id": "vel-fun-001",
+    "categoria": "funerarias",
+    "nombre": "Vela nº 1",
+    "color": "blanca",
+    "alto_cm": 20,
+    "diametro_cm": 2,
+    "destacado": true
+  },
+  {
+    "id": "vel-fun-002",
+    "categoria": "funerarias",
+    "nombre": "Vela nº 2",
+    "color": "marfil",
+    "alto_cm": 25,
+    "diametro_cm": 2.5
+  },
+  {
+    "id": "vel-fun-003",
+    "categoria": "funerarias",
+    "nombre": "Velón nº 1",
+    "color": "blanca",
+    "alto_cm": 15,
+    "diametro_cm": 5
+  },
+  {
+    "id": "vel-fun-004",
+    "categoria": "funerarias",
+    "nombre": "Velón nº 2",
+    "color": "marfil",
+    "alto_cm": 18,
+    "diametro_cm": 6
+  },
+  {
+    "id": "vel-fun-005",
+    "categoria": "funerarias",
+    "nombre": "Vela nº 3",
+    "color": "blanca",
+    "alto_cm": 30,
+    "diametro_cm": 3
+  },
+  {
+    "id": "vel-fun-006",
+    "categoria": "funerarias",
+    "nombre": "Velón nº 3",
+    "color": "marfil",
+    "alto_cm": 22,
+    "diametro_cm": 7
+  }
+]
