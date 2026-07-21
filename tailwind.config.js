@@ -5,27 +5,34 @@ module.exports = {
     extend: {
       colors: {
         // Fondos
-        'bg-base':    '#FAFAF8',
-        'bg-hero':    '#F4F2EE',
-        'bg-card-1':  '#ECEAE5',
-        'bg-card-2':  '#E2DED8',
-        'bg-footer':  '#1C1C1A',
+        'bg-base':    '#F5F5EE',
+        'bg-hero':    '#ECEEE1',
+        'bg-card-1':  '#E6E9D6',
+        'bg-card-2':  '#DBDFC7',
+        'bg-footer':  '#283028',
 
         // Textos
-        'text-primary': '#111110',
-        'text-body':    '#666662',
-        'text-muted':   '#AAAAAA',
-        'text-footer':  '#777773',
+        'text-primary': '#1E251E',
+        'text-body':    '#2C352C',
+        'text-muted':   '#525E4B',
+        'text-footer':  '#A2AE99',
 
         // Bordes
-        'border-default': '#DEDAD4',
-        'border-dark':    '#2E2E2C',
+        'border-default': '#D7DBC6',
+        'border-dark':    '#3B443B',
 
-        // Acentos
-        'gold':         '#A67C2E',
-        'gold-light':   '#F0E6CE',
-        'graphite':     '#2E2A24',
-        'black-graphic':'#111110',
+        // Acentos (paleta verde salvia)
+        'gold':         '#485848', // Verde Grafito (acento principal, ex-dorado)
+        'gold-light':   '#C8D0A8', // Crema Verde
+        'graphite':     '#283028', // Verde Negro (botón primario)
+        'black-graphic':'#283028', // Verde Negro
+        'verde-negro':  '#283028',
+        'verde-grafito':'#485848',
+        'verde-medio':  '#607860',
+        'verde-musgo':  '#708870',
+        'verde-pizarra':'#606878',
+        'crema-verde':  '#C8D0A8',
+        'blanco-calido':'#F5F5EE',
       },
       fontFamily: {
         display: ['var(--font-display)', 'Playfair Display', 'serif'],

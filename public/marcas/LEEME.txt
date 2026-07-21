@@ -1,0 +1,36 @@
+LOGOS DE MARCAS — Carrusel "Confían en nosotros"
+=================================================
+
+Deja aquí los logos de las empresas que han confiado en Devas.
+
+ESPECIFICACIONES
+----------------
+• Formato:   PNG con FONDO TRANSPARENTE (ideal) o SVG.
+             Evitar JPG (no tiene transparencia).
+• Color:     Preferible el logo en UN SOLO COLOR (negro o gris oscuro)
+             sobre transparente. Igual sirve a color: el sitio los
+             muestra en gris "fantasma" y revela el color al pasar el mouse.
+• Alto:      mínimo 200 px de alto (mejor 300–400 px para pantallas retina).
+• Ancho:     libre (horizontal). Que el logo llene el alto, con un poco
+             de aire (padding) alrededor, sin borde ni caja.
+• Recorte:   logo centrado y "recortado" (sin espacio en blanco de más).
+• Peso:      < 150 KB por archivo.
+
+NOMBRES DE ARCHIVO
+------------------
+Minúsculas, sin espacios ni tildes, con guiones. Ejemplos:
+   hotel-miramar.png
+   parroquia-san-pedro.png
+   funeraria-belen.png
+
+CANTIDAD
+--------
+Entre 6 y 10 logos se ven muy bien en el loop. Con menos de 5 el
+carrusel se nota repetido; con más, mejor aún.
+
+CÓMO SE ACTIVAN
+---------------
+Una vez que dejes los archivos aquí, se registran en:
+   lib/contenido.js  →  const MARCAS
+cambiando cada línea a:  { img: '/marcas/hotel-miramar.png', alt: 'Hotel Miramar' }
+(De eso me encargo yo cuando me digas que ya están cargados.)

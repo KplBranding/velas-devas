@@ -1,0 +1,18 @@
+Procesados correctamente: 15
+  OK   funeraria.png -> funeraria.png
+  OK   funeraria_arechavala.png -> funeraria-arechavala.png
+  OK   funeraria_azocar.png -> funeraria-azocar.png
+  OK   funeraria_brazos_de_cristo.png -> funeraria-brazos-de-cristo.png
+  OK   funeraria_claudio_aguero.png -> funeraria-claudio-aguero.png
+  OK   funeraria_copelec.png -> funeraria-copelec.png
+  OK   funeraria_corpuschristi.png -> funeraria-corpuschristi.png
+  OK   funeraria_díaz_mora.png -> funeraria-diaz-mora.png
+  OK   funeraria_eden.png -> funeraria-eden.png
+  OK   funeraria_forlivesi.jpg -> funeraria-forlivesi.png
+  OK   funeraria_hogar_de_cristo.png -> funeraria-hogar-de-cristo.png
+  OK   funeraria_maria_ayuda.png -> funeraria-maria-ayuda.png
+  OK   funeraria_rene_parra.png -> funeraria-rene-parra.png
+  OK   funeraria_san_josé.jpg -> funeraria-san-jose.png
+  OK   funeraria_santa_fe.png -> funeraria-santa-fe.png
+
+Con error: 0

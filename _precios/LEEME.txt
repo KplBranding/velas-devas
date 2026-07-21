@@ -1,0 +1,10 @@
+CARPETA DE PRECIOS — Velas Devas
+=================================
+
+Dejá acá el Excel FINAL de precios (el que manda).
+- Formato: .xlsx o .csv
+- Nombre sugerido: precios_banqueteria.xlsx  (o el que quieras, da igual)
+- Si trae varias hojas, decime cuál usar.
+
+Ideal que cada fila tenga: diámetro, alto y precio unitario.
+Cuando lo subas, avisame y yo lo leo y lo cableo al catálogo.

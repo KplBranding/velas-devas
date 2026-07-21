@@ -1,52 +1,115 @@
 [
   {
-    "id": "vel-ban-001",
+    "id": "ban-d38",
     "categoria": "banqueteria",
-    "nombre": "Vela nº 1",
+    "grupo": true,
+    "nombre": "Velón Ø 3,8 cm",
+    "diametro_cm": 3.8,
     "color": "blanca",
-    "alto_cm": 15,
-    "diametro_cm": 1.5,
-    "destacado": true
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      { "alto": "5", "sku": "VD001", "neto": 330 },
+      { "alto": "6", "sku": "VD002", "neto": 410 }
+    ],
+    "imagenes": [
+      "/images/productos/vela-3-8x5-blanca/01.jpg",
+      "/images/productos/vela-3-8x5-blanca/02.jpg",
+      "/images/productos/vela-3-8x5-blanca/03.jpg"
+    ]
   },
   {
-    "id": "vel-ban-002",
+    "id": "ban-d49",
     "categoria": "banqueteria",
-    "nombre": "Vela nº 2",
-    "color": "marfil",
-    "alto_cm": 20,
-    "diametro_cm": 2
-  },
-  {
-    "id": "vel-ban-003",
-    "categoria": "banqueteria",
-    "nombre": "Vela nº 3",
+    "grupo": true,
+    "nombre": "Velón Ø 4,9 cm",
+    "diametro_cm": 4.9,
     "color": "blanca",
-    "alto_cm": 25,
-    "diametro_cm": 2.2
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      { "alto": "5", "sku": "VD003", "neto": 580 },
+      { "alto": "7,5", "sku": "VD004", "neto": 890 },
+      { "alto": "9", "sku": "VD005", "neto": 1350 },
+      { "alto": "10", "sku": "VD006", "neto": 1420 },
+      { "alto": "15", "sku": "VD007", "neto": 2200 },
+      { "alto": "20", "sku": "VD008", "neto": 2680 },
+      { "alto": "25", "sku": "VD009", "neto": 2800 },
+      { "alto": "30", "sku": "VD010", "neto": 3580 }
+    ],
+    "imagenes": [
+      "/images/productos/vela-4-9x15-blanca/01.jpg",
+      "/images/productos/vela-4-9x15-blanca/02.jpg",
+      "/images/productos/vela-4-9x15-blanca/03.jpg"
+    ]
   },
   {
-    "id": "vel-ban-004",
+    "id": "ban-d7",
     "categoria": "banqueteria",
-    "nombre": "Vela nº 4",
-    "color": "marfil",
-    "alto_cm": 30,
-    "diametro_cm": 2.5
-  },
-  {
-    "id": "vel-ban-005",
-    "categoria": "banqueteria",
-    "nombre": "Vela nº 5",
+    "grupo": true,
+    "nombre": "Velón Ø 7 cm",
+    "diametro_cm": 7,
     "color": "blanca",
-    "alto_cm": 35,
-    "diametro_cm": 3
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      { "alto": "7", "sku": "VD031", "neto": 2200 },
+      { "alto": "10", "sku": "VD032", "neto": 2750 },
+      { "alto": "15", "sku": "VD033", "neto": 4500 }
+    ],
+    "imagenes": [
+      "/images/productos/velon-7x15-blanca/01.jpg",
+      "/images/productos/velon-7x15-blanca/02.jpg",
+      "/images/productos/velon-7x15-blanca/03.jpg"
+    ]
   },
   {
-    "id": "vel-ban-006",
+    "id": "ban-d75",
     "categoria": "banqueteria",
-    "nombre": "Vela nº 6",
-    "color": "marfil",
-    "alto_cm": 40,
-    "diametro_cm": 3.5
+    "grupo": true,
+    "nombre": "Velón Ø 7,5 cm",
+    "diametro_cm": 7.5,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      { "alto": "5", "sku": "VD041", "neto": 1550 }
+    ],
+    "imagenes": [
+      "/images/productos/velon-7-5x5-blanca/01.jpg",
+      "/images/productos/velon-7-5x5-blanca/02.jpg",
+      "/images/productos/velon-7-5x5-blanca/03.jpg"
+    ]
+  },
+  {
+    "id": "ban-d22",
+    "categoria": "banqueteria",
+    "grupo": true,
+    "nombre": "Vela Ø 2,2 cm",
+    "diametro_cm": 2.2,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "consultarPrecio": true,
+    "alturas": [
+      { "alto": "23" }
+    ],
+    "imagenes": [
+      "/images/productos/vela-2-2x23-blanca/01.jpg",
+      "/images/productos/vela-2-2x23-blanca/02.jpg"
+    ]
+  },
+  {
+    "id": "ban-flotante",
+    "categoria": "banqueteria",
+    "grupo": true,
+    "nombre": "Vela flotante",
+    "diametro_cm": 6,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "flotante": true,
+    "sku": "VD090",
+    "neto": 480,
+    "alturas": [],
+    "imagenes": [
+      "/images/productos/vela-flotante-blanca/01.jpg",
+      "/images/productos/vela-flotante-blanca/02.jpg"
+    ]
   },
   {
     "id": "vel-rel-001",

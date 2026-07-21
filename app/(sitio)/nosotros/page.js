@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import VelaSVG from '../../../components/VelaSVG';
+import Image from 'next/image';
+import { IMAGENES } from '../../../lib/categorias';
+import HistoriaScroll from '../../../components/HistoriaScroll';
 
 export const metadata = {
   title: 'Nosotros — Más de 25 años fabricando velas',
@@ -9,73 +11,99 @@ export const metadata = {
 
 const CIFRAS = [
   { valor: '2000', label: 'Fabricando desde' },
-  { valor: '100+', label: 'Formatos disponibles' },
-  { valor: '3', label: 'Rubros especializados' },
+  { valor: '100+', label: 'Formatos en catálogo' },
+  { valor: '3', label: 'Rubros que abastecemos' },
+];
+
+// Relato editorial que acompaña a la vela mientras rota al hacer scroll.
+const BEATS = [
+  {
+    kicker: 'El origen',
+    titulo: 'Un oficio de familia',
+    texto:
+      'Desde el año 2000 fabricamos velas para los rubros más exigentes de Chile. Lo que empezó como un taller familiar hoy abastece a empresas de banquetería, parroquias y funerarias de todo el país.',
+  },
+  {
+    kicker: 'El estándar',
+    titulo: 'Sin atajos',
+    texto:
+      'Más de 100 formatos, todos en blanco e marfil. Cada vela se fabrica con la misma receta de siempre: cera de calidad, mecha pareja y una combustión limpia que se nota al encenderla.',
+  },
+  {
+    kicker: 'El compromiso',
+    titulo: 'Pensado para mayoristas',
+    texto:
+      'Trabajamos exclusivamente con clientes mayoristas. Stock permanente para lo habitual, fabricación a pedido para lo especial y despacho a todo Chile: para que nunca te quedes sin velas.',
+  },
 ];
 
 export default function NosotrosPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-bg-hero border-b border-border-default">
-        <div className="max-w-6xl mx-auto px-5 md:px-8 py-20 grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
-          <div>
-            <p className="type-eyebrow">Quiénes somos</p>
-            <h1 className="type-hero mt-4">
-              Más de 25 años
-              <br />
-              <span className="type-hero-italic">fabricando velas</span>
-            </h1>
-          </div>
-          <div className="hidden md:flex justify-end items-end gap-4 h-48">
-            {[70, 45, 60].map((h, i) => (
-              <VelaSVG
-                key={i}
-                alto={h}
-                diametro={3}
-                color={i % 2 ? 'marfil' : 'blanca'}
-                className="h-full w-auto"
-              />
-            ))}
-          </div>
+      {/* ── Hero fotográfico ── */}
+      <section className="relative h-[380px] md:h-[480px] flex items-end overflow-hidden grain">
+        <Image
+          src={IMAGENES.banqueteria}
+          alt="Velas artesanales Velas Devas"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ animation: 'slow-zoom 16s ease-out forwards' }}
+        />
+        <div className="absolute inset-0 veil-bottom" />
+        <div className="absolute inset-0 veil-gold opacity-70" />
+        <div className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 pb-12">
+          <p className="type-eyebrow-light eyebrow-rule reveal">Quiénes somos</p>
+          <h1 className="font-display text-[#F5F5EE] text-[clamp(38px,6.5vw,68px)] font-normal mt-4 leading-[1.0] reveal reveal-delay-1">
+            Más de 25 años
+            <br />
+            <span className="italic text-[#C8D0A8]">fabricando velas</span>
+          </h1>
         </div>
       </section>
 
-      {/* Texto */}
-      <section className="max-w-3xl mx-auto px-5 md:px-8 py-20">
-        <div className="space-y-6">
-          <p className="type-body text-[15px] leading-[1.9]">
-            Desde el año 2000, Velas Devas fabrica velas para los mercados más
-            exigentes de Chile. Trabajamos exclusivamente con clientes
-            mayoristas: empresas de banquetería, iglesias y funerarias de todo
-            el país.
-          </p>
-          <p className="type-body text-[15px] leading-[1.9]">
-            Nuestro catálogo supera los 100 formatos, todos disponibles en
-            blanco e marfil. Cada vela se fabrica con los mismos estándares de
-            siempre: sin atajos.
-          </p>
-        </div>
+      {/* ── Scrollytelling: el video avanza al ritmo del scroll ── */}
+      <HistoriaScroll
+        video="/video/video_scrolling.mp4"
+        poster={IMAGENES.velaOscura}
+        beats={BEATS}
+      />
 
-        {/* Cifras */}
-        <div className="grid grid-cols-3 gap-6 mt-16 pt-10 border-t border-border-default">
+      {/* ── Cifras ── */}
+      <section className="max-w-6xl mx-auto px-5 md:px-8 py-20">
+        <div className="grid grid-cols-3 gap-6 pt-2">
           {CIFRAS.map((c) => (
             <div key={c.label}>
-              <p className="font-display text-[clamp(28px,4vw,40px)] text-text-primary leading-none">
+              <p className="font-display text-[clamp(30px,5vw,48px)] text-text-primary leading-none">
                 {c.valor}
               </p>
-              <p className="type-label mt-2">{c.label}</p>
+              <p className="type-label mt-2.5 uppercase tracking-[0.12em]">
+                {c.label}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-bg-hero border-t border-border-default">
-        <div className="max-w-6xl mx-auto px-5 md:px-8 py-16 text-center">
-          <p className="type-eyebrow">Cotizaciones mayoristas</p>
-          <h2 className="type-section mt-3 mb-6">Trabajemos juntos</h2>
-          <Link href="/contacto" className="btn-primary">
+      {/* ── CTA con imagen ── */}
+      <section className="relative overflow-hidden bg-black-graphic grain">
+        <Image
+          src={IMAGENES.religiosas}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover opacity-35"
+        />
+        <div className="absolute inset-0 veil-full" />
+        <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
+          <p className="type-eyebrow-light eyebrow-rule mx-auto">
+            Cotizaciones mayoristas
+          </p>
+          <h2 className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8">
+            Aseguremos tu abastecimiento
+          </h2>
+          <Link href="/contacto" className="btn-light">
             Solicitar cotización
           </Link>
         </div>

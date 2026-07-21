@@ -1,15 +1,21 @@
 import Link from 'next/link';
 import { EMPRESA } from '../lib/categorias';
+import Flame from './Flame';
 
 export default function Footer() {
   return (
-    <footer className="bg-bg-footer text-text-footer">
-      <div className="max-w-6xl mx-auto px-5 md:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="relative bg-bg-footer text-text-footer grain overflow-hidden">
+      {/* acento dorado superior */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Marca */}
-          <div className="md:col-span-1">
-            <p className="font-display text-[20px] text-[#FAFAF8]">Velas Devas</p>
-            <p className="font-sans text-[12px] font-light mt-3 leading-relaxed max-w-[220px]">
+          <div className="col-span-2 md:col-span-1">
+            <p className="flex items-center gap-2.5 font-display text-[24px] text-[#F5F5EE] leading-none">
+              <Flame size={16} className="translate-y-[1px]" />
+              Velas Devas
+            </p>
+            <p className="font-sans text-[12px] font-light mt-4 leading-relaxed max-w-[220px]">
               {EMPRESA.tagline}
             </p>
           </div>
@@ -40,7 +46,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`tel:${EMPRESA.telefonoLink}`}
-                  className="hover:text-[#FAFAF8] transition-colors"
+                  className="hover:text-[#F5F5EE] transition-colors"
                 >
                   {EMPRESA.telefono}
                 </a>
@@ -68,7 +74,7 @@ function FooterLink({ href, children }) {
   return (
     <Link
       href={href}
-      className="font-sans text-[12px] font-light text-text-footer hover:text-[#FAFAF8] transition-colors"
+      className="font-sans text-[12px] font-light text-text-footer hover:text-[#F5F5EE] transition-colors"
     >
       {children}
     </Link>

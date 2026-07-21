@@ -5,6 +5,7 @@ export default function VelaSVG({
   diametro = 2.5,
   color = 'blanca',
   className = '',
+  animada = false, // llama en parpadeo constante (para velas destacadas/hero)
 }) {
   // Escala normalizada dentro del área de dibujo (viewBox 100 x 160)
   const maxAlto = 80;
@@ -56,19 +57,34 @@ export default function VelaSVG({
         stroke="#2E2A24"
         strokeWidth="1.4"
       />
-      {/* Llama dorada */}
-      <path
-        d={`M ${cx} ${top - 6}
-            C ${cx - 5} ${top - 12}, ${cx - 4} ${top - 20}, ${cx} ${top - 26}
-            C ${cx + 4} ${top - 20}, ${cx + 5} ${top - 12}, ${cx} ${top - 6} Z`}
-        fill="#A67C2E"
-      />
-      <path
-        d={`M ${cx} ${top - 8}
-            C ${cx - 2.5} ${top - 12}, ${cx - 2} ${top - 17}, ${cx} ${top - 21}
-            C ${cx + 2} ${top - 17}, ${cx + 2.5} ${top - 12}, ${cx} ${top - 8} Z`}
+      {/* Halo cálido detrás de la llama */}
+      <circle
+        className={`flame-glow-el ${animada ? 'flame-glow' : ''}`}
+        cx={cx}
+        cy={top - 16}
+        r="13"
         fill="#F0E6CE"
+        opacity="0.45"
+        style={{ transformOrigin: `${cx}px ${top - 16}px`, filter: 'blur(3px)' }}
       />
+      {/* Llama viva */}
+      <g
+        className={`flame-el ${animada ? 'flame' : ''}`}
+        style={{ transformBox: 'fill-box', transformOrigin: 'center bottom' }}
+      >
+        <path
+          d={`M ${cx} ${top - 6}
+              C ${cx - 5} ${top - 12}, ${cx - 4} ${top - 20}, ${cx} ${top - 26}
+              C ${cx + 4} ${top - 20}, ${cx + 5} ${top - 12}, ${cx} ${top - 6} Z`}
+          fill="#A67C2E"
+        />
+        <path
+          d={`M ${cx} ${top - 8}
+              C ${cx - 2.5} ${top - 12}, ${cx - 2} ${top - 17}, ${cx} ${top - 21}
+              C ${cx + 2} ${top - 17}, ${cx + 2.5} ${top - 12}, ${cx} ${top - 8} Z`}
+          fill="#F0E6CE"
+        />
+      </g>
     </svg>
   );
 }

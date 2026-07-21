@@ -2,34 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Velas Devas — Variables globales */
+/* Velas Devas — Variables globales · Paleta verde salvia (Pantones 2026) */
 :root {
   /* ── FONDOS ── */
-  --bg-base:       #FAFAF8;
-  --bg-hero:       #F4F2EE;
-  --bg-card-1:     #ECEAE5;
-  --bg-card-2:     #E2DED8;
-  --bg-footer:     #1C1C1A;
+  --bg-base:       #F5F5EE;   /* Blanco Cálido */
+  --bg-hero:       #ECEEE1;   /* off-white verdoso */
+  --bg-card-1:     #E6E9D6;   /* Crema Verde claro */
+  --bg-card-2:     #DBDFC7;   /* Crema Verde */
+  --bg-footer:     #283028;   /* Verde Negro */
 
   /* ── TEXTOS ── */
-  --text-primary:  #111110;
-  --text-body:     #666662;
-  --text-muted:    #AAAAAA;
-  --text-footer:   #777773;
+  --text-primary:  #1E251E;   /* Verde Negro casi puro — títulos */
+  --text-body:     #2C352C;   /* verde muy oscuro — cuerpo, alto contraste */
+  --text-muted:    #525E4B;   /* sage oscuro — labels legibles */
+  --text-footer:   #A2AE99;   /* Verde Musgo claro (footer sobre oscuro) */
 
   /* ── BORDES ── */
-  --border:        #DEDAD4;
-  --border-dark:   #2E2E2C;
+  --border:        #D7DBC6;   /* verde muy claro */
+  --border-dark:   #3B443B;   /* divisor sobre verde negro */
 
-  /* ── ACENTOS ── */
-  --gold:          #A67C2E;
-  --gold-light:    #F0E6CE;
-  --graphite:      #2E2A24;
-  --black-graphic: #111110;
+  /* ── ACENTOS (antes dorado → ahora verde) ── */
+  --gold:          #485848;   /* Verde Grafito — eyebrows, links, acento tinta */
+  --gold-light:    #C8D0A8;   /* Crema Verde — fondo badge / hover */
+  --accent-mid:    #607860;   /* Verde Medio — líneas, hovers, detalles */
+  --accent-soft:   #708870;   /* Verde Musgo — acento secundario */
+  --graphite:      #283028;   /* Verde Negro — botón primario */
+  --black-graphic: #283028;   /* Verde Negro — negro gráfico */
+  --accent-light:  #C8D0A8;   /* acento claro sobre fondos oscuros */
 
   /* ── TIPOGRAFÍA (fallbacks; next/font sobreescribe) ── */
   --font-display:  'Playfair Display', serif;
   --font-sans:     'Lato', sans-serif;
+
+  /* ── MOVIMIENTO (curvas custom — las de CSS son débiles) ── */
+  --ease-out:      cubic-bezier(0.23, 1, 0.32, 1);      /* entrada, feedback */
+  --ease-in-out:   cubic-bezier(0.77, 0, 0.175, 1);     /* movimiento en pantalla */
+  --ease-drawer:   cubic-bezier(0.32, 0.72, 0, 1);      /* paneles estilo iOS */
 }
 
 @layer base {
@@ -37,7 +45,7 @@
     background-color: var(--bg-base);
     color: var(--text-primary);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -49,8 +57,9 @@
     font-family: var(--font-display);
     font-size: clamp(36px, 6vw, 60px);
     font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
+    line-height: 1.02;
+    letter-spacing: -0.021em;   /* tracking negativo: el display grande se lee muy suelto */
+    font-optical-sizing: auto;
     color: var(--text-primary);
   }
 
@@ -63,7 +72,9 @@
     font-family: var(--font-display);
     font-size: clamp(28px, 4vw, 44px);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    font-optical-sizing: auto;
     color: var(--text-primary);
   }
 
@@ -87,7 +98,7 @@
   .type-body {
     font-family: var(--font-sans);
     font-size: 13px;
-    font-weight: 300;
+    font-weight: 400;   /* antes 300: Lato Light se perdía sobre el fondo claro */
     line-height: 1.7;
     color: var(--text-body);
   }
@@ -95,7 +106,7 @@
   .type-label {
     font-family: var(--font-sans);
     font-size: 11px;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--text-muted);
   }
 
@@ -111,11 +122,12 @@
     color: var(--bg-base);
     border: 1px solid var(--graphite);
     border-radius: 4px;
-    padding: 10px 20px;
+    padding: 11px 22px;
     cursor: pointer;
-    transition: opacity 0.15s ease;
+    transition: background 160ms var(--ease-out), transform 160ms var(--ease-out);
   }
-  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:hover { background: #1F261F; }
+  .btn-primary:active { transform: scale(0.97); }   /* feedback: la UI escucha el clic */
 
   .btn-secondary {
     display: inline-block;
@@ -128,11 +140,33 @@
     color: var(--gold);
     border: 1px solid var(--gold);
     border-radius: 4px;
-    padding: 10px 20px;
+    padding: 11px 22px;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 160ms var(--ease-out), transform 160ms var(--ease-out);
   }
   .btn-secondary:hover { background: var(--gold-light); }
+  .btn-secondary:active { transform: scale(0.97); }
+
+  /* CTA claro sobre fondo oscuro */
+  .btn-light {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #283028;
+    background: #F5F5EE;
+    border-radius: 4px;
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: background 160ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 220ms var(--ease-out);
+  }
+  .btn-light:hover { background: #fff; box-shadow: 0 8px 26px -10px rgba(200, 208, 168, 0.55); }
+  .btn-light:active { transform: scale(0.97); }
+
+  .press { transition: transform 140ms var(--ease-out); }
+  .press:active { transform: scale(0.96); }
 
   /* ── BADGES ── */
   .badge-dark {
@@ -162,7 +196,248 @@
   }
 }
 
+@layer components {
+  /* ── EYEBROW SOBRE FONDO OSCURO ── */
+  .type-eyebrow-light {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #C8D0A8;
+  }
+
+  /* ── LÍNEA DECORATIVA JUNTO A EYEBROW ── */
+  .eyebrow-rule {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow-rule::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+
+  /* ── TRATAMIENTO DE IMAGEN EDITORIAL ── */
+  .img-cover { object-fit: cover; width: 100%; height: 100%; }
+
+  /* Velo oscuro degradado para texto sobre foto */
+  .veil-bottom {
+    background: linear-gradient(
+      180deg,
+      rgba(17, 17, 16, 0) 0%,
+      rgba(17, 17, 16, 0.15) 45%,
+      rgba(17, 17, 16, 0.82) 100%
+    );
+  }
+  .veil-full {
+    background: linear-gradient(
+      180deg,
+      rgba(17, 17, 16, 0.55) 0%,
+      rgba(17, 17, 16, 0.35) 40%,
+      rgba(17, 17, 16, 0.78) 100%
+    );
+  }
+  .veil-gold {
+    background: linear-gradient(
+      160deg,
+      rgba(72, 88, 72, 0.32) 0%,
+      rgba(40, 48, 40, 0) 55%
+    );
+  }
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Grano sutil para calidez de impresión */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Sombra (verde negro sutil) */
+  .shadow-soft { box-shadow: 0 1px 2px rgba(40, 48, 40, 0.05), 0 12px 32px -12px rgba(40, 48, 40, 0.16); }
+  .shadow-lift { box-shadow: 0 2px 4px rgba(40, 48, 40, 0.06), 0 22px 48px -18px rgba(40, 48, 40, 0.30); }
+
+  /* Revelado editorial */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: reveal-up 0.85s var(--ease-out) forwards;
+  }
+  .reveal-delay-1 { animation-delay: 0.09s; }
+  .reveal-delay-2 { animation-delay: 0.18s; }
+  .reveal-delay-3 { animation-delay: 0.27s; }
+
+  /* Stagger para grillas (decorativo, delay corto 30–80ms) */
+  .stagger { opacity: 0; animation: reveal-up 0.6s var(--ease-out) forwards; }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s var(--ease-out);
+  }
+  .link-underline:hover { background-size: 100% 1px; }
+
+  /* Halo de vela — atmósfera sutil (Crema Verde) sin robar foco */
+  .warm-glow {
+    background: radial-gradient(
+      60% 50% at 50% 42%,
+      rgba(200, 208, 168, 0.16) 0%,
+      rgba(96, 120, 96, 0.07) 35%,
+      transparent 70%
+    );
+  }
+
+  /* Chrome translúcido (material Apple) */
+  .chrome-glass {
+    background: rgba(245, 245, 238, 0.88);
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+  }
+
+  /* Máscara de borde (scroll-edge) en vez de línea dura */
+  .edge-fade { -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent); mask-image: linear-gradient(to bottom, #000 62%, transparent); }
+
+  /* La llama viva — firma de la marca */
+  .flame { transform-origin: center bottom; animation: flame-flicker 3.2s ease-in-out infinite; }
+  .flame-glow { animation: flame-glow 3.2s ease-in-out infinite; }
+}
+
+/* La llama de las cards despierta al hover (solo con puntero fino) */
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .flame-el { animation: flame-flicker 3.2s ease-in-out infinite; }
+  .group:hover .flame-glow-el { animation: flame-glow 3.2s ease-in-out infinite; }
+}
+
+@keyframes reveal-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+/* El carrusel de marcas se mueve por JS (rAF con velocidad suavizada),
+   ver components/MarcasCarrusel.js — no usa animación CSS. */
+
+/* Parpadeo orgánico de la llama — irregular, como fuego real */
+@keyframes flame-flicker {
+  0%   { transform: scale(1, 1) rotate(-0.5deg); opacity: 1; }
+  20%  { transform: scale(0.97, 1.04) rotate(0.5deg); opacity: 0.92; }
+  40%  { transform: scale(1.02, 0.98) rotate(-0.4deg); opacity: 1; }
+  60%  { transform: scale(0.98, 1.03) rotate(0.6deg); opacity: 0.95; }
+  80%  { transform: scale(1.01, 0.99) rotate(-0.3deg); opacity: 0.98; }
+  100% { transform: scale(1, 1) rotate(-0.5deg); opacity: 1; }
+}
+@keyframes flame-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  45%      { opacity: 0.75; transform: scale(1.12); }
+  70%      { opacity: 0.6; transform: scale(0.96); }
+}
+
+/* ── Sección "Nuestro proceso" ── */
+/* Revelado progresivo de cada elemento (opacity + translateY) */
+.proc-step [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.proc-step.revealed [data-reveal] { opacity: 1; transform: none; }
+.proc-step.revealed [data-reveal].pd1 { transition-delay: 0.07s; }
+.proc-step.revealed [data-reveal].pd2 { transition-delay: 0.14s; }
+
+/* Línea de conexión que se dibuja al revelar (scaleY desde arriba) */
+.proc-connector {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1s var(--ease-out) 0.05s;
+  will-change: transform;
+}
+.proc-step.revealed .proc-connector { transform: scaleY(1); }
+
+/* Nodo (aro con ícono) que se enciende en dorado al revelar */
+.proc-ring {
+  transition: color 0.6s var(--ease-out), border-color 0.6s var(--ease-out);
+}
+.proc-step.revealed .proc-ring { color: var(--gold); border-color: var(--gold); }
+
+/* Trazo del ícono que se dibuja (stroke-dashoffset con pathLength=1) */
+.proc-icon [pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.proc-step.revealed .proc-icon [pathLength] {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.1s var(--ease-out) 0.12s;
+}
+
+/* ── Micro-animaciones de los íconos (loops sutiles, tipo gif) ── */
+.picon-spark { transform-box: fill-box; transform-origin: center; animation: picon-twinkle 2.4s ease-in-out infinite; }
+.picon-spark.b { animation-delay: 0.8s; }
+.picon-spark.c { animation-delay: 1.5s; }
+.picon-item  { transform-box: fill-box; animation: picon-convey 2.8s linear infinite; }
+.picon-drip  { transform-box: fill-box; animation: picon-drip 2.8s ease-in infinite; }
+.picon-fill  { transform-box: fill-box; transform-origin: bottom; animation: picon-fill 2.8s ease-in-out infinite; }
+.picon-flame { transform-box: fill-box; transform-origin: center bottom; animation: picon-flame 1.8s ease-in-out infinite; }
+@keyframes picon-flame {
+  0%, 100% { transform: scale(1, 1); opacity: 1; }
+  25% { transform: scale(0.9, 1.14) translateY(-0.4px); opacity: 0.85; }
+  55% { transform: scale(1.08, 0.9); opacity: 1; }
+  80% { transform: scale(0.95, 1.06); opacity: 0.92; }
+}
+.picon-hand  { transform-box: fill-box; transform-origin: center bottom; animation: picon-hand 3.6s ease-in-out infinite; }
+.picon-box   { transform-box: fill-box; transform-origin: center; animation: picon-box 1.9s ease-in-out infinite; }
+@keyframes picon-hand {
+  0%   { transform: rotate(-3deg) translateY(0); }
+  50%  { transform: rotate(3deg) translateY(-6px); }
+  100% { transform: rotate(-3deg) translateY(0); }
+}
+.picon-speed { transform-box: fill-box; animation: picon-speed 1.9s ease-in-out infinite; }
+.picon-speed.b { animation-delay: 0.28s; }
+.picon-speed.c { animation-delay: 0.56s; }
+
+@keyframes picon-twinkle { 0%, 100% { opacity: 0.1; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
+@keyframes picon-convey { 0% { transform: translateX(-5px); opacity: 0; } 15%, 85% { opacity: 1; } 100% { transform: translateX(22px); opacity: 0; } }
+@keyframes picon-drip { 0%, 48% { opacity: 0; transform: translateY(-2px); } 56% { opacity: 1; transform: translateY(-2px); } 78% { opacity: 1; transform: translateY(7px); } 84%, 100% { opacity: 0; transform: translateY(7px); } }
+@keyframes picon-fill { 0%, 52% { transform: scaleY(0.12); } 80%, 100% { transform: scaleY(1); } }
+@keyframes picon-box { 0%, 100% { transform: translateX(-1px); } 50% { transform: translateX(1.5px); } }
+@keyframes picon-speed { 0% { opacity: 0; transform: translateX(3px); } 40% { opacity: 0.6; } 100% { opacity: 0; transform: translateX(-5px); } }
+
+/* Foco accesible visible */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .flame, .flame-glow { animation: none !important; }
+  .proc-step [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .proc-connector { transform: scaleY(1) !important; }
+  .proc-icon [pathLength] { stroke-dashoffset: 0 !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.05s !important;
+  }
+}
+
+/* Hover solo en dispositivos con puntero fino (evita falsos positivos táctiles) */
+@media (hover: none) {
+  .press:active { transform: scale(0.98); }
 }
