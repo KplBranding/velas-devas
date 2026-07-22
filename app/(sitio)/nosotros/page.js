@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { IMAGENES } from '../../../lib/categorias';
 import HistoriaScroll from '../../../components/HistoriaScroll';
+import AnimatedText from '../../../components/AnimatedText';
 
 export const metadata = {
   title: 'Nosotros — Más de 25 años fabricando velas',
@@ -55,11 +56,15 @@ export default function NosotrosPage() {
         <div className="absolute inset-0 veil-gold opacity-70" />
         <div className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 pb-12">
           <p className="type-eyebrow-light eyebrow-rule reveal">Quiénes somos</p>
-          <h1 className="font-display text-[#F5F5EE] text-[clamp(38px,6.5vw,68px)] font-normal mt-4 leading-[1.0] reveal reveal-delay-1">
+          <AnimatedText
+            as="h1"
+            animation="maskReveal"
+            className="font-display text-[#F5F5EE] text-[clamp(38px,6.5vw,68px)] font-normal mt-4 leading-[1.0]"
+          >
             Más de 25 años
             <br />
             <span className="italic text-[#C8D0A8]">fabricando velas</span>
-          </h1>
+          </AnimatedText>
         </div>
       </section>
 
@@ -74,7 +79,7 @@ export default function NosotrosPage() {
       <section className="max-w-6xl mx-auto px-5 md:px-8 py-20">
         <div className="grid grid-cols-3 gap-6 pt-2">
           {CIFRAS.map((c) => (
-            <div key={c.label}>
+            <div key={c.label} data-reveal-up>
               <p className="font-display text-[clamp(30px,5vw,48px)] text-text-primary leading-none">
                 {c.valor}
               </p>
@@ -97,13 +102,17 @@ export default function NosotrosPage() {
         />
         <div className="absolute inset-0 veil-full" />
         <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
-          <p className="type-eyebrow-light eyebrow-rule mx-auto">
+          <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
             Cotizaciones mayoristas
           </p>
-          <h2 className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8">
+          <AnimatedText
+            as="h2"
+            animation="maskReveal"
+            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8"
+          >
             Aseguremos tu abastecimiento
-          </h2>
-          <Link href="/contacto" className="btn-light">
+          </AnimatedText>
+          <Link href="/contacto" className="btn-light" data-reveal-up>
             Solicitar cotización
           </Link>
         </div>

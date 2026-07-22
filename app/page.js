@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { CATEGORIAS_LISTA } from '../lib/categorias';
+import AnimatedText from '../components/AnimatedText';
 
 export default function Entrada() {
   const [activo, setActivo] = useState(null);
@@ -67,11 +68,16 @@ export default function Entrada() {
         <p className="type-eyebrow-light eyebrow-rule mx-auto">
           Fabricantes mayoristas · Desde 2000
         </p>
-        <h1 className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] mt-6 max-w-3xl">
+        <AnimatedText
+          as="h1"
+          animation="maskReveal"
+          duration={1.1}
+          className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] mt-6 max-w-3xl"
+        >
           ¿Qué tipo de vela
           <br />
           estás <span className="italic text-[#C8D0A8]">buscando?</span>
-        </h1>
+        </AnimatedText>
         <p className="font-sans text-[12px] font-light tracking-[0.2em] uppercase text-[#F5F5EE]/50 mt-7">
           elige una categoría
         </p>

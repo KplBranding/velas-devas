@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { FAQS } from '../lib/contenido';
+import AnimatedText from './AnimatedText';
 
 export default function FAQ() {
   const [abierta, setAbierta] = useState(0);
@@ -9,16 +10,20 @@ export default function FAQ() {
   return (
     <section className="border-t border-border-default bg-bg-base">
       <div className="max-w-3xl mx-auto px-5 md:px-8 py-16 md:py-20">
-        <p className="type-eyebrow eyebrow-rule">Preguntas frecuentes</p>
-        <h2 className="type-section text-[clamp(24px,3.4vw,38px)] mt-3 mb-10">
+        <p className="type-eyebrow eyebrow-rule" data-reveal-up>Preguntas frecuentes</p>
+        <AnimatedText
+          as="h2"
+          animation="maskReveal"
+          className="type-section text-[clamp(24px,3.4vw,38px)] mt-3 mb-10"
+        >
           Antes de cotizar
-        </h2>
+        </AnimatedText>
 
         <div className="border-t border-border-default">
           {FAQS.map((item, i) => {
             const open = abierta === i;
             return (
-              <div key={i} className="border-b border-border-default">
+              <div key={i} data-reveal-up className="border-b border-border-default">
                 <button
                   type="button"
                   onClick={() => setAbierta(open ? -1 : i)}

@@ -4,7 +4,13 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from './ProductCard';
+import AnimatedText from './AnimatedText';
 import LeyendaColores from './LeyendaColores';
+import SubNav from './SubNav';
+import DolorScrolly from './DolorScrolly';
+import PausaFotografica from './PausaFotografica';
+import SeccionOficio from './SeccionOficio';
+import CitaEditorial from './CitaEditorial';
 import NuestroProceso from './NuestroProceso';
 import MarcasCarrusel from './MarcasCarrusel';
 import Testimonios from './Testimonios';
@@ -18,7 +24,7 @@ const ORDENES = [
 
 export default function CatalogoCategoria({ categoria, productos }) {
   const [orden, setOrden] = useState('alto-desc');
-
+  const landing = categoria.landing;
   const hayGrupos = productos.some((p) => Array.isArray(p.alturas));
 
   const lista = useMemo(() => {
@@ -39,8 +45,12 @@ export default function CatalogoCategoria({ categoria, productos }) {
 
   return (
     <section>
-      {/* ── Cabecera fotográfica full-width ── */}
-      <div className="relative h-[340px] md:h-[420px] flex items-end overflow-hidden grain">
+      {/* ── Hero fotográfico full-width ── */}
+      <div
+        className={`relative flex items-end overflow-hidden grain ${
+          landing ? 'h-[420px] md:h-[520px]' : 'h-[360px] md:h-[440px]'
+        }`}
+      >
         <Image
           src={categoria.imagen}
           alt={`Velas de ${categoria.nombre}`}
@@ -53,10 +63,28 @@ export default function CatalogoCategoria({ categoria, productos }) {
             animation: 'slow-zoom 16s ease-out forwards',
           }}
         />
-        <div className="absolute inset-0 veil-bottom" />
-        <div className="absolute inset-0 veil-gold opacity-70" />
+        {landing ? (
+          /* Difuminado MÍNIMO con curva smoothstep (ease-out): la pendiente
+             decrece suavemente hasta 0 al llegar al sólido → sin banda de Mach
+             ni tramo plano abrupto. Muchas paradas aproximan la curva. */
+          <div
+            className="absolute inset-x-0 bottom-0 h-[34%] z-[1]"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(32,38,31,0) 0%, rgba(32,38,31,0.03) 12%, rgba(32,38,31,0.12) 26%, rgba(32,38,31,0.28) 42%, rgba(32,38,31,0.5) 58%, rgba(32,38,31,0.72) 72%, rgba(32,38,31,0.9) 86%, rgb(32,38,31) 100%)',
+            }}
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 veil-bottom" />
+            <div className="absolute inset-0 veil-gold opacity-70" />
+          </>
+        )}
 
-        <div className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 pb-10">
+        <div
+          className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 pb-10"
+          style={landing ? { textShadow: '0 2px 26px rgba(0,0,0,0.5)' } : undefined}
+        >
           <p className="type-eyebrow-light eyebrow-rule reveal">
             {categoria.eyebrow}
           </p>
@@ -66,74 +94,195 @@ export default function CatalogoCategoria({ categoria, productos }) {
               {categoria.superindice}
             </sup>
           </h1>
-        </div>
-      </div>
+          {categoria.heroLead && (
+            <p className="reveal reveal-delay-2 mt-4 max-w-lg font-sans text-[#EDEFE6] text-[clamp(15px,2vw,19px)] leading-snug">
+              {categoria.heroLead}
+            </p>
+          )}
 
-      {/* ── Intro editorial ── */}
-      <div className="border-b border-border-default bg-bg-base">
-        <div className="max-w-6xl mx-auto px-5 md:px-8 py-12 grid md:grid-cols-[1fr_auto] gap-6 md:items-end">
-          <p className="type-body text-[15px] leading-[1.9] max-w-xl">
-            {categoria.descripcion}
-          </p>
-          <p className="type-label md:text-right whitespace-nowrap">
-            {lista.length} formatos
-          </p>
-        </div>
-      </div>
-
-      {/* ── Barra de filtros sticky ── */}
-      <div className="border-b border-border-default chrome-glass sticky top-[112px] z-30">
-        <div className="max-w-6xl mx-auto px-5 md:px-8 h-[54px] flex items-center justify-between gap-6">
-          <div className="flex items-center gap-5 overflow-x-auto no-scrollbar">
-            <label className="flex items-center gap-2 shrink-0">
-              <span className="type-label whitespace-nowrap hidden sm:inline">
-                Ordenar por
-              </span>
-              <select
-                value={orden}
-                onChange={(e) => setOrden(e.target.value)}
-                className="font-sans text-nav text-text-primary bg-transparent border-none focus:outline-none cursor-pointer pr-1"
+          {landing && (
+            <div className="reveal reveal-delay-3 mt-7 flex flex-wrap gap-3">
+              <Link href="#catalogo" className="btn-light">
+                Ver catálogo
+              </Link>
+              <Link
+                href="/contacto"
+                className="inline-block font-sans text-[12px] font-bold uppercase tracking-[0.06em] text-[#F5F5EE] border border-[#F5F5EE]/60 rounded px-6 py-[13px] hover:bg-[#F5F5EE]/12 transition-colors press"
               >
-                {ORDENES.map((o) => (
-                  <option key={o.key} value={o.key}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+                Solicitar cotización
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Indicador de scroll (llena el aire y guía hacia la historia) */}
+        {landing && (
+          <div
+            aria-hidden
+            className="scroll-cue absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-[#F5F5EE]/75"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M6 9l6 6 6-6"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
-
-          {hayGrupos && <LeyendaColores className="hidden md:flex shrink-0" />}
-        </div>
-      </div>
-
-      {/* ── Grilla de productos ── */}
-      <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
-          {lista.map((p, i) => (
-            <ProductCard key={p.id} producto={p} index={i} />
-          ))}
-        </div>
-
-        {lista.length === 0 && (
-          <p className="type-body py-16 text-center">
-            No hay formatos para este filtro.
-          </p>
         )}
       </div>
 
+      {/* ── Sub-navegación sticky (OCULTA temporalmente: probando hero → texto) ── */}
+      {/* {landing && <SubNav />} */}
+
+      {landing ? (
+        <>
+
+          {/* ── Quiebre: la sección 1 (sticky) se queda y el video sube por
+                 encima. La sección 1 revela título 4 líneas + bullets. ── */}
+          <div className="relative">
+            <DolorScrolly
+              lineas={landing.dolorLineas}
+              parrafo={landing.dolor}
+              bullets={landing.bullets}
+            />
+            {/* Espacio para que la sección 1 se mantenga (con los bullets ya
+               visibles) ANTES de que el video empiece a subir por encima */}
+            <div aria-hidden className="h-[160vh]" />
+            {landing.pausa && (
+              <div className="relative z-20">
+                <PausaFotografica
+                  src={landing.pausa.imagen}
+                  video={landing.pausa.video}
+                  frase={landing.pausa.frase}
+                  posicion={landing.pausa.pos}
+                  cta={landing.pausa.cta}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* ── El oficio: split editorial con foto + beneficios refinados ── */}
+          {landing.oficio && (
+            <SeccionOficio
+              foto={landing.oficio.foto}
+              fotoPos={landing.oficio.fotoPos}
+              eyebrow={landing.oficio.eyebrow}
+              titulo={landing.oficio.titulo}
+              texto={landing.oficio.texto}
+              beneficios={landing.beneficios}
+              cta={landing.oficio.cta}
+            />
+          )}
+        </>
+      ) : (
+        /* Layout base para categorías sin narrativa definida */
+        <div className="border-b border-border-default bg-bg-base">
+          <div className="max-w-6xl mx-auto px-5 md:px-8 py-12 grid md:grid-cols-[1fr_auto] gap-6 md:items-end">
+            <p className="type-body text-[15px] leading-[1.9] max-w-xl">
+              {categoria.descripcion}
+            </p>
+            <p className="type-label md:text-right whitespace-nowrap">
+              {lista.length} formatos
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ── CATÁLOGO ── */}
+      <div id="catalogo" className="scroll-mt-[128px]">
+        {landing && (
+          <div className="bg-bg-base">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+              <p className="type-eyebrow eyebrow-rule" data-reveal-up>Catálogo</p>
+              <AnimatedText
+                as="h2"
+                animation="maskReveal"
+                className="type-section text-[clamp(24px,3.4vw,38px)] mt-3"
+              >
+                Nuestros formatos
+              </AnimatedText>
+              <p
+                data-reveal-up
+                className="type-body text-[15px] leading-[1.85] mt-4 max-w-xl"
+              >
+                {landing.catalogoIntro}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Barra de orden + leyenda de colores (sticky solo si no hay sub-nav) */}
+        <div
+          className={`border-b border-border-default chrome-glass mt-8 ${
+            landing ? '' : 'sticky top-[112px] z-30'
+          }`}
+        >
+          <div className="max-w-6xl mx-auto px-5 md:px-8 h-[54px] flex items-center justify-between gap-6">
+            <div className="flex items-center gap-5 overflow-x-auto no-scrollbar">
+              <label className="flex items-center gap-2 shrink-0">
+                <span className="type-label whitespace-nowrap hidden sm:inline">
+                  Ordenar por
+                </span>
+                <select
+                  value={orden}
+                  onChange={(e) => setOrden(e.target.value)}
+                  className="font-sans text-nav text-text-primary bg-transparent border-none focus:outline-none cursor-pointer pr-1"
+                >
+                  {ORDENES.map((o) => (
+                    <option key={o.key} value={o.key}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            {hayGrupos && (
+              <LeyendaColores className="hidden md:flex shrink-0" />
+            )}
+          </div>
+        </div>
+
+        {/* Grilla de productos */}
+        <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+            {lista.map((p, i) => (
+              <ProductCard key={p.id} producto={p} index={i} />
+            ))}
+          </div>
+
+          {lista.length === 0 && (
+            <p className="type-body py-16 text-center">
+              No hay formatos para este filtro.
+            </p>
+          )}
+        </div>
+      </div>
+
       {/* ── Nuestro proceso ── */}
-      <NuestroProceso categoria={categoria.slug} />
+      <div id="proceso" className="scroll-mt-[128px]">
+        <NuestroProceso categoria={categoria.slug} />
+      </div>
+
+      {/* ── Cita editorial: respiro antes de la prueba social ── */}
+      {landing?.cita && <CitaEditorial lineas={landing.cita} />}
 
       {/* ── Prueba social ── */}
       <MarcasCarrusel categoria={categoria.slug} />
-      <Testimonios />
-      <FAQ />
+      <div id="testimonios" className="scroll-mt-[128px]">
+        <Testimonios />
+      </div>
+      <div id="faq" className="scroll-mt-[128px]">
+        <FAQ />
+      </div>
 
-      {/* ── CTA cotización ── */}
+      {/* ── CTA final: cerrar la historia e invitar a conversar ── */}
       <div className="relative overflow-hidden bg-black-graphic grain">
         <Image
-          src="/images/editorial/llama.jpg"
+          src={landing?.ctaFinal?.imagen || '/images/editorial/llama.jpg'}
           alt=""
           fill
           sizes="100vw"
@@ -141,14 +290,18 @@ export default function CatalogoCategoria({ categoria, productos }) {
         />
         <div className="absolute inset-0 veil-full" />
         <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
-          <p className="type-eyebrow-light eyebrow-rule mx-auto">
-            ¿No encuentras la medida?
+          <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
+            {landing?.ctaFinal?.eyebrow || '¿No encuentras la medida?'}
           </p>
-          <h2 className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8 leading-tight">
-            Fabricamos formatos a pedido
-          </h2>
-          <Link href="/contacto" className="btn-light">
-            Solicitar cotización
+          <AnimatedText
+            as="h2"
+            animation="maskReveal"
+            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8 leading-tight"
+          >
+            {landing?.ctaFinal?.titulo || 'Fabricamos formatos a pedido'}
+          </AnimatedText>
+          <Link href="/contacto" className="btn-light" data-reveal-up>
+            {landing?.ctaFinal?.boton || 'Solicitar cotización'}
           </Link>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ContactForm from '../../../components/ContactForm';
+import AnimatedText from '../../../components/AnimatedText';
 import { EMPRESA, IMAGENES } from '../../../lib/categorias';
 
 export const metadata = {
@@ -15,11 +16,11 @@ export default function ContactoPage() {
         {/* Encabezado */}
         <div className="mb-12 max-w-2xl">
           <p className="type-eyebrow eyebrow-rule">Cotizaciones mayoristas</p>
-          <h1 className="type-hero mt-5">
+          <AnimatedText as="h1" animation="maskReveal" className="type-hero mt-5">
             Hablemos de
             <br />
             <span className="type-hero-italic text-gold">tu proyecto</span>
-          </h1>
+          </AnimatedText>
           <p className="type-body text-[15px] mt-6 max-w-lg">
             Cuéntanos qué formatos y cantidades necesitas y te preparamos una
             cotización a medida. Fabricación propia, stock permanente y despacho
@@ -35,7 +36,10 @@ export default function ContactoPage() {
 
           {/* Datos + imagen */}
           <aside className="order-1 md:order-2 space-y-8">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[4px] shadow-soft">
+            <div
+              data-reveal-up
+              className="relative aspect-[16/10] overflow-hidden rounded-[4px] shadow-soft"
+            >
               <Image
                 src={IMAGENES.bodasRosas}
                 alt="Velas artesanales Velas Devas"
@@ -46,7 +50,10 @@ export default function ContactoPage() {
               <div className="absolute inset-0 veil-gold opacity-60" />
             </div>
 
-            <div className="space-y-7 border-t border-border-default pt-8">
+            <div
+              data-reveal-up
+              className="space-y-7 border-t border-border-default pt-8"
+            >
               <Dato label="Dirección" valor={EMPRESA.direccion} />
               <Dato
                 label="Teléfono"

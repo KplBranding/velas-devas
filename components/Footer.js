@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Marca */}
-          <div className="col-span-2 md:col-span-1">
+          <div data-reveal-up className="col-span-2 md:col-span-1">
             <p className="flex items-center gap-2.5 font-display text-[24px] text-[#F5F5EE] leading-none">
               <Flame size={16} className="translate-y-[1px]" />
               Velas Devas
@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
 
           {/* Catálogo */}
-          <div>
+          <div data-reveal-up>
             <p className="type-eyebrow mb-4">Catálogo</p>
             <ul className="space-y-2">
               <li><FooterLink href="/banqueteria">Banquetería</FooterLink></li>
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
 
           {/* Empresa */}
-          <div>
+          <div data-reveal-up>
             <p className="type-eyebrow mb-4">Empresa</p>
             <ul className="space-y-2">
               <li><FooterLink href="/nosotros">Nosotros</FooterLink></li>
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
 
           {/* Contacto */}
-          <div>
+          <div data-reveal-up>
             <p className="type-eyebrow mb-4">Contacto</p>
             <ul className="space-y-2 font-sans text-[12px] font-light">
               <li>

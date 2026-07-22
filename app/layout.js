@@ -1,5 +1,7 @@
 import './globals.css';
 import { Playfair_Display, Lato } from 'next/font/google';
+import CustomCursor from '../components/CustomCursor';
+import ScrollReveal from '../components/ScrollReveal';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -46,7 +48,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${playfair.variable} ${lato.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CustomCursor />
+        <ScrollReveal />
+        {children}
+      </body>
     </html>
   );
 }
