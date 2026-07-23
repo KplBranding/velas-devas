@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { EMPRESA } from '../lib/categorias';
-import Flame from './Flame';
 
 export default function Footer() {
   return (
@@ -11,10 +11,13 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Marca */}
           <div data-reveal-up className="col-span-2 md:col-span-1">
-            <p className="flex items-center gap-2.5 font-display text-[24px] text-[#F5F5EE] leading-none">
-              <Flame size={16} className="translate-y-[1px]" />
-              Velas Devas
-            </p>
+            <Image
+              src="/logos/devas-blanco.png"
+              alt="Velas Devas"
+              width={996}
+              height={627}
+              className="h-14 w-auto object-contain"
+            />
             <p className="font-sans text-[12px] font-light mt-4 leading-relaxed max-w-[220px]">
               {EMPRESA.tagline}
             </p>

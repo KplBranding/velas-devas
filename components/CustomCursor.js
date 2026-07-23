@@ -24,14 +24,16 @@ export default function CustomCursor() {
     const onMove = (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+      started = true;
+      // Ocultar el cursor custom sobre zonas de puntero tradicional (catálogo)
+      const nativo =
+        e.target && e.target.closest && e.target.closest('.cursor-native');
+      const op = nativo ? '0' : '1';
       if (dotRef.current) {
         dotRef.current.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%)`;
+        dotRef.current.style.opacity = op;
       }
-      if (!started) {
-        started = true;
-        dotRef.current && (dotRef.current.style.opacity = '1');
-        ringRef.current && (ringRef.current.style.opacity = '1');
-      }
+      if (ringRef.current) ringRef.current.style.opacity = op;
     };
 
     const loop = () => {

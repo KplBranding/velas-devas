@@ -60,6 +60,7 @@ export default function SeccionOficio({
           start: 'top top',
           end: '+=150%',
           pin: true,
+          anticipatePin: 1,
           scrub: 1,
         },
       });
@@ -115,8 +116,9 @@ export default function SeccionOficio({
           />
         </div>
 
-        {/* Texto + lista */}
-        <div className="px-5 md:px-14 py-14 md:py-20 flex flex-col justify-center">
+        {/* Texto + lista (pt extra en desktop: la sección se fija bajo el navbar
+            de 112px, así el eyebrow no queda tapado) */}
+        <div className="px-5 md:px-14 py-14 md:pt-[136px] md:pb-16 flex flex-col justify-center">
           <p data-oficio className="type-eyebrow eyebrow-rule">
             {eyebrow}
           </p>

@@ -1,17 +1,23 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 import ProductCard from './ProductCard';
 import AnimatedText from './AnimatedText';
+import ComoCotizar from './ComoCotizar';
 import LeyendaColores from './LeyendaColores';
 import SubNav from './SubNav';
 import DolorScrolly from './DolorScrolly';
 import PausaFotografica from './PausaFotografica';
 import SeccionOficio from './SeccionOficio';
 import WinchaDevas from './WinchaDevas';
-import CitaEditorial from './CitaEditorial';
 import NuestroProceso from './NuestroProceso';
 import MarcasCarrusel from './MarcasCarrusel';
 import Testimonios from './Testimonios';
@@ -27,6 +33,28 @@ export default function CatalogoCategoria({ categoria, productos }) {
   const [orden, setOrden] = useState('alto-desc');
   const landing = categoria.landing;
   const hayGrupos = productos.some((p) => Array.isArray(p.alturas));
+  const procesoRef = useRef(null);
+
+  // Quiebre: "Nuestro proceso" se fija (pin) al llegar a su final y el contenido
+  // siguiente (foto + prueba social + FAQ) sube por encima. Solo desktop.
+  useEffect(() => {
+    const el = procesoRef.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 768px)', () => {
+      const st = ScrollTrigger.create({
+        trigger: el,
+        start: 'bottom bottom',
+        end: '+=120%',
+        pin: true,
+        pinSpacing: false,
+        anticipatePin: 1,
+      });
+      return () => st && st.kill();
+    });
+    return () => mm.revert();
+  }, []);
 
   const lista = useMemo(() => {
     return [...productos].sort((a, b) => {
@@ -64,18 +92,9 @@ export default function CatalogoCategoria({ categoria, productos }) {
             animation: 'slow-zoom 16s ease-out forwards',
           }}
         />
-        {landing ? (
-          /* Difuminado MÍNIMO con curva smoothstep (ease-out): la pendiente
-             decrece suavemente hasta 0 al llegar al sólido → sin banda de Mach
-             ni tramo plano abrupto. Muchas paradas aproximan la curva. */
-          <div
-            className="absolute inset-x-0 bottom-0 h-[34%] z-[1]"
-            style={{
-              background:
-                'linear-gradient(to bottom, rgba(32,38,31,0) 0%, rgba(32,38,31,0.03) 12%, rgba(32,38,31,0.12) 26%, rgba(32,38,31,0.28) 42%, rgba(32,38,31,0.5) 58%, rgba(32,38,31,0.72) 72%, rgba(32,38,31,0.9) 86%, rgb(32,38,31) 100%)',
-            }}
-          />
-        ) : (
+        {/* Sin degradé en landing: la imagen se ve completa. La legibilidad del
+            texto se resuelve con text-shadow. */}
+        {!landing && (
           <>
             <div className="absolute inset-0 veil-bottom" />
             <div className="absolute inset-0 veil-gold opacity-70" />
@@ -84,7 +103,14 @@ export default function CatalogoCategoria({ categoria, productos }) {
 
         <div
           className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 pb-10"
-          style={landing ? { textShadow: '0 2px 26px rgba(0,0,0,0.5)' } : undefined}
+          style={
+            landing
+              ? {
+                  textShadow:
+                    '0 1px 3px rgba(0,0,0,0.5), 0 4px 34px rgba(0,0,0,0.6)',
+                }
+              : undefined
+          }
         >
           <p className="type-eyebrow-light eyebrow-rule reveal">
             {categoria.eyebrow}
@@ -148,6 +174,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
               lineas={landing.dolorLineas}
               parrafo={landing.dolor}
               bullets={landing.bullets}
+              marcador={landing.bulletMarcador}
             />
             {/* Espacio para que la sección 1 se mantenga (con los bullets ya
                visibles) ANTES de que el video empiece a subir por encima */}
@@ -195,8 +222,8 @@ export default function CatalogoCategoria({ categoria, productos }) {
         </div>
       )}
 
-      {/* ── CATÁLOGO ── */}
-      <div id="catalogo" className="scroll-mt-[128px]">
+      {/* ── CATÁLOGO ── (cursor-native: puntero tradicional para facilitar el clic) */}
+      <div id="catalogo" className="scroll-mt-[128px] cursor-native">
         {landing && (
           <div className="bg-bg-base">
             <div className="max-w-6xl mx-auto px-5 md:px-8 pt-8 md:pt-12">
@@ -214,6 +241,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
               >
                 {landing.catalogoIntro}
               </p>
+              <ComoCotizar />
             </div>
           </div>
         )}
@@ -266,21 +294,40 @@ export default function CatalogoCategoria({ categoria, productos }) {
         </div>
       </div>
 
-      {/* ── Nuestro proceso ── */}
-      <div id="proceso" className="scroll-mt-[128px]">
-        <NuestroProceso categoria={categoria.slug} />
-      </div>
+      {/* ── Quiebre: "Nuestro proceso" queda fijo (sticky) y el contenido
+             siguiente (foto + prueba social + FAQ) sube por encima ── */}
+      <div className="relative">
+        <div
+          id="proceso"
+          ref={procesoRef}
+          className="relative z-0 scroll-mt-[128px]"
+        >
+          <NuestroProceso categoria={categoria.slug} />
+        </div>
 
-      {/* ── Cita editorial: respiro antes de la prueba social ── */}
-      {landing?.cita && <CitaEditorial lineas={landing.cita} />}
+        <div className="relative z-20">
+          {/* Franja fotográfica */}
+          {landing?.fotoFranja && (
+            <section className="relative w-full h-[52vh] min-h-[360px] md:h-[60vh] overflow-hidden grain">
+              <Image
+                src={landing.fotoFranja}
+                alt="Mesa de evento con velas Velas Devas"
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+            </section>
+          )}
 
-      {/* ── Prueba social ── */}
-      <MarcasCarrusel categoria={categoria.slug} />
-      <div id="testimonios" className="scroll-mt-[128px]">
-        <Testimonios />
-      </div>
-      <div id="faq" className="scroll-mt-[128px]">
-        <FAQ />
+          {/* Prueba social */}
+          <MarcasCarrusel categoria={categoria.slug} />
+          <div id="testimonios" className="scroll-mt-[128px]">
+            <Testimonios />
+          </div>
+          <div id="faq" className="scroll-mt-[128px]">
+            <FAQ />
+          </div>
+        </div>
       </div>
 
       {/* ── CTA final: cerrar la historia e invitar a conversar ── */}
@@ -294,16 +341,26 @@ export default function CatalogoCategoria({ categoria, productos }) {
         />
         <div className="absolute inset-0 veil-full" />
         <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
-          <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
-            {landing?.ctaFinal?.eyebrow || '¿No encuentras la medida?'}
-          </p>
+          {landing?.ctaFinal?.eyebrow && (
+            <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
+              {landing.ctaFinal.eyebrow}
+            </p>
+          )}
           <AnimatedText
             as="h2"
             animation="maskReveal"
-            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8 leading-tight"
+            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mb-5 leading-tight"
           >
             {landing?.ctaFinal?.titulo || 'Fabricamos formatos a pedido'}
           </AnimatedText>
+          {landing?.ctaFinal?.bajada && (
+            <p
+              data-reveal-up
+              className="font-sans text-[#EDEFE6] text-[15px] md:text-[16px] leading-[1.7] max-w-xl mx-auto mb-8"
+            >
+              {landing.ctaFinal.bajada}
+            </p>
+          )}
           <Link href="/contacto" className="btn-light" data-reveal-up>
             {landing?.ctaFinal?.boton || 'Solicitar cotización'}
           </Link>

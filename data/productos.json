@@ -8,8 +8,16 @@
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
-      { "alto": "5", "sku": "VD001", "neto": 330 },
-      { "alto": "6", "sku": "VD002", "neto": 410 }
+      {
+        "alto": "5",
+        "sku": "VD001",
+        "neto": 330
+      },
+      {
+        "alto": "6",
+        "sku": "VD002",
+        "neto": 410
+      }
     ],
     "imagenes": [
       "/images/productos/vela-3-8x5-blanca/01.jpg",
@@ -26,14 +34,46 @@
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
-      { "alto": "5", "sku": "VD003", "neto": 580 },
-      { "alto": "7,5", "sku": "VD004", "neto": 890 },
-      { "alto": "9", "sku": "VD005", "neto": 1350 },
-      { "alto": "10", "sku": "VD006", "neto": 1420 },
-      { "alto": "15", "sku": "VD007", "neto": 2200 },
-      { "alto": "20", "sku": "VD008", "neto": 2680 },
-      { "alto": "25", "sku": "VD009", "neto": 2800 },
-      { "alto": "30", "sku": "VD010", "neto": 3580 }
+      {
+        "alto": "5",
+        "sku": "VD003",
+        "neto": 580
+      },
+      {
+        "alto": "7,5",
+        "sku": "VD004",
+        "neto": 890
+      },
+      {
+        "alto": "9",
+        "sku": "VD005",
+        "neto": 1350
+      },
+      {
+        "alto": "10",
+        "sku": "VD006",
+        "neto": 1420
+      },
+      {
+        "alto": "15",
+        "sku": "VD007",
+        "neto": 2200
+      },
+      {
+        "alto": "20",
+        "sku": "VD008",
+        "neto": 2680
+      },
+      {
+        "alto": "25",
+        "sku": "VD009",
+        "neto": 2800
+      },
+      {
+        "alto": "30",
+        "sku": "VD010",
+        "neto": 3580
+      }
     ],
     "imagenes": [
       "/images/productos/vela-4-9x15-blanca/01.jpg",
@@ -50,9 +90,21 @@
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
-      { "alto": "7", "sku": "VD031", "neto": 2200 },
-      { "alto": "10", "sku": "VD032", "neto": 2750 },
-      { "alto": "15", "sku": "VD033", "neto": 4500 }
+      {
+        "alto": "7",
+        "sku": "VD031",
+        "neto": 2200
+      },
+      {
+        "alto": "10",
+        "sku": "VD032",
+        "neto": 2750
+      },
+      {
+        "alto": "15",
+        "sku": "VD033",
+        "neto": 4500
+      }
     ],
     "imagenes": [
       "/images/productos/velon-7x15-blanca/01.jpg",
@@ -69,7 +121,11 @@
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
-      { "alto": "5", "sku": "VD041", "neto": 1550 }
+      {
+        "alto": "5",
+        "sku": "VD041",
+        "neto": 1550
+      }
     ],
     "imagenes": [
       "/images/productos/velon-7-5x5-blanca/01.jpg",
@@ -87,7 +143,9 @@
     "color_nombre": "Blanco nieve",
     "consultarPrecio": true,
     "alturas": [
-      { "alto": "23" }
+      {
+        "alto": "23"
+      }
     ],
     "imagenes": [
       "/images/productos/vela-2-2x23-blanca/01.jpg",
@@ -121,20 +179,76 @@
     "color_nombre": "Blanco nieve",
     "chipLabel": "Medida · Ø × alto (cm)",
     "alturas": [
-      { "alto": "8 × 8", "sku": "VD104", "neto": 1600 },
-      { "alto": "11 × 15", "sku": "VD105", "neto": 3450 },
-      { "alto": "12 × 15", "sku": "VD106", "neto": 3850 },
-      { "alto": "12 × 20", "sku": "VD107", "neto": 4800 },
-      { "alto": "12 × 25", "sku": "VD108", "neto": 5450 },
-      { "alto": "15 × 23", "sku": "VD109", "neto": 5980 },
-      { "alto": "16 × 18", "sku": "VD110", "neto": 5730 },
-      { "alto": "18 × 18", "sku": "VD111", "neto": 6100 },
-      { "alto": "16 × 30", "sku": "VD112", "neto": 9800 },
-      { "alto": "16 × 40", "sku": "VD113", "neto": 15850 },
-      { "alto": "20 × 30", "sku": "VD114", "neto": 14900 },
-      { "alto": "20 × 50", "sku": "VD115", "neto": 21500 },
-      { "alto": "20 × 70", "sku": "VD116", "neto": 27800 },
-      { "alto": "22 × 30", "sku": "VD117", "neto": 19500 }
+      {
+        "alto": "8 × 8",
+        "sku": "VD104",
+        "neto": 1600
+      },
+      {
+        "alto": "11 × 15",
+        "sku": "VD105",
+        "neto": 3450
+      },
+      {
+        "alto": "12 × 15",
+        "sku": "VD106",
+        "neto": 3850
+      },
+      {
+        "alto": "12 × 20",
+        "sku": "VD107",
+        "neto": 4800
+      },
+      {
+        "alto": "12 × 25",
+        "sku": "VD108",
+        "neto": 5450
+      },
+      {
+        "alto": "15 × 23",
+        "sku": "VD109",
+        "neto": 5980
+      },
+      {
+        "alto": "16 × 18",
+        "sku": "VD110",
+        "neto": 5730
+      },
+      {
+        "alto": "18 × 18",
+        "sku": "VD111",
+        "neto": 6100
+      },
+      {
+        "alto": "16 × 30",
+        "sku": "VD112",
+        "neto": 9800
+      },
+      {
+        "alto": "16 × 40",
+        "sku": "VD113",
+        "neto": 15850
+      },
+      {
+        "alto": "20 × 30",
+        "sku": "VD114",
+        "neto": 14900
+      },
+      {
+        "alto": "20 × 50",
+        "sku": "VD115",
+        "neto": 21500
+      },
+      {
+        "alto": "20 × 70",
+        "sku": "VD116",
+        "neto": 27800
+      },
+      {
+        "alto": "22 × 30",
+        "sku": "VD117",
+        "neto": 19500
+      }
     ],
     "imagenes": [
       "/images/productos/pantalla-cilindrica-blanca/01.jpg",
@@ -152,74 +266,77 @@
     "color_nombre": "Blanco nieve",
     "chipLabel": "Medida · lado × alto (cm)",
     "alturas": [
-      { "alto": "8 × 8", "sku": "VD091", "neto": 1600 },
-      { "alto": "10 × 10", "sku": "VD092", "neto": 2800 },
-      { "alto": "12 × 12", "sku": "VD093", "neto": 3400 },
-      { "alto": "12 × 18", "sku": "VD094", "neto": 4100 },
-      { "alto": "12 × 24", "sku": "VD095", "neto": 5300 },
-      { "alto": "16 × 16", "sku": "VD096", "neto": 5800 },
-      { "alto": "17 × 17", "sku": "VD097", "neto": 5950 },
-      { "alto": "20 × 20", "sku": "VD098", "neto": 9100 },
-      { "alto": "20 × 30", "sku": "VD099", "neto": 14850 },
-      { "alto": "20 × 40", "sku": "VD100", "neto": 19800 },
-      { "alto": "22 × 22", "sku": "VD101", "neto": 15200 },
-      { "alto": "22 × 30", "sku": "VD102", "neto": 18800 },
-      { "alto": "22 × 40", "sku": "VD103", "neto": 21950 }
+      {
+        "alto": "8 × 8",
+        "sku": "VD091",
+        "neto": 1600
+      },
+      {
+        "alto": "10 × 10",
+        "sku": "VD092",
+        "neto": 2800
+      },
+      {
+        "alto": "12 × 12",
+        "sku": "VD093",
+        "neto": 3400
+      },
+      {
+        "alto": "12 × 18",
+        "sku": "VD094",
+        "neto": 4100
+      },
+      {
+        "alto": "12 × 24",
+        "sku": "VD095",
+        "neto": 5300
+      },
+      {
+        "alto": "16 × 16",
+        "sku": "VD096",
+        "neto": 5800
+      },
+      {
+        "alto": "17 × 17",
+        "sku": "VD097",
+        "neto": 5950
+      },
+      {
+        "alto": "20 × 20",
+        "sku": "VD098",
+        "neto": 9100
+      },
+      {
+        "alto": "20 × 30",
+        "sku": "VD099",
+        "neto": 14850
+      },
+      {
+        "alto": "20 × 40",
+        "sku": "VD100",
+        "neto": 19800
+      },
+      {
+        "alto": "22 × 22",
+        "sku": "VD101",
+        "neto": 15200
+      },
+      {
+        "alto": "22 × 30",
+        "sku": "VD102",
+        "neto": 18800
+      },
+      {
+        "alto": "22 × 40",
+        "sku": "VD103",
+        "neto": 21950
+      }
     ],
     "imagenes": [
       "/images/productos/pantalla-cuadrada-blanca/01.jpg",
       "/images/productos/pantalla-cuadrada-blanca/02.jpg",
       "/images/productos/pantalla-cuadrada-blanca/03.jpg"
     ]
-  },
-  {
-    "id": "vel-rel-001",
-    "categoria": "religiosas",
-    "nombre": "Cirio nº 1",
-    "color": "blanca",
-    "alto_cm": 40,
-    "diametro_cm": 4,
-    "destacado": true
-  },
-  {
-    "id": "vel-rel-002",
-    "categoria": "religiosas",
-    "nombre": "Cirio nº 2",
-    "color": "marfil",
-    "alto_cm": 50,
-    "diametro_cm": 5
-  },
-  {
-    "id": "vel-rel-003",
-    "categoria": "religiosas",
-    "nombre": "Velón nº 1",
-    "color": "blanca",
-    "alto_cm": 25,
-    "diametro_cm": 6
-  },
-  {
-    "id": "vel-rel-004",
-    "categoria": "religiosas",
-    "nombre": "Velón nº 2",
-    "color": "marfil",
-    "alto_cm": 30,
-    "diametro_cm": 7
-  },
-  {
-    "id": "vel-rel-005",
-    "categoria": "religiosas",
-    "nombre": "Cirio Pascual",
-    "color": "blanca",
-    "alto_cm": 80,
-    "diametro_cm": 8
-  },
-  {
-    "id": "vel-rel-006",
-    "categoria": "religiosas",
-    "nombre": "Velón nº 3",
-    "color": "marfil",
-    "alto_cm": 20,
-    "diametro_cm": 5
   },
   {
     "id": "vel-fun-001",
@@ -269,5 +386,453 @@
     "color": "marfil",
     "alto_cm": 22,
     "diametro_cm": 7
+  },
+  {
+    "id": "rel-d38",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 3,8 cm",
+    "diametro_cm": 3.8,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "5",
+        "sku": "VD001",
+        "neto": 330
+      },
+      {
+        "alto": "6",
+        "sku": "VD002",
+        "neto": 410
+      },
+      {
+        "alto": "10",
+        "sku": "VD011",
+        "neto": 1100
+      },
+      {
+        "alto": "15",
+        "sku": "VD012",
+        "neto": 1700
+      },
+      {
+        "alto": "20",
+        "sku": "VD013",
+        "neto": 2250
+      },
+      {
+        "alto": "25",
+        "sku": "VD014",
+        "neto": 2680
+      },
+      {
+        "alto": "30",
+        "sku": "VD015",
+        "neto": 3390
+      },
+      {
+        "alto": "40",
+        "sku": "VD016",
+        "neto": 4500
+      }
+    ]
+  },
+  {
+    "id": "rel-d4",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 4 cm",
+    "diametro_cm": 4.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "20",
+        "sku": "VD017",
+        "neto": 2530
+      },
+      {
+        "alto": "30",
+        "sku": "VD018",
+        "neto": 3100
+      }
+    ]
+  },
+  {
+    "id": "rel-d45",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 4,5 cm",
+    "diametro_cm": 4.5,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "7",
+        "sku": "VD019",
+        "neto": 1380
+      }
+    ]
+  },
+  {
+    "id": "rel-d49",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 4,9 cm",
+    "diametro_cm": 4.9,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "5",
+        "sku": "VD003",
+        "neto": 580
+      },
+      {
+        "alto": "7,5",
+        "sku": "VD004",
+        "neto": 890
+      },
+      {
+        "alto": "9",
+        "sku": "VD005",
+        "neto": 1350
+      },
+      {
+        "alto": "10",
+        "sku": "VD006",
+        "neto": 1420
+      },
+      {
+        "alto": "15",
+        "sku": "VD007",
+        "neto": 2200
+      },
+      {
+        "alto": "20",
+        "sku": "VD008",
+        "neto": 2680
+      },
+      {
+        "alto": "25",
+        "sku": "VD009",
+        "neto": 2800
+      },
+      {
+        "alto": "30",
+        "sku": "VD010",
+        "neto": 3580
+      }
+    ]
+  },
+  {
+    "id": "rel-d5",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 5 cm",
+    "diametro_cm": 5.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "10",
+        "sku": "VD020",
+        "neto": 1680
+      },
+      {
+        "alto": "15",
+        "sku": "VD021",
+        "neto": 2700
+      },
+      {
+        "alto": "20",
+        "sku": "VD022",
+        "neto": 3340
+      },
+      {
+        "alto": "25",
+        "sku": "VD023",
+        "neto": 4180
+      },
+      {
+        "alto": "30",
+        "sku": "VD024",
+        "neto": 4950
+      },
+      {
+        "alto": "40",
+        "sku": "VD025",
+        "neto": 6680
+      }
+    ]
+  },
+  {
+    "id": "rel-d6",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 6 cm",
+    "diametro_cm": 6.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "10",
+        "sku": "VD026",
+        "neto": 2050
+      },
+      {
+        "alto": "15",
+        "sku": "VD027",
+        "neto": 3200
+      },
+      {
+        "alto": "20",
+        "sku": "VD028",
+        "neto": 4100
+      },
+      {
+        "alto": "25",
+        "sku": "VD029",
+        "neto": 5150
+      },
+      {
+        "alto": "30",
+        "sku": "VD030",
+        "neto": 6100
+      }
+    ]
+  },
+  {
+    "id": "rel-d7",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 7 cm",
+    "diametro_cm": 7.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "7",
+        "sku": "VD031",
+        "neto": 2200
+      },
+      {
+        "alto": "10",
+        "sku": "VD032",
+        "neto": 2750
+      },
+      {
+        "alto": "15",
+        "sku": "VD033",
+        "neto": 4500
+      },
+      {
+        "alto": "20",
+        "sku": "VD034",
+        "neto": 5450
+      },
+      {
+        "alto": "25",
+        "sku": "VD035",
+        "neto": 6850
+      },
+      {
+        "alto": "30",
+        "sku": "VD036",
+        "neto": 8100
+      },
+      {
+        "alto": "40",
+        "sku": "VD037",
+        "neto": 12100
+      },
+      {
+        "alto": "50",
+        "sku": "VD038",
+        "neto": 15200
+      },
+      {
+        "alto": "60",
+        "sku": "VD039",
+        "neto": 18000
+      },
+      {
+        "alto": "70",
+        "sku": "VD040",
+        "neto": 20900
+      },
+      {
+        "alto": "80",
+        "sku": "VD041",
+        "neto": 24200
+      },
+      {
+        "alto": "100",
+        "sku": "VD042",
+        "neto": 30550
+      }
+    ],
+    "destacado": true
+  },
+  {
+    "id": "rel-d75",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 7,5 cm",
+    "diametro_cm": 7.5,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "5",
+        "sku": "VD136",
+        "neto": 1550
+      }
+    ]
+  },
+  {
+    "id": "rel-d8",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 8 cm",
+    "diametro_cm": 8.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "8",
+        "sku": "VD137",
+        "neto": 3450
+      },
+      {
+        "alto": "10",
+        "sku": "VD043",
+        "neto": 3650
+      },
+      {
+        "alto": "15",
+        "sku": "VD044",
+        "neto": 5480
+      },
+      {
+        "alto": "20",
+        "sku": "VD045",
+        "neto": 7300
+      },
+      {
+        "alto": "25",
+        "sku": "VD046",
+        "neto": 9130
+      },
+      {
+        "alto": "30",
+        "sku": "VD047",
+        "neto": 10800
+      },
+      {
+        "alto": "40",
+        "sku": "VD048",
+        "neto": 16050
+      },
+      {
+        "alto": "50",
+        "sku": "VD049",
+        "neto": 20100
+      },
+      {
+        "alto": "60",
+        "sku": "VD050",
+        "neto": 23250
+      },
+      {
+        "alto": "80",
+        "sku": "VD051",
+        "neto": 32150
+      },
+      {
+        "alto": "100",
+        "sku": "VD052",
+        "neto": 40000
+      }
+    ]
+  },
+  {
+    "id": "rel-d10",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 10 cm",
+    "diametro_cm": 10.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "80",
+        "sku": "VD053",
+        "neto": 42000
+      },
+      {
+        "alto": "100",
+        "sku": "VD054",
+        "neto": 51500
+      }
+    ]
+  },
+  {
+    "id": "rel-d105",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Velón Ø 10,5 cm",
+    "diametro_cm": 10.5,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "10",
+        "sku": "VD055",
+        "neto": 6450
+      },
+      {
+        "alto": "15",
+        "sku": "VD056",
+        "neto": 8800
+      },
+      {
+        "alto": "20",
+        "sku": "VD057",
+        "neto": 11500
+      },
+      {
+        "alto": "25",
+        "sku": "VD058",
+        "neto": 16000
+      },
+      {
+        "alto": "30",
+        "sku": "VD059",
+        "neto": 17600
+      }
+    ]
+  },
+  {
+    "id": "rel-bautizo",
+    "categoria": "religiosas",
+    "grupo": true,
+    "nombre": "Vela de Bautizo",
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "chipLabel": "Tipo",
+    "alturas": [
+      {
+        "alto": "Clásica",
+        "sku": "VD060",
+        "neto": 2200
+      },
+      {
+        "alto": "Con color",
+        "sku": "VD061",
+        "neto": 2400
+      }
+    ]
   }
 ]

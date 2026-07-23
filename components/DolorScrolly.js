@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Flame from './Flame';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,7 +17,13 @@ if (typeof window !== 'undefined') {
 //   3. Las frases se retiran y entran los 6 conceptos uno por uno (WOW:
 //      máscara + desenfoque + overshoot), sin solaparse con el título.
 // Fondo oscuro + glow que sigue el cursor. Respeta reduce-motion.
-export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
+export default function DolorScrolly({
+  lineas = [],
+  parrafo,
+  bullets = [],
+  marcador = 'punto', // 'punto' (default) | 'llama' → resalta cada concepto
+}) {
+  const esLlama = marcador === 'llama';
   const secRef = useRef(null);
   const phrasesRef = useRef(null);
   const paraRef = useRef(null);
@@ -107,26 +114,37 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
     'radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(242, 221, 166, 0.16), rgba(242, 221, 166, 0.05) 30%, transparent 62%)';
 
   const Dot = () => (
-    <span className="w-1.5 h-1.5 rounded-full bg-[#C8D0A8] shrink-0" aria-hidden />
+    <span className="w-1.5 h-1.5 rounded-full bg-accent-mid shrink-0" aria-hidden />
   );
+
+  // Marcador de cada concepto: llama viva (resalta con sutileza) o punto sobrio.
+  const Marca = () =>
+    esLlama ? <Flame size={15} className="shrink-0 opacity-90" /> : <Dot />;
+
+  // Limpio y editorial: solo llama + texto, sin recuadros. El aire lo da el gap.
+  const bulletInner = 'flex items-center justify-center gap-3';
+  // Con llama damos más respiro vertical entre conceptos (estilo depurado).
+  const bulletsGap = esLlama ? 'gap-7 md:gap-9' : 'gap-4 md:gap-5';
 
   // ── Fallback estático ──
   if (reduce) {
     return (
-      <section className="relative bg-[#20261F] grain border-b border-black/40">
+      <section className="relative bg-[#FCFCFB] grain border-b border-black/40">
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
-          <h2 className="font-display text-[#F5F5EE] text-[clamp(30px,5.8vw,68px)] leading-[1.08] tracking-[-0.01em]">
+          <h2 className="font-display text-text-primary text-[clamp(30px,5.8vw,68px)] leading-[1.08] tracking-[-0.01em]">
             {lineas.join(' ')}
           </h2>
-          <p className="text-[#C9CFBE] text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto">
+          <p className="text-text-body text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto">
             {parrafo}
           </p>
-          <ul className="mt-12 flex flex-col items-center gap-4">
+          <ul className={`mt-12 flex flex-col items-center ${bulletsGap}`}>
             {bullets.map((b, i) => (
-              <li key={i} className="flex items-center gap-3">
-                <Dot />
-                <span className="font-display text-[#F5F5EE] text-[clamp(20px,3vw,30px)]">
-                  {b}
+              <li key={i}>
+                <span className={bulletInner}>
+                  <Marca />
+                  <span className="font-display text-text-primary text-[clamp(20px,3vw,30px)]">
+                    {b}
+                  </span>
                 </span>
               </li>
             ))}
@@ -142,7 +160,7 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
       onMouseMove={onMove}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="sticky top-0 h-screen overflow-hidden bg-[#20261F] grain z-0"
+      className="sticky top-0 h-screen overflow-hidden bg-[#FCFCFB] grain z-0"
     >
       {/* Glow que sigue al cursor */}
       <div
@@ -154,9 +172,9 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
       {/* Capa 1 — frases (título 4 líneas + bajada) */}
       <div
         ref={phrasesRef}
-        className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
+        className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-[12vh] md:pt-[14vh] px-6 text-center"
       >
-        <h2 className="font-display text-[#F5F5EE] text-[clamp(30px,6.4vw,80px)] leading-[1.08] tracking-[-0.015em]">
+        <h2 className="font-display text-text-primary text-[clamp(30px,6.4vw,80px)] leading-[1.08] tracking-[-0.015em]">
           {lineas.map((l, i) => {
             const last = i === lineas.length - 1;
             return (
@@ -170,7 +188,7 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
                         aria-hidden
                         viewBox="0 0 300 22"
                         preserveAspectRatio="none"
-                        className="absolute left-0 right-0 -bottom-[0.14em] w-full h-[0.36em] overflow-visible text-[#F2DDA6]"
+                        className="absolute left-0 right-0 -bottom-[0.14em] w-full h-[0.36em] overflow-visible text-gold"
                       >
                         <path
                           ref={underlineRef}
@@ -194,7 +212,7 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
         </h2>
         <p
           ref={paraRef}
-          className="text-[#C9CFBE] text-[clamp(16px,1.9vw,20px)] leading-[1.7] mt-8 max-w-2xl"
+          className="text-text-body text-[clamp(16px,1.9vw,20px)] leading-[1.7] mt-8 max-w-2xl"
         >
           {parrafo}
         </p>
@@ -203,16 +221,13 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
       {/* Capa 2 — conceptos (entran uno por uno) */}
       <ul
         ref={bulletsRef}
-        className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 md:gap-5 px-6 text-center"
+        className={`absolute inset-0 z-10 flex flex-col items-center justify-start pt-[12vh] md:pt-[14vh] px-6 text-center ${bulletsGap}`}
       >
         {bullets.map((b, i) => (
           <li key={i} className="overflow-hidden py-1">
-            <span
-              data-bullet
-              className="flex items-center justify-center gap-3"
-            >
-              <Dot />
-              <span className="font-display text-[#F5F5EE] text-[clamp(21px,3.2vw,34px)] leading-none">
+            <span data-bullet className={bulletInner}>
+              <Marca />
+              <span className="font-display text-text-primary text-[clamp(21px,3.2vw,34px)] leading-none">
                 {b}
               </span>
             </span>
@@ -224,7 +239,7 @@ export default function DolorScrolly({ lineas = [], parrafo, bullets = [] }) {
       <div
         ref={arrowRef}
         aria-hidden
-        className="scroll-cue absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-[#F5F5EE]/70"
+        className="scroll-cue absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-text-muted"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path

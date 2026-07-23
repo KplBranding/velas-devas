@@ -2,6 +2,9 @@ import './globals.css';
 import { Playfair_Display, Lato } from 'next/font/google';
 import CustomCursor from '../components/CustomCursor';
 import ScrollReveal from '../components/ScrollReveal';
+import { CotizacionProvider } from '../context/CotizacionContext';
+import CotizadorDrawer from '../components/cotizacion/CotizadorDrawer';
+import WhatsAppFAB from '../components/WhatsAppFAB';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -49,9 +52,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${playfair.variable} ${lato.variable}`}>
       <body>
-        <CustomCursor />
-        <ScrollReveal />
-        {children}
+        <CotizacionProvider>
+          <CustomCursor />
+          <ScrollReveal />
+          {children}
+          <CotizadorDrawer />
+          <WhatsAppFAB />
+        </CotizacionProvider>
       </body>
     </html>
   );

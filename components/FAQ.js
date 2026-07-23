@@ -8,7 +8,7 @@ export default function FAQ() {
   const [abierta, setAbierta] = useState(0);
 
   return (
-    <section className="border-t border-border-default bg-bg-base">
+    <section className="border-t border-border-default bg-[#FCFCFB]">
       <div className="max-w-3xl mx-auto px-5 md:px-8 py-16 md:py-20">
         <p className="type-eyebrow eyebrow-rule" data-reveal-up>Preguntas frecuentes</p>
         <AnimatedText
@@ -16,7 +16,7 @@ export default function FAQ() {
           animation="maskReveal"
           className="type-section text-[clamp(24px,3.4vw,38px)] mt-3 mb-10"
         >
-          Antes de cotizar
+          Lo que necesitas saber
         </AnimatedText>
 
         <div className="border-t border-border-default">

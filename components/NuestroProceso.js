@@ -166,7 +166,7 @@ export default function NuestroProceso({ categoria }) {
   }, []);
 
   return (
-    <section ref={ref} className="bg-bg-hero border-t border-border-default">
+    <section ref={ref} className="bg-[#FCFCFB] border-t border-border-default">
       <div className="max-w-5xl mx-auto px-5 md:px-8 py-24 md:py-32">
         {/* Encabezado */}
         <div data-step className="proc-step max-w-2xl mb-16 md:mb-24">

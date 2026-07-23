@@ -1,21 +1,26 @@
 import VelaSVG from './VelaSVG';
 import ProductGaleria from './ProductGaleria';
 import SelectorAltura, { clp } from './SelectorAltura';
+import AgregarSimple from './cotizacion/AgregarSimple';
 
 export default function ProductCard({ producto, index = 0 }) {
   const bgImagen = index % 2 === 0 ? 'bg-bg-card-1' : 'bg-bg-card-2';
+  const agregable = producto.categoria === 'banqueteria';
   const colorLabel =
     producto.color_nombre || (producto.color === 'marfil' ? 'Marfil' : 'Blanca');
   const tieneFotos = producto.imagenes && producto.imagenes.length > 0;
   const esGrupo = Array.isArray(producto.alturas);
-  // Alto representativo para el placeholder SVG cuando no hay fotos
-  const repAlto =
-    producto.alto_cm ||
-    (producto.alturas && producto.alturas.length
-      ? parseFloat(
-          String(producto.alturas[producto.alturas.length - 1]).replace(',', '.')
-        )
-      : 15);
+  // Alto representativo para el placeholder SVG cuando no hay fotos.
+  // Las alturas son objetos {alto, sku, neto}; tomamos el `alto` de la última y
+  // caemos a 15 si no es numérico (p. ej. Vela de Bautizo: "Clásica"/"Color").
+  const ultimaAltura =
+    producto.alturas && producto.alturas.length
+      ? producto.alturas[producto.alturas.length - 1]
+      : null;
+  const altoNum = parseFloat(
+    String(ultimaAltura?.alto ?? ultimaAltura ?? '').replace(',', '.')
+  );
+  const repAlto = producto.alto_cm || (Number.isFinite(altoNum) ? altoNum : 15);
 
   return (
     <article
@@ -60,6 +65,8 @@ export default function ProductCard({ producto, index = 0 }) {
               alturas={producto.alturas}
               consultar={producto.consultarPrecio}
               label={producto.chipLabel}
+              producto={producto}
+              agregable={agregable}
             />
           ) : producto.flotante ? (
             <div className="mt-1.5">
@@ -72,6 +79,7 @@ export default function ProductCard({ producto, index = 0 }) {
                   <span className="type-label">valor unitario · + IVA</span>
                 </div>
               )}
+              {agregable && <AgregarSimple producto={producto} />}
             </div>
           ) : (
             <p className="type-label mt-1">Medidas próximamente</p>

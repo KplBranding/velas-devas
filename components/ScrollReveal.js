@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+  // Evita refreshes (y micro-saltos) por el resize de la barra de URL en móvil.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 // Reveal global editorial: cualquier elemento con [data-reveal-up] aparece con

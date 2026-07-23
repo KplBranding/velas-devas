@@ -68,6 +68,7 @@ export default function PausaFotografica({
           start: 'top top',
           end: '+=115%',
           pin: true,
+          anticipatePin: 1,
           scrub: 1,
         },
       });

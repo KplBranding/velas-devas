@@ -7,10 +7,15 @@ export default function VelaSVG({
   className = '',
   animada = false, // llama en parpadeo constante (para velas destacadas/hero)
 }) {
+  // Blindaje: si llega un valor no numérico (NaN/undefined) usamos defaults,
+  // así el SVG nunca recibe NaN en sus atributos (y1, cy, etc.).
+  const altoN = Number.isFinite(alto) ? alto : 25;
+  const diamN = Number.isFinite(diametro) ? diametro : 2.5;
+
   // Escala normalizada dentro del área de dibujo (viewBox 100 x 160)
   const maxAlto = 80;
-  const bodyH = Math.max(40, Math.min(120, (alto / maxAlto) * 110));
-  const bodyW = Math.max(14, Math.min(46, diametro * 7));
+  const bodyH = Math.max(40, Math.min(120, (altoN / maxAlto) * 110));
+  const bodyW = Math.max(14, Math.min(46, diamN * 7));
   const cx = 50;
   const bottom = 150;
   const top = bottom - bodyH;
@@ -24,7 +29,7 @@ export default function VelaSVG({
       viewBox="0 0 100 160"
       className={className}
       role="img"
-      aria-label={`Vela ${color} de ${alto} cm de alto`}
+      aria-label={`Vela ${color} de ${altoN} cm de alto`}
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Cuerpo de la vela */}

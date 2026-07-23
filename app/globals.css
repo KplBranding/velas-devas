@@ -81,6 +81,20 @@
   }
 }
 
+/* Zona con puntero tradicional (catálogo): restaura el cursor nativo aunque el
+   cursor custom esté activo → más fácil pinchar selectores/cantidades. */
+.cursor-none .cursor-native,
+.cursor-none .cursor-native * {
+  cursor: auto !important;
+}
+.cursor-none .cursor-native a,
+.cursor-none .cursor-native button,
+.cursor-none .cursor-native select,
+.cursor-none .cursor-native summary,
+.cursor-none .cursor-native [role='button'] {
+  cursor: pointer !important;
+}
+
 /* Velas Devas — Variables globales · Paleta verde salvia (Pantones 2026) */
 :root {
   /* ── FONDOS ── */
@@ -333,10 +347,9 @@
   .no-scrollbar::-webkit-scrollbar { display: none; }
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Grano sutil para calidez de impresión.
-     background-attachment: fixed → el ruido queda anclado al viewport, así el
-     patrón es CONTINUO entre secciones y no se ve una línea donde chocan dos
-     capas de grain independientes. */
+  /* Grano sutil para calidez de impresión. Se compone con la sección (scroll)
+     para NO forzar repaints por frame — antes usaba background-attachment:fixed,
+     que causaba micro-saltos en el scroll. */
   .grain::after {
     content: '';
     position: absolute;
@@ -345,7 +358,6 @@
     opacity: 0.045;
     z-index: 1;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-attachment: fixed;
   }
 
   /* Sombra (verde negro sutil) */

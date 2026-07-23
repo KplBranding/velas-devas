@@ -24,6 +24,7 @@ module.exports = {
         // Acentos (paleta verde salvia)
         'gold':         '#485848', // Verde Grafito (acento principal, ex-dorado)
         'gold-light':   '#C8D0A8', // Crema Verde
+        'accent-mid':   '#607860', // Verde Medio — líneas, hovers, puntos, focos
         'graphite':     '#283028', // Verde Negro (botón primario)
         'black-graphic':'#283028', // Verde Negro
         'verde-negro':  '#283028',
