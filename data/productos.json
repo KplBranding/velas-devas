@@ -112,6 +112,67 @@
     ]
   },
   {
+    "id": "ban-pantalla-cil",
+    "categoria": "banqueteria",
+    "grupo": true,
+    "nombre": "Pantalla cilíndrica",
+    "diametro_cm": 22,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "chipLabel": "Medida · Ø × alto (cm)",
+    "alturas": [
+      { "alto": "8 × 8", "sku": "VD104", "neto": 1600 },
+      { "alto": "11 × 15", "sku": "VD105", "neto": 3450 },
+      { "alto": "12 × 15", "sku": "VD106", "neto": 3850 },
+      { "alto": "12 × 20", "sku": "VD107", "neto": 4800 },
+      { "alto": "12 × 25", "sku": "VD108", "neto": 5450 },
+      { "alto": "15 × 23", "sku": "VD109", "neto": 5980 },
+      { "alto": "16 × 18", "sku": "VD110", "neto": 5730 },
+      { "alto": "18 × 18", "sku": "VD111", "neto": 6100 },
+      { "alto": "16 × 30", "sku": "VD112", "neto": 9800 },
+      { "alto": "16 × 40", "sku": "VD113", "neto": 15850 },
+      { "alto": "20 × 30", "sku": "VD114", "neto": 14900 },
+      { "alto": "20 × 50", "sku": "VD115", "neto": 21500 },
+      { "alto": "20 × 70", "sku": "VD116", "neto": 27800 },
+      { "alto": "22 × 30", "sku": "VD117", "neto": 19500 }
+    ],
+    "imagenes": [
+      "/images/productos/pantalla-cilindrica-blanca/01.jpg",
+      "/images/productos/pantalla-cilindrica-blanca/02.jpg",
+      "/images/productos/pantalla-cilindrica-blanca/03.jpg"
+    ]
+  },
+  {
+    "id": "ban-pantalla-cuad",
+    "categoria": "banqueteria",
+    "grupo": true,
+    "nombre": "Pantalla cuadrada",
+    "diametro_cm": 22,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "chipLabel": "Medida · lado × alto (cm)",
+    "alturas": [
+      { "alto": "8 × 8", "sku": "VD091", "neto": 1600 },
+      { "alto": "10 × 10", "sku": "VD092", "neto": 2800 },
+      { "alto": "12 × 12", "sku": "VD093", "neto": 3400 },
+      { "alto": "12 × 18", "sku": "VD094", "neto": 4100 },
+      { "alto": "12 × 24", "sku": "VD095", "neto": 5300 },
+      { "alto": "16 × 16", "sku": "VD096", "neto": 5800 },
+      { "alto": "17 × 17", "sku": "VD097", "neto": 5950 },
+      { "alto": "20 × 20", "sku": "VD098", "neto": 9100 },
+      { "alto": "20 × 30", "sku": "VD099", "neto": 14850 },
+      { "alto": "20 × 40", "sku": "VD100", "neto": 19800 },
+      { "alto": "22 × 22", "sku": "VD101", "neto": 15200 },
+      { "alto": "22 × 30", "sku": "VD102", "neto": 18800 },
+      { "alto": "22 × 40", "sku": "VD103", "neto": 21950 }
+    ],
+    "imagenes": [
+      "/images/productos/pantalla-cuadrada-blanca/01.jpg",
+      "/images/productos/pantalla-cuadrada-blanca/02.jpg",
+      "/images/productos/pantalla-cuadrada-blanca/03.jpg"
+    ]
+  },
+  {
     "id": "vel-rel-001",
     "categoria": "religiosas",
     "nombre": "Cirio nº 1",

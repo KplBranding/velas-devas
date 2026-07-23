@@ -7,6 +7,19 @@
   html { scroll-behavior: smooth; }
 }
 
+/* ── Wincha marquee "Velas Devas" (derecha → izquierda, loop) ── */
+@keyframes wincha-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.wincha-track {
+  animation: wincha-marquee 30s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wincha-track { animation: none; }
+}
+
 /* ── Indicador de scroll (flechita flotante) ── */
 @keyframes scroll-cue {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.55; }

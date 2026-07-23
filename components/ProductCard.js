@@ -59,6 +59,7 @@ export default function ProductCard({ producto, index = 0 }) {
             <SelectorAltura
               alturas={producto.alturas}
               consultar={producto.consultarPrecio}
+              label={producto.chipLabel}
             />
           ) : producto.flotante ? (
             <div className="mt-1.5">

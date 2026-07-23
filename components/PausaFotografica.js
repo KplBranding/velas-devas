@@ -11,8 +11,10 @@ if (typeof window !== 'undefined') {
 }
 
 // Pausa a pantalla completa (imagen/vídeo) con filtro oscuro y una frase.
-// Efecto PARALLAX: el fondo y el texto se desplazan a distinto ritmo al hacer
-// scroll. El vídeo reproduce sólo en viewport. Respeta reduce-motion.
+// Al llegar, la sección SE FIJA (pin): aparece el video + texto, hay una
+// pausa, y luego se revela el CTA. Durante la fijación hay un parallax sutil
+// (fondo y texto a distinto ritmo). El vídeo reproduce sólo en viewport.
+// Respeta reduce-motion.
 export default function PausaFotografica({
   src,
   video,
@@ -25,6 +27,7 @@ export default function PausaFotografica({
   const mediaRef = useRef(null);
   const vidRef = useRef(null);
   const textRef = useRef(null);
+  const ctaRef = useRef(null);
 
   useEffect(() => {
     const v = vidRef.current;
@@ -43,46 +46,52 @@ export default function PausaFotografica({
       }
     }
 
-    let ctx;
-    if (!reduce) {
-      ctx = gsap.context(() => {
-        const st = {
+    if (reduce) return () => io && io.disconnect();
+
+    const ctx = gsap.context(() => {
+      // El texto aparece mientras la sección sube a su lugar
+      gsap.from(textRef.current, {
+        opacity: 0,
+        y: 22,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: secRef.current, start: 'top 75%' },
+      });
+
+      // CTA oculto hasta la pausa
+      gsap.set(ctaRef.current, { opacity: 0, y: 26 });
+
+      // Pin + timeline: pausa, parallax sutil, y luego aparece el CTA
+      const tl = gsap.timeline({
+        scrollTrigger: {
           trigger: secRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        };
-        // Fondo: baja lento (parallax). Texto: sube más (contra-parallax).
-        gsap.fromTo(
-          mediaRef.current,
-          { yPercent: -8 },
-          { yPercent: 10, ease: 'none', scrollTrigger: st }
-        );
-        gsap.fromTo(
-          textRef.current,
-          { yPercent: 18 },
-          { yPercent: -18, ease: 'none', scrollTrigger: st }
-        );
-        // Aparición del texto al entrar
-        gsap.from(textRef.current, {
-          opacity: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: secRef.current, start: 'top 65%' },
-        });
-      }, secRef);
-    }
+          start: 'top top',
+          end: '+=115%',
+          pin: true,
+          scrub: 1,
+        },
+      });
+      // Parallax durante la fijación (fondo baja lento, texto sube)
+      tl.fromTo(mediaRef.current, { yPercent: -5 }, { yPercent: 7, ease: 'none' }, 0);
+      tl.fromTo(textRef.current, { yPercent: 4 }, { yPercent: -10, ease: 'none' }, 0);
+      // Pausa y recién después el CTA
+      tl.to(
+        ctaRef.current,
+        { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+        0.5
+      );
+    }, secRef);
 
     return () => {
       io && io.disconnect();
-      ctx && ctx.revert();
+      ctx.revert();
     };
   }, []);
 
   return (
     <section
       ref={secRef}
-      className="relative h-screen min-h-[520px] overflow-hidden grain"
+      className="relative z-30 h-screen min-h-[520px] overflow-hidden grain"
     >
       {/* Media con overscan para el parallax */}
       <div
@@ -124,9 +133,11 @@ export default function PausaFotografica({
             {frase}
           </p>
           {cta && (
-            <Link href={ctaHref} className="btn-light mt-9 inline-block">
-              {cta}
-            </Link>
+            <div ref={ctaRef} className="mt-9">
+              <Link href={ctaHref} className="btn-light inline-block">
+                {cta}
+              </Link>
+            </div>
           )}
         </div>
       </div>

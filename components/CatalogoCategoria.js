@@ -10,6 +10,7 @@ import SubNav from './SubNav';
 import DolorScrolly from './DolorScrolly';
 import PausaFotografica from './PausaFotografica';
 import SeccionOficio from './SeccionOficio';
+import WinchaDevas from './WinchaDevas';
 import CitaEditorial from './CitaEditorial';
 import NuestroProceso from './NuestroProceso';
 import MarcasCarrusel from './MarcasCarrusel';
@@ -176,6 +177,9 @@ export default function CatalogoCategoria({ categoria, productos }) {
               cta={landing.oficio.cta}
             />
           )}
+
+          {/* ── Wincha divisoria hacia el catálogo ── */}
+          <WinchaDevas />
         </>
       ) : (
         /* Layout base para categorías sin narrativa definida */
@@ -195,14 +199,14 @@ export default function CatalogoCategoria({ categoria, productos }) {
       <div id="catalogo" className="scroll-mt-[128px]">
         {landing && (
           <div className="bg-bg-base">
-            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-8 md:pt-12">
               <p className="type-eyebrow eyebrow-rule" data-reveal-up>Catálogo</p>
               <AnimatedText
                 as="h2"
                 animation="maskReveal"
-                className="type-section text-[clamp(24px,3.4vw,38px)] mt-3"
+                className="type-section text-[clamp(24px,3.4vw,38px)] mt-3 max-w-2xl"
               >
-                Nuestros formatos
+                {landing.catalogoTitulo || 'Nuestros formatos'}
               </AnimatedText>
               <p
                 data-reveal-up

@@ -5,7 +5,7 @@ import ScrollReveal from '../components/ScrollReveal';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '700', '900'],
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-display',

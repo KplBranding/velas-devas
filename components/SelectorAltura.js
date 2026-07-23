@@ -7,14 +7,18 @@ export const clp = (n) => '$' + Number(n).toLocaleString('es-CL');
 
 // Chips de altura seleccionables. Al elegir un alto, muestra el valor neto
 // unitario correspondiente. Si el grupo no tiene precios -> "Consultar precios".
-export default function SelectorAltura({ alturas, consultar = false }) {
+export default function SelectorAltura({
+  alturas,
+  consultar = false,
+  label = 'Alto disponible (cm)',
+}) {
   const [sel, setSel] = useState(0);
   const activo = alturas[sel] || alturas[0];
   const sinPrecio = consultar || activo?.neto == null;
 
   return (
     <div className="mt-2.5">
-      <p className="type-label mb-1.5">Alto disponible (cm)</p>
+      <p className="type-label mb-1.5">{label}</p>
       <div className="flex flex-wrap gap-1.5">
         {alturas.map((a, i) => (
           <button
