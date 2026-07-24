@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCotizacion } from '../context/CotizacionContext';
 
 function IconoBolsa() {
@@ -41,6 +41,22 @@ export default function Navbar() {
 
   const isActive = (link) =>
     link.exact ? pathname === link.href : pathname.startsWith(link.href);
+
+  // Cierra el menú al cambiar de ruta.
+  useEffect(() => setOpen(false), [pathname]);
+
+  // Con el menú abierto: bloquea el scroll del body y permite cerrar con Escape.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 chrome-glass border-b border-border-default">
@@ -96,16 +112,16 @@ export default function Navbar() {
         </nav>
 
         {/* Cotización + hamburguesa (mobile) */}
-        <div className="md:hidden flex items-center gap-1 shrink-0">
+        <div className="md:hidden flex items-center gap-0.5 shrink-0 -mr-2">
           <button
             type="button"
             onClick={() => setAbierto(true)}
             aria-label="Ver cotización"
-            className="relative p-2 text-text-primary press"
+            className="relative w-11 h-11 flex items-center justify-center text-text-primary press"
           >
             <IconoBolsa />
             {count > 0 && (
-              <span className="absolute top-0 right-0 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-gold text-[#F5F5EE] text-[9px] font-bold">
+              <span className="absolute top-1.5 right-1.5 min-w-[16px] h-[16px] px-1 flex items-center justify-center rounded-full bg-gold text-[#F5F5EE] text-[9px] font-bold">
                 {count}
               </span>
             )}
@@ -113,9 +129,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            aria-label="Abrir menú"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
-            className="flex flex-col gap-[5px] p-1 press"
+            aria-controls="menu-movil"
+            className="w-11 h-11 flex flex-col items-center justify-center gap-[5px] press"
           >
           <span
             className={`block w-6 h-px bg-text-primary transition-transform duration-300 ${
@@ -138,24 +155,37 @@ export default function Navbar() {
 
       {/* Menú desplegable (mobile) */}
       {open && (
-        <nav className="md:hidden flex flex-col px-5 py-2 border-t border-border-default chrome-glass">
-          {SUB_LINKS.map((link, i) => {
-            const active = isActive(link);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                style={{ animationDelay: `${i * 35}ms` }}
-                className={`stagger font-sans text-[15px] py-3 border-b border-border-default/60 last:border-0 ${
-                  active ? 'text-gold' : 'text-text-primary'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <>
+          {/* Capa para cerrar tocando fuera (bajo la barra, deja la X accesible) */}
+          <button
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+            onClick={() => setOpen(false)}
+            className="md:hidden fixed inset-x-0 bottom-0 top-[112px] bg-black/20 cursor-default"
+          />
+          <nav
+            id="menu-movil"
+            className="md:hidden flex flex-col px-5 border-t border-border-default chrome-glass"
+          >
+            {SUB_LINKS.map((link, i) => {
+              const active = isActive(link);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  style={{ animationDelay: `${i * 35}ms` }}
+                  className={`stagger font-sans text-[15px] min-h-[48px] flex items-center border-b border-border-default/60 last:border-0 ${
+                    active ? 'text-gold' : 'text-text-primary'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </>
       )}
     </header>
   );

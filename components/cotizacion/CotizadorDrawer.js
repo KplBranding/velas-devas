@@ -121,7 +121,7 @@ export default function CotizadorDrawer() {
               <button
                 onClick={cerrar}
                 aria-label="Cerrar"
-                className="w-8 h-8 flex items-center justify-center text-text-muted hover:text-text-primary press"
+                className="w-11 h-11 -mr-2 flex items-center justify-center text-text-muted hover:text-text-primary press"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
@@ -175,24 +175,24 @@ export default function CotizadorDrawer() {
                             {it.neto != null ? `${clp(it.neto)} c/u` : 'A confirmar'}
                           </p>
                           {/* Cantidad */}
-                          <div className="mt-2.5 inline-flex items-center border border-border-default rounded-full">
+                          <div className="mt-2.5 inline-flex items-center border border-border-default rounded-full overflow-hidden">
                             <button
                               onClick={() =>
                                 actualizarCantidad(it.id, it.cantidad - 1)
                               }
-                              className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+                              className="w-9 h-9 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-base transition-colors duration-[var(--dur-fast)] press"
                               aria-label="Menos"
                             >
                               –
                             </button>
-                            <span className="w-8 text-center font-sans text-[13px] text-text-primary">
+                            <span className="w-9 text-center font-sans text-[14px] text-text-primary tabular-nums">
                               {it.cantidad}
                             </span>
                             <button
                               onClick={() =>
                                 actualizarCantidad(it.id, it.cantidad + 1)
                               }
-                              className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+                              className="w-9 h-9 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-base transition-colors duration-[var(--dur-fast)] press"
                               aria-label="Más"
                             >
                               +
@@ -216,7 +216,12 @@ export default function CotizadorDrawer() {
                 </div>
 
                 {/* Resumen + acciones */}
-                <div className="border-t border-border-default px-6 py-5 shrink-0 bg-bg-hero">
+                <div
+                  className="border-t border-border-default px-6 py-5 shrink-0 bg-bg-hero"
+                  style={{
+                    paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom))',
+                  }}
+                >
                   <div className="space-y-1.5 mb-4">
                     <Fila label="Neto" valor={clp(subtotalNeto)} />
                     <Fila label="IVA (19%)" valor={clp(iva)} />
@@ -295,7 +300,12 @@ export default function CotizadorDrawer() {
                   </p>
                 </div>
 
-                <div className="border-t border-border-default px-6 py-5 shrink-0 bg-bg-hero space-y-2.5">
+                <div
+                  className="border-t border-border-default px-6 py-5 shrink-0 bg-bg-hero space-y-2.5"
+                  style={{
+                    paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom))',
+                  }}
+                >
                   <button
                     onClick={enviarWhatsApp}
                     disabled={!puedeEnviar}

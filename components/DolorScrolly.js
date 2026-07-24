@@ -171,7 +171,7 @@ export default function DolorScrolly({
       onMouseMove={onMove}
       onMouseEnter={onEnter}
       onMouseLeave={() => setHover(false)}
-      className="sticky top-0 h-screen overflow-hidden bg-[#FCFCFB] grain z-0"
+      className="sticky top-0 h-[100svh] overflow-hidden bg-[#FCFCFB] grain z-0"
     >
       {/* Glow que sigue al cursor */}
       <div

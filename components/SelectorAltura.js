@@ -42,14 +42,14 @@ export default function SelectorAltura({
   return (
     <div className="mt-2.5">
       <p className="type-label mb-1.5">{label}</p>
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {alturas.map((a, i) => (
           <button
             key={a.alto}
             type="button"
             onClick={() => setSel(i)}
             aria-pressed={i === sel}
-            className={`font-sans text-[11px] leading-none rounded-full px-2.5 py-[4px] border press transition-colors ${
+            className={`font-sans text-[12px] leading-none rounded-full px-3.5 py-2 border press transition-colors duration-[var(--dur-base)] ${
               i === sel
                 ? 'border-text-primary bg-text-primary text-bg-base'
                 : 'border-border-default text-text-body hover:border-text-muted'
@@ -77,23 +77,23 @@ export default function SelectorAltura({
 
       {agregable && (
         <div className="mt-3 flex items-center gap-2">
-          <div className="inline-flex items-center border border-border-default rounded-full shrink-0">
+          <div className="inline-flex items-center border border-border-default rounded-full shrink-0 overflow-hidden">
             <button
               type="button"
               onClick={() => setCant((q) => Math.max(1, q - 1))}
               aria-label="Menos"
-              className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+              className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-hero transition-colors duration-[var(--dur-fast)] press"
             >
               –
             </button>
-            <span className="w-7 text-center font-sans text-[13px] text-text-primary">
+            <span className="w-8 text-center font-sans text-[14px] text-text-primary tabular-nums">
               {cant}
             </span>
             <button
               type="button"
               onClick={() => setCant((q) => q + 1)}
               aria-label="Más"
-              className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+              className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-hero transition-colors duration-[var(--dur-fast)] press"
             >
               +
             </button>

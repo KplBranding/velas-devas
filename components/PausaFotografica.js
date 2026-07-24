@@ -92,7 +92,7 @@ export default function PausaFotografica({
   return (
     <section
       ref={secRef}
-      className="relative z-30 h-screen min-h-[520px] overflow-hidden grain"
+      className="relative z-30 h-[100svh] min-h-[520px] overflow-hidden grain"
     >
       {/* Media con overscan para el parallax */}
       <div

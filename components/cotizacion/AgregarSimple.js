@@ -26,23 +26,23 @@ export default function AgregarSimple({ producto }) {
 
   return (
     <div className="mt-3 flex items-center gap-2">
-      <div className="inline-flex items-center border border-border-default rounded-full shrink-0">
+      <div className="inline-flex items-center border border-border-default rounded-full shrink-0 overflow-hidden">
         <button
           type="button"
           onClick={() => setCant((q) => Math.max(1, q - 1))}
           aria-label="Menos"
-          className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+          className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-hero transition-colors duration-[var(--dur-fast)] press"
         >
           –
         </button>
-        <span className="w-7 text-center font-sans text-[13px] text-text-primary">
+        <span className="w-8 text-center font-sans text-[14px] text-text-primary tabular-nums">
           {cant}
         </span>
         <button
           type="button"
           onClick={() => setCant((q) => q + 1)}
           aria-label="Más"
-          className="w-7 h-7 flex items-center justify-center text-text-muted hover:text-text-primary press"
+          className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-bg-hero transition-colors duration-[var(--dur-fast)] press"
         >
           +
         </button>
