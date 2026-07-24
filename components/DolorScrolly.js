@@ -30,7 +30,7 @@ export default function DolorScrolly({
   const bulletsRef = useRef(null);
   const arrowRef = useRef(null);
   const underlineRef = useRef(null);
-  const [reduce, setReduce] = useState(false);
+  const [statico, setStatico] = useState(false);
   const [hover, setHover] = useState(false);
   const rectRef = useRef(null);
 
@@ -53,8 +53,13 @@ export default function DolorScrolly({
   };
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReduce(true);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile = window.matchMedia('(max-width: 767px)').matches;
+    // En móvil (y con reduce-motion) NO usamos el pin scrubbeado: los conceptos
+    // van absolutos y sin timeline se solaparían, y el pin causa saltos/recortes
+    // en Safari iOS. Renderizamos la versión estática en flujo normal.
+    if (reduce || mobile) {
+      setStatico(true);
       return;
     }
     const ctx = gsap.context(() => {
@@ -137,8 +142,8 @@ export default function DolorScrolly({
   // Con llama damos más respiro vertical entre conceptos (estilo depurado).
   const bulletsGap = esLlama ? 'gap-7 md:gap-9' : 'gap-4 md:gap-5';
 
-  // ── Fallback estático ──
-  if (reduce) {
+  // ── Versión estática (móvil + reduce-motion): sin pin, en flujo normal ──
+  if (statico) {
     return (
       <section className="relative bg-[#FCFCFB] grain border-b border-black/40">
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">

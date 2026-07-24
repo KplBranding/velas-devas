@@ -49,7 +49,7 @@ export default function PausaFotografica({
     if (reduce) return () => io && io.disconnect();
 
     const ctx = gsap.context(() => {
-      // El texto aparece mientras la sección sube a su lugar
+      // El texto aparece mientras la sección sube a su lugar (siempre).
       gsap.from(textRef.current, {
         opacity: 0,
         y: 22,
@@ -58,29 +58,41 @@ export default function PausaFotografica({
         scrollTrigger: { trigger: secRef.current, start: 'top 75%' },
       });
 
-      // CTA oculto hasta la pausa
-      gsap.set(ctaRef.current, { opacity: 0, y: 26 });
+      const mm = gsap.matchMedia();
 
-      // Pin + timeline: pausa, parallax sutil, y luego aparece el CTA
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: secRef.current,
-          start: 'top top',
-          end: '+=115%',
-          pin: true,
-          anticipatePin: 1,
-          scrub: 1,
-        },
+      // Desktop: pin + parallax sutil + el CTA aparece en la pausa.
+      mm.add('(min-width: 768px)', () => {
+        gsap.set(ctaRef.current, { opacity: 0, y: 26 });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: secRef.current,
+            start: 'top top',
+            end: '+=115%',
+            pin: true,
+            anticipatePin: 1,
+            scrub: 1,
+          },
+        });
+        tl.fromTo(mediaRef.current, { yPercent: -5 }, { yPercent: 7, ease: 'none' }, 0);
+        tl.fromTo(textRef.current, { yPercent: 4 }, { yPercent: -10, ease: 'none' }, 0);
+        tl.to(
+          ctaRef.current,
+          { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+          0.5
+        );
       });
-      // Parallax durante la fijación (fondo baja lento, texto sube)
-      tl.fromTo(mediaRef.current, { yPercent: -5 }, { yPercent: 7, ease: 'none' }, 0);
-      tl.fromTo(textRef.current, { yPercent: 4 }, { yPercent: -10, ease: 'none' }, 0);
-      // Pausa y recién después el CTA
-      tl.to(
-        ctaRef.current,
-        { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
-        0.5
-      );
+
+      // Móvil: sin pin ni parallax (evita saltos en iOS). La sección scrollea
+      // normal y el CTA entra con un reveal simple.
+      mm.add('(max-width: 767px)', () => {
+        gsap.from(ctaRef.current, {
+          opacity: 0,
+          y: 22,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: ctaRef.current, start: 'top 90%' },
+        });
+      });
     }, secRef);
 
     return () => {

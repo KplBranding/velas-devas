@@ -180,9 +180,10 @@ export default function CatalogoCategoria({ categoria, productos }) {
               bullets={landing.bullets}
               marcador={landing.bulletMarcador}
             />
-            {/* Espacio para que la sección 1 se mantenga (con los bullets ya
-               visibles) ANTES de que el video empiece a subir por encima */}
-            <div aria-hidden className="h-[160vh]" />
+            {/* Espacio para que la sección 1 (sticky) se mantenga ANTES de que el
+               video suba por encima. Solo en desktop: en móvil DolorScrolly es
+               estático (sin pin), así que el spacer dejaría un hueco enorme. */}
+            <div aria-hidden className="hidden md:block h-[160vh]" />
             {landing.pausa && (
               <div className="relative z-20">
                 <PausaFotografica
