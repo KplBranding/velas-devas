@@ -8,3 +8,8 @@ npm-debug.log*
 .env*.local
 .vercel
 next-env.d.ts
+
+# Archivos fuente de diseño (no versionar — pesan demasiado)
+*.psd
+/lib/recursos_diseño/
+/_recursos-sin-usar/
