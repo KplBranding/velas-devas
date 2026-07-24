@@ -42,6 +42,17 @@ export default function ScrollReveal() {
           stagger: 0.09,
           overwrite: true,
         }),
+      // Al subir (scroll inverso) el efecto se revierte: el texto vuelve a
+      // desvanecerse y bajar, quedando "vinculado" al sentido del scroll.
+      onLeaveBack: (batch) =>
+        gsap.to(batch, {
+          opacity: 0,
+          y: 26,
+          duration: 0.5,
+          ease: 'power2.in',
+          stagger: 0.05,
+          overwrite: true,
+        }),
     });
 
     scheduleRefresh();

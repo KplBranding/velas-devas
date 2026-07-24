@@ -1,160 +1,84 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-// "El oficio" (¿Por qué confiar?). Al llegar desde la sección oscura del video,
-// la sección se ACLARA (un velo oscuro se desvanece) y SE FIJA (pin): los
-// textos van apareciendo uno a uno a medida que se hace scroll. Fotografía B&N
-// editorial + lista con hover subrayado + CTA.
-// Desktop: pin + reveal scrubbeado. Móvil: reveal simple al entrar.
+// "Nuestro compromiso" (¿Por qué confiar?). La FOTOGRAFÍA queda fija (sticky)
+// ocupando la pantalla; el panel de texto —con fondo sólido— sube por encima y
+// la va TAPANDO a medida que se hace scroll, hasta cubrirla por completo, y
+// entonces la navegación continúa normal.
+//
+// Efecto CSS puro: sticky + z-index + fondo opaco. Sin pin de GSAP → sin jank y
+// funciona igual en móvil. Los textos entran con el reveal global
+// [data-reveal-up], que va vinculado al scroll (se revierte al subir).
 export default function SeccionOficio({
   foto,
   fotoPos,
-  fotoColor = false, // true → muestra la foto a color (sin filtro B&N)
+  fotoColor = false, // true → foto a color (sin filtro B&N)
   eyebrow = 'El oficio',
   titulo,
   texto,
   beneficios = [],
   cta,
 }) {
-  const secRef = useRef(null);
-  const brightRef = useRef(null);
-
-  useEffect(() => {
-    const sec = secRef.current;
-    if (!sec) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const mm = gsap.matchMedia();
-
-    // Desktop: aclarado durante la ENTRADA + pin con revelado progresivo
-    mm.add('(min-width: 768px)', () => {
-      const els = sec.querySelectorAll('[data-oficio]');
-      gsap.set(els, { opacity: 0, y: 28 });
-      gsap.set(brightRef.current, { opacity: 1 });
-
-      // Aclarado (oscuro → claro) mientras la sección sube a su lugar, así no
-      // queda una pantalla negra prolongada antes de fijarse.
-      gsap.to(brightRef.current, {
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sec,
-          start: 'top bottom',
-          end: 'top 25%',
-          scrub: true,
-        },
-      });
-
-      // Pin + los textos aparecen uno a uno con el scroll
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sec,
-          start: 'top top',
-          end: '+=150%',
-          pin: true,
-          anticipatePin: 1,
-          scrub: 1,
-        },
-      });
-      tl.to(
-        els,
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.5, ease: 'power3.out' },
-        0.1
-      );
-    });
-
-    // Móvil: sin pin, reveal simple al entrar
-    mm.add('(max-width: 767px)', () => {
-      const els = sec.querySelectorAll('[data-oficio]');
-      gsap.set(brightRef.current, { opacity: 0 });
-      gsap.from(els, {
-        opacity: 0,
-        y: 20,
-        duration: 0.7,
-        stagger: 0.12,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: sec, start: 'top 72%' },
-      });
-    });
-
-    return () => mm.revert();
-  }, []);
-
   return (
-    <section
-      ref={secRef}
-      className="relative bg-bg-base overflow-hidden md:min-h-screen"
-    >
-      {/* Velo de aclarado (oscuro → se desvanece) */}
-      <div
-        ref={brightRef}
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-30 bg-[#20261F] opacity-0"
-      />
+    <section className="relative bg-bg-base">
+      {/* Fotografía protagonista: fija mientras el texto sube y la cubre.
+          min-h del panel de texto = 100svh → la foto queda fijada hasta que el
+          texto la tapa por completo. */}
+      <div className="sticky top-0 h-[100svh] overflow-hidden grain">
+        <Image
+          src={foto}
+          alt=""
+          fill
+          sizes="100vw"
+          priority={false}
+          className="object-cover"
+          style={{
+            objectPosition: fotoPos || '50% 50%',
+            filter: fotoColor
+              ? 'contrast(1.02)'
+              : 'grayscale(100%) contrast(1.06) brightness(0.98)',
+          }}
+        />
+        {/* Velo inferior sutil: da profundidad y funde el borde con el texto */}
+        <div className="pointer-events-none absolute inset-0 veil-bottom opacity-40" />
+      </div>
 
-      <div className="max-w-6xl mx-auto md:grid md:grid-cols-2 md:items-stretch md:min-h-screen">
-        {/* Fotografía protagonista — B&N editorial */}
-        <div className="relative h-[360px] md:h-auto md:min-h-screen grain">
-          <Image
-            src={foto}
-            alt=""
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-            style={{
-              objectPosition: fotoPos || '50% 50%',
-              filter: fotoColor
-                ? 'contrast(1.02)'
-                : 'grayscale(100%) contrast(1.06) brightness(0.98)',
-            }}
-          />
-        </div>
-
-        {/* Texto + lista (pt extra en desktop: la sección se fija bajo el navbar
-            de 112px, así el eyebrow no queda tapado) */}
-        <div className="px-5 md:px-14 py-14 md:pt-[136px] md:pb-16 flex flex-col justify-center">
-          <p data-oficio className="type-eyebrow eyebrow-rule">
+      {/* Panel de texto: sube por encima de la foto (fondo sólido → la tapa) */}
+      <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-center">
+        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 py-20 md:py-28">
+          <p data-reveal-up className="type-eyebrow eyebrow-rule">
             {eyebrow}
           </p>
           <h2
-            data-oficio
+            data-reveal-up
             className="font-display text-[clamp(26px,3.6vw,40px)] text-text-primary leading-[1.2] mt-4"
           >
             {titulo}
           </h2>
           <p
-            data-oficio
-            className="type-body text-[15px] leading-[1.9] mt-5 max-w-md"
+            data-reveal-up
+            className="type-body text-[15px] leading-[1.9] mt-5 max-w-xl"
           >
             {texto}
           </p>
 
-          <ul className="mt-9">
+          <ul className="mt-9 max-w-xl">
             {beneficios.map((b, i) => (
               <li
-                data-oficio
+                data-reveal-up
                 key={b.t}
                 className={`group flex items-baseline gap-4 py-3.5 border-b border-border-default cursor-default ${
                   i === 0 ? 'border-t border-border-default' : ''
                 }`}
               >
-                <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 transition-colors duration-300 group-hover:text-accent-mid">
+                <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 transition-colors duration-[var(--dur-base)] group-hover:text-accent-mid">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-300 group-hover:text-text-primary">
+                <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-[var(--dur-base)] group-hover:text-text-primary">
                   {b.t}
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-x-100"
+                    className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-entrance)] group-hover:scale-x-100"
                   />
                 </span>
               </li>
@@ -162,7 +86,7 @@ export default function SeccionOficio({
           </ul>
 
           {cta && (
-            <div data-oficio>
+            <div data-reveal-up>
               <Link href="/contacto" className="btn-primary mt-9 inline-block">
                 {cta}
               </Link>

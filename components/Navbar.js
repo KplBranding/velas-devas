@@ -59,7 +59,7 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 chrome-glass border-b border-border-default">
+    <header className="sticky top-0 z-50 bg-bg-base border-b border-border-default">
       {/* Fila única: logo grande + menú + CTA */}
       <div className="h-[112px] px-5 md:px-8 flex items-center justify-between gap-6">
         {/* Logo grande */}
@@ -166,7 +166,7 @@ export default function Navbar() {
           />
           <nav
             id="menu-movil"
-            className="md:hidden flex flex-col px-5 border-t border-border-default chrome-glass"
+            className="md:hidden flex flex-col px-5 border-t border-border-default bg-bg-base"
           >
             {SUB_LINKS.map((link, i) => {
               const active = isActive(link);

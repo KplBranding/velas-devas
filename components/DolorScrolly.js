@@ -145,7 +145,12 @@ export default function DolorScrolly({
           y: 24,
           duration: 0.7,
           ease: 'power3.out',
-          scrollTrigger: { trigger: it, start: 'top 88%' },
+          // Vinculado al sentido del scroll: entra al bajar, se revierte al subir.
+          scrollTrigger: {
+            trigger: it,
+            start: 'top 88%',
+            toggleActions: 'play none none reverse',
+          },
         });
       });
     }, staticRef);
