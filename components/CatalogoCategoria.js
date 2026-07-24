@@ -197,6 +197,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
             <SeccionOficio
               foto={landing.oficio.foto}
               fotoPos={landing.oficio.fotoPos}
+              fotoColor={landing.oficio.fotoColor}
               eyebrow={landing.oficio.eyebrow}
               titulo={landing.oficio.titulo}
               texto={landing.oficio.texto}

@@ -18,6 +18,7 @@ if (typeof window !== 'undefined') {
 export default function SeccionOficio({
   foto,
   fotoPos,
+  fotoColor = false, // true → muestra la foto a color (sin filtro B&N)
   eyebrow = 'El oficio',
   titulo,
   texto,
@@ -111,7 +112,9 @@ export default function SeccionOficio({
             className="object-cover"
             style={{
               objectPosition: fotoPos || '50% 50%',
-              filter: 'grayscale(100%) contrast(1.06) brightness(0.98)',
+              filter: fotoColor
+                ? 'contrast(1.02)'
+                : 'grayscale(100%) contrast(1.06) brightness(0.98)',
             }}
           />
         </div>
