@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { scheduleRefresh } from '../lib/scrollRefresh';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -43,7 +44,7 @@ export default function ScrollReveal() {
         }),
     });
 
-    ScrollTrigger.refresh();
+    scheduleRefresh();
 
     return () => {
       triggers.forEach((t) => t.kill());

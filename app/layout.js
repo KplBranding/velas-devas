@@ -21,6 +21,15 @@ const lato = Lato({
   variable: '--font-sans',
 });
 
+// viewport-fit=cover expone env(safe-area-inset-*) en iOS (notch / barra de
+// gestos). Sin esto, todo el código de safe-area del sitio resuelve a 0.
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#283028',
+};
+
 export const metadata = {
   metadataBase: new URL('https://velasdevas.cl'),
   title: {

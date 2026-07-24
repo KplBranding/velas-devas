@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { TextPlugin } from 'gsap/TextPlugin';
+import { scheduleRefresh } from '../lib/scrollRefresh';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText, ScrambleTextPlugin, TextPlugin);
@@ -309,18 +310,22 @@ export default function AnimatedText({
       }, el);
     };
 
-    // Esperar a que las fuentes carguen para partir líneas correctamente.
+    // Construimos DE INMEDIATO (sin esperar a document.fonts.ready). next/font
+    // genera un fallback con métricas ajustadas (size-adjust), así que el corte
+    // de líneas es casi idéntico al de la fuente final → no bloqueamos el primer
+    // paint del titular (protege el LCP). El hide por `visibility` dura solo el
+    // split síncrono (sub-frame), no cientos de ms esperando la webfont.
     let cancelled = false;
-    const run = () => {
-      if (cancelled) return;
-      build();
-      el.style.visibility = '';
-      ScrollTrigger.refresh();
-    };
+    build();
+    el.style.visibility = '';
+    scheduleRefresh();
+
+    // Cuando la webfont termina de cargar, recalculamos posiciones de los
+    // triggers por si el swap cambió alturas (sin re-ocultar ni re-animar).
     if (document.fonts && document.fonts.status !== 'loaded') {
-      document.fonts.ready.then(run);
-    } else {
-      run();
+      document.fonts.ready.then(() => {
+        if (!cancelled) scheduleRefresh();
+      });
     }
 
     return () => {

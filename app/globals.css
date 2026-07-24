@@ -131,6 +131,15 @@
   --ease-out:      cubic-bezier(0.23, 1, 0.32, 1);      /* entrada, feedback */
   --ease-in-out:   cubic-bezier(0.77, 0, 0.175, 1);     /* movimiento en pantalla */
   --ease-drawer:   cubic-bezier(0.32, 0.72, 0, 1);      /* paneles estilo iOS */
+
+  /* Alias semánticos por rol (mismos valores; nombres que documentan la intención) */
+  --ease-entrance: var(--ease-out);                     /* entradas y UI */
+  --ease-move:     var(--ease-in-out);                  /* movimiento sostenido / pin */
+
+  /* Duraciones — 3 pasos. Regla: nada de valores arbitrarios fuera de esta escala. */
+  --dur-fast:      0.2s;    /* hover, toggles, feedback táctil */
+  --dur-base:      0.4s;    /* color, subrayados, chevrons, cards */
+  --dur-slow:      0.8s;    /* entradas por scroll */
 }
 
 @layer base {
@@ -517,6 +526,17 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
+}
+
+/* iOS hace auto-zoom al enfocar un campo con font-size < 16px. En móvil forzamos
+   16px en todos los controles para evitar ese zoom (y el descuadre del layout,
+   especialmente en el drawer fijo). En desktop se respeta el tamaño de diseño. */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
