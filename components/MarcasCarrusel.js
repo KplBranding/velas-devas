@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { MARCAS } from '../lib/contenido';
+import AnimatedText from './AnimatedText';
 
 // Título del carrusel según el rubro.
 const TITULOS = {
@@ -72,10 +73,16 @@ export default function MarcasCarrusel({ categoria }) {
       onMouseLeave={() => (hoverRef.current = false)}
     >
       <div className="max-w-6xl mx-auto px-5 md:px-8">
-        <p className="type-eyebrow eyebrow-rule">Confían en nosotros</p>
-        <h2 className="type-section text-[clamp(22px,3vw,32px)] mt-3 mb-10">
+        <p className="type-eyebrow eyebrow-rule" data-reveal-up>
+          Confían en nosotros
+        </p>
+        <AnimatedText
+          as="h2"
+          animation="maskReveal"
+          className="type-section text-[clamp(22px,3vw,32px)] mt-3 mb-10"
+        >
           {titulo}
-        </h2>
+        </AnimatedText>
       </div>
 
       {/* Pista con desvanecido en los bordes */}

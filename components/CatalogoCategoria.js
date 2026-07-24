@@ -115,12 +115,16 @@ export default function CatalogoCategoria({ categoria, productos }) {
           <p className="type-eyebrow-light eyebrow-rule reveal">
             {categoria.eyebrow}
           </p>
-          <h1 className="font-display text-[#F5F5EE] text-[clamp(40px,7vw,72px)] font-normal mt-4 leading-[0.98] reveal reveal-delay-1">
+          <AnimatedText
+            as="h1"
+            animation="maskReveal"
+            className="font-display text-[#F5F5EE] text-[clamp(40px,7vw,72px)] font-normal mt-4 leading-[0.98]"
+          >
             {categoria.nombre}
             <sup className="text-[0.32em] text-[#C8D0A8] ml-2 align-top font-sans font-bold tracking-normal">
               {categoria.superindice}
             </sup>
-          </h1>
+          </AnimatedText>
           {categoria.heroLead && (
             <p className="reveal reveal-delay-2 mt-4 max-w-lg font-sans text-[#EDEFE6] text-[clamp(15px,2vw,19px)] leading-snug">
               {categoria.heroLead}
