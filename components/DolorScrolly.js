@@ -33,6 +33,7 @@ export default function DolorScrolly({
   const [statico, setStatico] = useState(false);
   const [hover, setHover] = useState(false);
   const rectRef = useRef(null);
+  const staticRef = useRef(null);
 
   // Cacheamos el rect (la sección es sticky top-0, estable mientras se hace
   // hover) para NO leer layout en cada mousemove del glow.
@@ -126,6 +127,31 @@ export default function DolorScrolly({
     return () => ctx.revert();
   }, []);
 
+  // Versión estática (móvil): revelado de entrada al hacer scroll — título,
+  // bajada y conceptos suben con fade escalonado (como "Nuestro proceso"),
+  // en vez de aparecer planos. Se monta cuando `statico` ya renderizó.
+  useEffect(() => {
+    if (!statico) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const el = staticRef.current;
+    if (!el) return;
+    const items = el.querySelectorAll('[data-reveal]');
+    const ctx = gsap.context(() => {
+      // Trigger por elemento: cada uno aparece justo al entrar en viewport
+      // (la sección es alta; un único trigger revelaría los de abajo sin verse).
+      items.forEach((it) => {
+        gsap.from(it, {
+          opacity: 0,
+          y: 24,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: it, start: 'top 88%' },
+        });
+      });
+    }, staticRef);
+    return () => ctx.revert();
+  }, [statico]);
+
   const GLOW =
     'radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(242, 221, 166, 0.16), rgba(242, 221, 166, 0.05) 30%, transparent 62%)';
 
@@ -145,17 +171,26 @@ export default function DolorScrolly({
   // ── Versión estática (móvil + reduce-motion): sin pin, en flujo normal ──
   if (statico) {
     return (
-      <section className="relative bg-[#FCFCFB] grain border-b border-black/40">
+      <section
+        ref={staticRef}
+        className="relative bg-[#FCFCFB] grain border-b border-black/40"
+      >
         <div className="max-w-3xl mx-auto px-6 py-24 md:py-32 text-center">
-          <h2 className="font-display text-text-primary text-[clamp(30px,5.8vw,68px)] leading-[1.08] tracking-[-0.01em]">
+          <h2
+            data-reveal
+            className="font-display text-text-primary text-[clamp(30px,5.8vw,68px)] leading-[1.08] tracking-[-0.01em]"
+          >
             {lineas.join(' ')}
           </h2>
-          <p className="text-text-body text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto">
+          <p
+            data-reveal
+            className="text-text-body text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto"
+          >
             {parrafo}
           </p>
           <ul className={`mt-12 flex flex-col items-center ${bulletsGap}`}>
             {bullets.map((b, i) => (
-              <li key={i}>
+              <li key={i} data-reveal>
                 <span className={bulletInner}>
                   <Marca />
                   <span className="font-display text-text-primary text-[clamp(20px,3vw,30px)]">

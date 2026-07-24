@@ -150,6 +150,10 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Evita el arrastre lateral en móvil (el dedo desplaza el sitio de lado).
+       `clip` recorta el overflow horizontal SIN convertir el body en contenedor
+       de scroll, así no rompe los position:sticky (navbar, scrollytelling). */
+    overflow-x: clip;
   }
 }
 

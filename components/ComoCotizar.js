@@ -41,20 +41,13 @@ export default function ComoCotizar() {
         </span>
       </div>
 
-      <ol className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
+      <ol className="flex flex-wrap items-center gap-x-5 gap-y-2">
         {PASOS.map((p, i) => (
-          <li key={i} className="flex items-center gap-2.5">
-            <span className="flex items-center gap-2 font-sans text-[13px] md:text-[13.5px] text-text-body">
-              <span className="w-[18px] h-[18px] shrink-0 rounded-full bg-graphite text-bg-base text-[10px] font-bold flex items-center justify-center">
-                {i + 1}
-              </span>
-              {p}
+          <li key={i} className="flex items-center gap-2 font-sans text-[13px] md:text-[13.5px] text-text-body">
+            <span className="w-[18px] h-[18px] shrink-0 rounded-full bg-graphite text-bg-base text-[10px] font-bold flex items-center justify-center">
+              {i + 1}
             </span>
-            {i < PASOS.length - 1 && (
-              <span aria-hidden className="text-accent-mid/50">
-                →
-              </span>
-            )}
+            {p}
           </li>
         ))}
       </ol>

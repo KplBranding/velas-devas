@@ -120,14 +120,14 @@ export default function CotizadorDrawer() {
               </div>
               <button
                 onClick={cerrar}
-                aria-label="Cerrar"
-                className="w-11 h-11 -mr-2 flex items-center justify-center text-text-muted hover:text-text-primary press"
+                aria-label="Cerrar y seguir comprando"
+                className="w-11 h-11 -mr-1.5 flex items-center justify-center rounded-full border border-border-default text-text-body hover:text-text-primary hover:bg-bg-base transition-colors press"
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
-                    d="M3 3l10 10M13 3L3 13"
+                    d="M4 4l12 12M16 4L4 16"
                     stroke="currentColor"
-                    strokeWidth="1.5"
+                    strokeWidth="1.6"
                     strokeLinecap="round"
                   />
                 </svg>
