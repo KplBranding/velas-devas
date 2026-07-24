@@ -72,6 +72,39 @@ export default function CatalogoCategoria({ categoria, productos }) {
     });
   }, [productos, orden]);
 
+  // Scroll suave y controlado hacia el catálogo (más sutil que el smooth nativo,
+  // que además choca con las secciones pinned). Easing propio + duración según
+  // distancia. Aplica igual en móvil y escritorio.
+  const irACatalogo = (e) => {
+    e.preventDefault();
+    const destino = document.getElementById('catalogo');
+    if (!destino) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const startY = window.scrollY;
+    const targetY = destino.getBoundingClientRect().top + startY - 112; // navbar
+    const dist = targetY - startY;
+    if (reduce || dist === 0) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+    // Desactiva el smooth nativo del CSS durante la animación (evita doble suavizado).
+    const html = document.documentElement;
+    const prevBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+    const dur = Math.min(1700, Math.max(800, Math.abs(dist) * 0.42));
+    const easeInOut = (t) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    let startT = null;
+    const step = (now) => {
+      if (startT === null) startT = now;
+      const p = Math.min(1, (now - startT) / dur);
+      window.scrollTo(0, startY + dist * easeInOut(p));
+      if (p < 1) requestAnimationFrame(step);
+      else html.style.scrollBehavior = prevBehavior;
+    };
+    requestAnimationFrame(step);
+  };
+
   return (
     <section>
       {/* ── Hero fotográfico full-width ── */}
@@ -133,9 +166,14 @@ export default function CatalogoCategoria({ categoria, productos }) {
 
           {landing && (
             <div className="reveal reveal-delay-3 mt-7 flex flex-wrap gap-3">
-              <Link href="#catalogo" className="btn-light">
+              <a
+                href="#catalogo"
+                onClick={irACatalogo}
+                className="btn-light"
+                style={{ textShadow: 'none' }}
+              >
                 Ver catálogo
-              </Link>
+              </a>
               <Link
                 href="/contacto"
                 className="inline-block font-sans text-[12px] font-bold uppercase tracking-[0.06em] text-[#F5F5EE] border border-[#F5F5EE]/60 rounded px-6 py-[13px] hover:bg-[#F5F5EE]/12 transition-colors press"
