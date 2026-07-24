@@ -13,6 +13,7 @@ import ProductCard from './ProductCard';
 import AnimatedText from './AnimatedText';
 import ComoCotizar from './ComoCotizar';
 import LeyendaColores from './LeyendaColores';
+import DescargarCatalogo from './DescargarCatalogo';
 import SubNav from './SubNav';
 import DolorScrolly from './DolorScrolly';
 import PausaFotografica from './PausaFotografica';
@@ -316,9 +317,10 @@ export default function CatalogoCategoria({ categoria, productos }) {
               </label>
             </div>
 
-            {hayGrupos && (
-              <LeyendaColores className="hidden md:flex shrink-0" />
-            )}
+            <div className="flex items-center gap-4 shrink-0">
+              {hayGrupos && <LeyendaColores className="hidden md:flex" />}
+              <DescargarCatalogo />
+            </div>
           </div>
         </div>
 
