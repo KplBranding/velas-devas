@@ -112,7 +112,7 @@ export default function Entrada() {
                 priority={i === 0}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectPosition: cat.panelPos || '50% 50%' }}
-                className={`object-cover transition-all duration-[900ms] ease-out ${
+                className={`object-cover transition-[transform,opacity] duration-[900ms] ease-out ${
                   abierto ? 'scale-105 opacity-95' : 'scale-100 opacity-70'
                 } ${atenuado ? 'opacity-40' : ''}`}
               />

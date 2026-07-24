@@ -54,10 +54,30 @@ export default function MarcasCarrusel({ categoria }) {
       track.style.transform = `translate3d(${pos}px,0,0)`;
       raf = requestAnimationFrame(step);
     };
-    raf = requestAnimationFrame(step);
+
+    // Solo animamos mientras el carrusel está en viewport: fuera de pantalla el
+    // rAF se detiene (no gasta frames de scroll en algo invisible).
+    let visible = false;
+    const start = () => {
+      if (visible) return;
+      visible = true;
+      last = null; // evita un salto por el dt acumulado tras la pausa
+      raf = requestAnimationFrame(step);
+    };
+    const stop = () => {
+      visible = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    };
+    const io = new IntersectionObserver(
+      ([e]) => (e.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    );
+    io.observe(track);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      io.disconnect();
       ro.disconnect();
     };
   }, [categoria]);

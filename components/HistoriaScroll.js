@@ -17,32 +17,37 @@ export default function HistoriaScroll({ video, poster, beats }) {
   const targetRef = useRef(0);
   const smoothRef = useRef(0);
   const durationRef = useRef(0);
-  const [p, setP] = useState(0); // progreso "crudo" para beats + barra
 
-  // Progreso de scroll → target
+  // Progreso de scroll → target del video.
+  // Cacheamos posición/altura de la sección y en cada frame de scroll SOLO
+  // leemos window.scrollY (cero lecturas de layout por frame → sin forced
+  // reflow). El video se mueve por ref, sin re-render de React por frame.
   useEffect(() => {
     let raf = 0;
+    let top = 0;
+    let total = 1;
+    const measure = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      top = el.getBoundingClientRect().top + window.scrollY;
+      total = Math.max(el.offsetHeight - window.innerHeight, 1);
+    };
     const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        const el = sectionRef.current;
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
-        const prog = total > 0 ? scrolled / total : 0;
-        targetRef.current = prog;
-        setP((prev) => (Math.abs(prev - prog) > 0.004 ? prog : prev));
+        const scrolled = Math.min(Math.max(window.scrollY - top, 0), total);
+        targetRef.current = scrolled / total;
       });
     };
+    measure();
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', measure);
     return () => {
       if (raf) cancelAnimationFrame(raf);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
+      window.removeEventListener('resize', measure);
     };
   }, []);
 
@@ -109,8 +114,6 @@ export default function HistoriaScroll({ video, poster, beats }) {
     };
   }, []);
 
-  const activeBeat = Math.min(beats.length - 1, Math.floor(p * beats.length + 0.0001));
-
   return (
     <section ref={sectionRef} className="relative bg-bg-hero">
       <div className="grid md:grid-cols-2">
@@ -118,7 +121,7 @@ export default function HistoriaScroll({ video, poster, beats }) {
         <div className="order-2 md:order-1 px-5 md:pl-8 lg:pl-16 md:pr-14">
           <div className="max-w-xl py-14 md:py-[16vh]">
             {beats.map((b, i) => (
-              <Beat key={i} beat={b} index={i} active={i === activeBeat} />
+              <Beat key={i} beat={b} index={i} />
             ))}
           </div>
         </div>
@@ -161,19 +164,31 @@ export default function HistoriaScroll({ video, poster, beats }) {
   );
 }
 
-function Beat({ beat, index, active }) {
+function Beat({ beat, index }) {
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(
+    // Revelado una sola vez al entrar.
+    const ioSeen = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && setSeen(true),
       { threshold: 0.4, rootMargin: '-10% 0px' }
     );
-    io.observe(el);
-    return () => io.disconnect();
+    // "Activo" = el beat cruza la banda central del viewport → resalta el kicker
+    // en dorado. Sustituye al progreso de scroll en estado React por frame.
+    const ioActive = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0, rootMargin: '-45% 0px -45% 0px' }
+    );
+    ioSeen.observe(el);
+    ioActive.observe(el);
+    return () => {
+      ioSeen.disconnect();
+      ioActive.disconnect();
+    };
   }, []);
 
   return (

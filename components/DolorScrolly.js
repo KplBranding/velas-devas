@@ -32,11 +32,22 @@ export default function DolorScrolly({
   const underlineRef = useRef(null);
   const [reduce, setReduce] = useState(false);
   const [hover, setHover] = useState(false);
+  const rectRef = useRef(null);
 
+  // Cacheamos el rect (la sección es sticky top-0, estable mientras se hace
+  // hover) para NO leer layout en cada mousemove del glow.
+  const cacheRect = () => {
+    const el = secRef.current;
+    if (el) rectRef.current = el.getBoundingClientRect();
+  };
+  const onEnter = () => {
+    cacheRect();
+    setHover(true);
+  };
   const onMove = (e) => {
     const el = secRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
+    const r = rectRef.current;
+    if (!el || !r) return;
     el.style.setProperty('--mx', `${e.clientX - r.left}px`);
     el.style.setProperty('--my', `${e.clientY - r.top}px`);
   };
@@ -158,7 +169,7 @@ export default function DolorScrolly({
     <section
       ref={secRef}
       onMouseMove={onMove}
-      onMouseEnter={() => setHover(true)}
+      onMouseEnter={onEnter}
       onMouseLeave={() => setHover(false)}
       className="sticky top-0 h-screen overflow-hidden bg-[#FCFCFB] grain z-0"
     >
