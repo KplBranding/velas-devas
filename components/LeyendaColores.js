@@ -16,7 +16,7 @@ export default function LeyendaColores({ className = '' }) {
         <span
           aria-hidden
           className="w-4 h-4 rounded-full border border-border-default"
-          style={{ background: 'linear-gradient(180deg,#F3D3A8,#EFB466)' }}
+          style={{ background: '#EDE4CB' }}
         />
         <span className="text-[13px] text-text-body leading-none">Marfil</span>
       </span>

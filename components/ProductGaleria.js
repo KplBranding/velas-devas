@@ -25,7 +25,7 @@ export default function ProductGaleria({ imagenes, alt }) {
 
   return (
     <div
-      className="group/gal relative aspect-[4/5] overflow-hidden rounded-[3px] bg-[#F3EFEA] select-none touch-pan-y"
+      className="group/gal relative aspect-[4/5] overflow-hidden rounded-[3px] bg-[#F3EFEA] select-none touch-pan-y transition-shadow duration-[var(--dur-slow)] group-hover:shadow-lift"
       onPointerDown={onDown}
       onPointerUp={onUp}
     >
@@ -37,7 +37,7 @@ export default function ProductGaleria({ imagenes, alt }) {
           fill
           draggable={false}
           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className={`object-cover transition-opacity duration-500 ease-[var(--ease-entrance)] ${
+          className={`object-cover transition-[opacity,transform] duration-[600ms] ease-[var(--ease-entrance)] md:group-hover:scale-[1.03] ${
             idx === i ? 'opacity-100' : 'opacity-0'
           }`}
         />

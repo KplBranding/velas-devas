@@ -1,12 +1,14 @@
-// Banda destacada con ícono de carrito + los 4 pasos para cotizar.
+// Banda destacada con ícono de bolsa (misma metáfora que el navbar) + los 4
+// pasos para cotizar.
 const PASOS = [
   'Revisa el catálogo',
   'Selecciona formato y cantidad',
-  'Agrégalo al carro',
-  'Envía tu cotización',
+  'Agrégalo a la cotización',
+  'Envía tu solicitud',
 ];
 
-function IconoCarrito() {
+// Bolsa — mismo pictograma y trazo (1.5) que el navbar, para un solo lenguaje.
+function IconoBolsa() {
   return (
     <svg
       width="22"
@@ -14,14 +16,14 @@ function IconoCarrito() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.6"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
     >
-      <circle cx="9" cy="21" r="1" />
-      <circle cx="20" cy="21" r="1" />
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+      <path d="M3 6h18" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
     </svg>
   );
 }
@@ -33,7 +35,7 @@ export default function ComoCotizar() {
       className="mt-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-7 bg-bg-hero border border-border-default rounded-[8px] px-5 md:px-7 py-4 md:py-5"
     >
       <div className="flex items-center gap-3 shrink-0 text-gold">
-        <IconoCarrito />
+        <IconoBolsa />
         <span className="font-sans text-[12px] font-bold uppercase tracking-[0.1em] text-text-primary">
           Cómo cotizar
         </span>
