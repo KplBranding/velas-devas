@@ -5,9 +5,9 @@ import HistoriaScroll from '../../../components/HistoriaScroll';
 import AnimatedText from '../../../components/AnimatedText';
 
 export const metadata = {
-  title: 'Nosotros — Más de 25 años fabricando velas',
+  title: 'Nosotros — Más de 30 años fabricando confianza',
   description:
-    'Desde el año 2000, Velas Devas fabrica velas para los mercados más exigentes de Chile: banquetería, iglesias y funerarias.',
+    'Más de 30 años fabricando velas para banqueterías, funerarias, parroquias, distribuidores y empresas de todo Chile. Calidad, consistencia y fabricación nacional.',
 };
 
 const CIFRAS = [
@@ -19,22 +19,22 @@ const CIFRAS = [
 // Relato editorial que acompaña a la vela mientras rota al hacer scroll.
 const BEATS = [
   {
-    kicker: 'El origen',
-    titulo: 'Un oficio de familia',
+    kicker: 'Nuestra historia',
+    titulo: 'Un oficio construido con experiencia.',
     texto:
-      'Desde el año 2000 fabricamos velas para los rubros más exigentes de Chile. Lo que empezó como un taller familiar hoy abastece a empresas de banquetería, parroquias y funerarias de todo el país.',
+      'Durante más de tres décadas hemos acompañado a banqueterías, funerarias, parroquias, distribuidores y empresas de todo Chile, desarrollando productos que combinan calidad, consistencia y fabricación nacional.',
   },
   {
-    kicker: 'El estándar',
-    titulo: 'Sin atajos',
+    kicker: 'Nuestra forma de trabajar',
+    titulo: 'Cada detalle importa.',
     texto:
-      'Más de 100 formatos, todos en blanco e marfil. Cada vela se fabrica con la misma receta de siempre: cera de calidad, mecha pareja y una combustión limpia que se nota al encenderla.',
+      'Seleccionamos cuidadosamente nuestras materias primas, controlamos cada etapa del proceso y cuidamos cada terminación para entregar productos de calidad constante y un servicio en el que nuestros clientes pueden confiar.',
   },
   {
-    kicker: 'El compromiso',
-    titulo: 'Pensado para mayoristas',
+    kicker: 'Nuestro compromiso',
+    titulo: 'Más que un proveedor.',
     texto:
-      'Trabajamos exclusivamente con clientes mayoristas. Stock permanente para lo habitual, fabricación a pedido para lo especial y despacho a todo Chile: para que nunca te quedes sin velas.',
+      'Sabemos que nuestros productos acompañan momentos importantes. Por eso trabajamos con responsabilidad, cumplimiento y un compromiso permanente con quienes confían en nosotros.',
   },
 ];
 
@@ -42,7 +42,7 @@ export default function NosotrosPage() {
   return (
     <>
       {/* ── Hero fotográfico ── */}
-      <section className="relative h-[380px] md:h-[480px] flex items-end overflow-hidden grain">
+      <section className="relative h-[440px] md:h-[540px] flex items-end overflow-hidden grain">
         <Image
           src={IMAGENES.banqueteria}
           alt="Velas artesanales Velas Devas"
@@ -59,12 +59,17 @@ export default function NosotrosPage() {
           <AnimatedText
             as="h1"
             animation="maskReveal"
-            className="font-display text-[#F5F5EE] text-[clamp(38px,6.5vw,68px)] font-normal mt-4 leading-[1.0]"
+            className="font-display text-[#F5F5EE] text-[clamp(36px,6.2vw,64px)] font-normal mt-4 leading-[1.02]"
           >
-            Más de 25 años
+            Más de 30 años
             <br />
-            <span className="italic text-[#C8D0A8]">fabricando velas</span>
+            <span className="italic text-[#C8D0A8]">fabricando confianza.</span>
           </AnimatedText>
+          <p className="reveal reveal-delay-2 mt-5 max-w-xl font-sans text-[#EDEFE6] text-[15px] md:text-[17px] leading-[1.6]">
+            No solo fabricamos velas. Fabricamos la tranquilidad de contar con un
+            proveedor que responde con calidad, compromiso y experiencia en cada
+            pedido.
+          </p>
         </div>
       </section>
 
@@ -103,17 +108,25 @@ export default function NosotrosPage() {
         <div className="absolute inset-0 veil-full" />
         <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
           <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
-            Cotizaciones mayoristas
+            Trabajemos juntos
           </p>
           <AnimatedText
             as="h2"
             animation="maskReveal"
-            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5 mb-8"
+            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5"
           >
-            Aseguremos tu abastecimiento
+            La confianza se construye con el tiempo.
           </AnimatedText>
+          <p
+            data-reveal-up
+            className="font-sans text-[#EDEFE6] text-[15px] md:text-[16px] leading-[1.7] max-w-xl mx-auto mt-5 mb-8"
+          >
+            Más de 30 años de experiencia, productos de calidad y un equipo
+            comprometido nos permiten seguir siendo el proveedor de confianza de
+            cientos de clientes en todo Chile.
+          </p>
           <Link href="/contacto" className="btn-light" data-reveal-up>
-            Solicitar cotización
+            Conversemos sobre tu próximo proyecto
           </Link>
         </div>
       </section>
