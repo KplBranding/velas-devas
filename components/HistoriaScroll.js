@@ -1,6 +1,13 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { scheduleRefresh } from '../lib/scrollRefresh';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 /**
  * Scrollytelling editorial con SCROLL-SCRUBBING de video.
@@ -119,7 +126,7 @@ export default function HistoriaScroll({ video, poster, beats }) {
       <div className="grid md:grid-cols-2">
         {/* Columna narrativa (izquierda) */}
         <div className="order-2 md:order-1 px-5 md:pl-8 lg:pl-16 md:pr-14">
-          <div className="max-w-xl py-14 md:py-[16vh]">
+          <div className="max-w-xl py-12 md:py-[11vh]">
             {beats.map((b, i) => (
               <Beat key={i} beat={b} index={i} />
             ))}
@@ -166,39 +173,57 @@ export default function HistoriaScroll({ video, poster, beats }) {
 
 function Beat({ beat, index }) {
   const ref = useRef(null);
-  const [seen, setSeen] = useState(false);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // Revelado una sola vez al entrar.
-    const ioSeen = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting && setSeen(true),
-      { threshold: 0.4, rootMargin: '-10% 0px' }
-    );
+
     // "Activo" = el beat cruza la banda central del viewport → resalta el kicker
-    // en dorado. Sustituye al progreso de scroll en estado React por frame.
+    // en dorado (liga la narrativa con el fotograma del video).
     const ioActive = new IntersectionObserver(
       ([entry]) => setActive(entry.isIntersecting),
       { threshold: 0, rootMargin: '-45% 0px -45% 0px' }
     );
-    ioSeen.observe(el);
     ioActive.observe(el);
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return () => ioActive.disconnect();
+    }
+
+    // Revelado escalonado (kicker → título → párrafo), disparado cuando el
+    // bloque alcanza ~62% del viewport (centrado, no al top). Reversible al
+    // subir. Solo transform + opacity (autoAlpha) → 60 FPS, sin reflow.
+    const items = el.querySelectorAll('[data-b]');
+    const ctx = gsap.context(() => {
+      gsap.from(items, {
+        autoAlpha: 0,
+        y: 34,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: 0.14,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 62%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }, ref);
+    scheduleRefresh();
+
     return () => {
-      ioSeen.disconnect();
       ioActive.disconnect();
+      ctx.revert();
     };
   }, []);
 
   return (
     <div
       ref={ref}
-      className={`min-h-[62vh] md:min-h-[70vh] flex flex-col justify-center transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-        seen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
+      className="min-h-[52vh] md:min-h-[60vh] flex flex-col justify-center"
     >
       <span
+        data-b
         className={`font-sans text-[11px] font-bold tracking-[0.2em] transition-colors duration-500 ${
           active ? 'text-gold' : 'text-text-muted'
         }`}
@@ -206,11 +231,11 @@ function Beat({ beat, index }) {
         {String(index + 1).padStart(2, '0')} — {beat.kicker}
       </span>
       {beat.titulo && (
-        <h3 className="type-section text-[clamp(26px,3.4vw,40px)] mt-4">
+        <h3 data-b className="type-section text-[clamp(26px,3.4vw,40px)] mt-4">
           {beat.titulo}
         </h3>
       )}
-      <p className="type-body text-[15px] leading-[1.95] mt-5 max-w-md">
+      <p data-b className="type-body text-[15px] leading-[1.95] mt-5 max-w-md">
         {beat.texto}
       </p>
     </div>
