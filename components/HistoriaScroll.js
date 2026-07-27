@@ -24,6 +24,7 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
   const targetRef = useRef(0);
   const smoothRef = useRef(0);
   const durationRef = useRef(0);
+  const scrubEndRef = useRef(null);
 
   // Progreso de scroll → target del video.
   // Cacheamos posición/altura de la sección y en cada frame de scroll SOLO
@@ -37,7 +38,17 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
       const el = sectionRef.current;
       if (!el) return;
       top = el.getBoundingClientRect().top + window.scrollY;
-      total = Math.max(el.offsetHeight - window.innerHeight, 1);
+      // El scrub del video se COMPLETA cuando el último concepto llega al centro
+      // (marcador tras los beats), no al final de la sección. Así el video
+      // termina antes, se queda en su fotograma final (pausa) y luego sube el
+      // banner. Sin marcador (o móvil) cae al comportamiento anterior.
+      const mk = scrubEndRef.current;
+      if (mk && mk.offsetParent !== null) {
+        const mkTop = mk.getBoundingClientRect().top + window.scrollY;
+        total = Math.max(mkTop - top - window.innerHeight * 0.62, 1);
+      } else {
+        total = Math.max(el.offsetHeight - window.innerHeight, 1);
+      }
     };
     const onScroll = () => {
       if (raf) return;
@@ -128,11 +139,18 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
         <div className="order-2 md:order-1 px-5 md:pl-8 lg:pl-16 md:pr-14">
           <div className="max-w-xl py-12 md:py-[11vh]">
             {beats.map((b, i) => (
-              <Beat key={i} beat={b} index={i} />
+              <Beat
+                key={i}
+                beat={b}
+                index={i}
+                isLast={i === beats.length - 1}
+              />
             ))}
-            {/* Espacio final (desktop): mantiene el video fijo y le da recorrido
-               al último concepto para centrarse y al banner para subir y taparlo. */}
-            {children && <div aria-hidden className="hidden md:block h-[100vh]" />}
+            {/* Marcador: aquí termina el scrub del video (último concepto centrado) */}
+            <div ref={scrubEndRef} aria-hidden className="h-px" />
+            {/* Pausa (desktop): el video se queda en su fotograma final y el
+               último concepto sigue visible, antes de que suba el banner. */}
+            {children && <div aria-hidden className="hidden md:block h-[55vh]" />}
           </div>
         </div>
 
@@ -173,17 +191,14 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
         </div>
       </div>
 
-      {/* Cierre (banner): en desktop SUBE por encima del video sticky y lo
-         tapa (z alto + margen negativo que solapa el espacio final). En móvil,
-         flujo normal después de los conceptos. */}
-      {children && (
-        <div className="relative z-20 md:-mt-[100vh]">{children}</div>
-      )}
+      {/* Cierre (banner): sube desde abajo en flujo normal (SIN solapamiento),
+         luego de la pausa del video en su fotograma final. */}
+      {children && <div className="relative z-20">{children}</div>}
     </section>
   );
 }
 
-function Beat({ beat, index }) {
+function Beat({ beat, index, isLast }) {
   const ref = useRef(null);
   const [active, setActive] = useState(false);
 
@@ -222,17 +237,20 @@ function Beat({ beat, index }) {
       });
       // SALIDA: el bloque se desvanece y sube al llegar al tercio superior —
       // mucho antes de alcanzar el giro/menú. Reversible al bajar.
-      gsap.to(el, {
-        autoAlpha: 0,
-        y: -28,
-        duration: 0.7,
-        ease: 'power2.in',
-        scrollTrigger: {
-          trigger: el,
-          start: 'center 42%',
-          toggleActions: 'play none none reverse',
-        },
-      });
+      // El ÚLTIMO concepto NO sale: se queda visible durante la pausa del video.
+      if (!isLast) {
+        gsap.to(el, {
+          autoAlpha: 0,
+          y: -28,
+          duration: 0.7,
+          ease: 'power2.in',
+          scrollTrigger: {
+            trigger: el,
+            start: 'center 42%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
     }, ref);
     scheduleRefresh();
 
