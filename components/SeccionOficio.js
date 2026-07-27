@@ -43,8 +43,11 @@ export default function SeccionOficio({
         <div className="pointer-events-none absolute inset-0 veil-bottom opacity-40" />
       </div>
 
-      {/* Panel de texto: sube por encima de la foto (fondo sólido → la tapa) */}
-      <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-center">
+      {/* Panel de texto: sube por encima de la foto (fondo sólido → la tapa).
+          Alineado abajo: el contenido termina cerca del final del panel, así el
+          botón queda pegado a la wincha (sin el hueco del centrado). El panel
+          conserva min-h-100svh para cubrir por completo la imagen. */}
+      <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-end">
         <div className="max-w-3xl mx-auto w-full px-5 md:px-8 py-16 md:py-20">
           <p data-reveal-up className="type-eyebrow eyebrow-rule">
             {eyebrow}
