@@ -22,7 +22,7 @@ export default function Entrada() {
   return (
     <main className="relative md:h-[100svh] w-full md:overflow-hidden bg-black-graphic grain">
       {/* Nav absoluto — logo centrado, botón Contacto a la derecha */}
-      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-5 md:px-10 h-[84px] md:h-[124px]">
+      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-5 md:px-10 h-[96px] md:h-[124px]">
         {/* Logo centrado */}
         <Link
           href="/"
@@ -35,7 +35,7 @@ export default function Entrada() {
             width={996}
             height={627}
             priority
-            className="h-14 md:h-20 lg:h-24 w-auto object-contain"
+            className="h-[76px] md:h-20 lg:h-24 w-auto object-contain"
           />
         </Link>
 
@@ -197,7 +197,7 @@ export default function Entrada() {
       {/* ===== MÓVIL: propuesta de valor + categorías ===== */}
       <div className="md:hidden relative">
         {/* Hero compacto: primero QUIÉNES somos y POR QUÉ elegirnos, luego invita */}
-        <section className="relative px-6 pt-[92px] pb-6 text-center overflow-hidden">
+        <section className="relative px-6 pt-[104px] pb-6 text-center overflow-hidden">
           <div className="warm-glow pointer-events-none absolute inset-0" />
           <div className="relative reveal">
             <p className="type-eyebrow-light eyebrow-rule mx-auto">
