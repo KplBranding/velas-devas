@@ -6,13 +6,21 @@ import { useState } from 'react';
 import { CATEGORIAS_LISTA } from '../lib/categorias';
 import AnimatedText from '../components/AnimatedText';
 
+// Copy de categorías específico para la Home móvil: descripciones que conectan
+// con la necesidad del cliente (no genéricas). No toca la data compartida.
+const COPY_MOVIL = {
+  banqueteria: 'Velas a la altura de tus matrimonios, eventos y banquetes.',
+  religiosas: 'Cirios y velones para parroquias y comunidades religiosas.',
+  funerarias: 'Velas de uso profesional para funerarias y velatorios.',
+};
+
 export default function Entrada() {
   const [activo, setActivo] = useState(null);
 
   return (
     <main className="relative md:h-[100svh] w-full md:overflow-hidden bg-black-graphic grain">
       {/* Nav absoluto — logo centrado, botón Contacto a la derecha */}
-      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-6 md:px-10 h-[124px]">
+      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-5 md:px-10 h-[84px] md:h-[124px]">
         {/* Logo centrado */}
         <Link
           href="/"
@@ -25,7 +33,7 @@ export default function Entrada() {
             width={996}
             height={627}
             priority
-            className="h-20 lg:h-24 w-auto object-contain"
+            className="h-12 md:h-20 lg:h-24 w-auto object-contain"
           />
         </Link>
 
@@ -34,9 +42,9 @@ export default function Entrada() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contacto por WhatsApp — Hablemos"
-          className="group ml-auto relative overflow-hidden rounded-[3px] px-5 py-2.5 press bg-transparent border border-[#F5F5EE]/45 hover:border-[#F5F5EE] hover:bg-[#F5F5EE]/[0.08] transition-colors duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
+          className="group ml-auto relative overflow-hidden rounded-[3px] px-1.5 py-1.5 md:px-5 md:py-2.5 press bg-transparent border-0 md:border border-[#F5F5EE]/45 hover:border-[#F5F5EE] md:hover:bg-[#F5F5EE]/[0.08] transition-colors duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
         >
-          <span className="grid font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#F5F5EE]">
+          <span className="grid font-sans text-[10px] md:text-[11px] font-medium md:font-bold uppercase tracking-[0.14em] md:tracking-[0.08em] text-[#F5F5EE]/70 md:text-[#F5F5EE]">
             {/* Estado por defecto: CONTACTO */}
             <span className="[grid-area:1/1] flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:opacity-0 group-hover:-translate-y-2">
               Contacto
@@ -183,29 +191,32 @@ export default function Entrada() {
         })}
       </div>
 
-      {/* ===== MÓVIL: intro + categorías como tarjetas apiladas ===== */}
+      {/* ===== MÓVIL: propuesta de valor + categorías ===== */}
       <div className="md:hidden relative">
-        {/* Intro */}
-        <section className="relative px-6 pt-[128px] pb-8 text-center overflow-hidden">
+        {/* Hero compacto: primero QUIÉNES somos y POR QUÉ elegirnos, luego invita */}
+        <section className="relative px-6 pt-[98px] pb-6 text-center overflow-hidden">
           <div className="warm-glow pointer-events-none absolute inset-0" />
-          <div className="relative">
+          <div className="relative reveal">
             <p className="type-eyebrow-light eyebrow-rule mx-auto">
-              Fabricantes mayoristas · Desde 2000
+              Fabricación nacional · +30 años
             </p>
-            <h1 className="font-display text-[#F5F5EE] text-[clamp(30px,8.5vw,44px)] font-normal leading-[1.06] mt-5">
-              ¿Qué tipo de vela
-              <br />
-              estás <span className="italic text-[#C8D0A8]">buscando?</span>
+            <h1 className="font-display text-[#F5F5EE] text-[clamp(27px,7.6vw,38px)] font-normal leading-[1.12] mt-4">
+              Más de 30 años fabricando las{' '}
+              <span className="italic text-[#C8D0A8]">velas de tu negocio.</span>
             </h1>
-            <p className="font-sans text-[11px] font-light tracking-[0.2em] uppercase text-[#F5F5EE]/50 mt-5">
-              Elige una categoría
+            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-4 max-w-[330px] mx-auto">
+              Producción nacional y venta mayorista para banqueterías,
+              funerarias, iglesias y empresas de todo Chile.
+            </p>
+            <p className="font-sans text-[11px] font-light tracking-[0.18em] uppercase text-[#F5F5EE]/45 mt-6">
+              Elige tu categoría
             </p>
           </div>
         </section>
 
-        {/* Tarjetas */}
+        {/* Categorías: foto protagonista + info siempre visible (sin hover) */}
         <div
-          className="px-4 pb-12 space-y-4"
+          className="px-4 pb-12 space-y-3.5"
           style={{
             paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 3rem)',
           }}
@@ -214,8 +225,9 @@ export default function Entrada() {
             <Link
               key={cat.slug}
               href={`/${cat.slug}`}
-              aria-label={`${cat.nombre} — ${cat.descripcionCorta}`}
-              className="group relative flex items-end h-[232px] rounded-[10px] overflow-hidden press"
+              data-reveal-up
+              aria-label={`${cat.nombre} — ${COPY_MOVIL[cat.slug]}`}
+              className="group relative flex items-end h-[186px] rounded-[10px] overflow-hidden press shadow-lift"
               style={{ backgroundColor: cat.heroBg }}
             >
               <Image
@@ -229,24 +241,24 @@ export default function Entrada() {
               <div className="pointer-events-none absolute inset-0 veil-full" />
               <div className="pointer-events-none absolute inset-0 grain" />
 
-              <div className="relative z-10 p-6 w-full">
-                <div className="flex items-center gap-3 mb-2.5 text-[#F5F5EE]/80">
-                  <span className="font-sans text-[12px] font-bold tracking-[0.22em]">
+              <div className="relative z-10 p-5 w-full">
+                <div className="flex items-center gap-2.5 mb-1.5 text-[#F5F5EE]/75">
+                  <span className="font-sans text-[11px] font-bold tracking-[0.22em]">
                     {cat.superindice}
                   </span>
-                  <span className="h-px w-6 bg-current opacity-40" />
+                  <span className="h-px w-5 bg-current opacity-40" />
                 </div>
-                <h2 className="font-display text-[#F5F5EE] text-[26px] font-normal leading-none">
+                <h2 className="font-display text-[#F5F5EE] text-[24px] font-normal leading-none">
                   {cat.nombre}
                 </h2>
-                <p className="font-sans text-[13px] font-light text-[#F5F5EE]/80 mt-2.5 leading-relaxed max-w-[280px]">
-                  {cat.descripcionCorta}
+                <p className="font-sans text-[12.5px] font-light text-[#F5F5EE]/80 mt-2 leading-snug max-w-[270px]">
+                  {COPY_MOVIL[cat.slug]}
                 </p>
-                <span className="inline-flex items-center gap-2 mt-4 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#C8D0A8]">
-                  {cat.cta}
+                <span className="inline-flex items-center gap-1.5 mt-3 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#C8D0A8]">
+                  Ver catálogo
                   <svg
-                    width="13"
-                    height="13"
+                    width="12"
+                    height="12"
                     viewBox="0 0 24 24"
                     fill="none"
                     aria-hidden
