@@ -76,20 +76,24 @@ export default function Entrada() {
         }`}
       >
         <p className="type-eyebrow-light eyebrow-rule mx-auto">
-          Fabricantes mayoristas · Desde 2000
+          Fabricación nacional · Todo Chile
         </p>
         <AnimatedText
           as="h1"
           animation="maskReveal"
           duration={1.1}
-          className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] mt-6 max-w-3xl"
+          className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] tracking-[-0.01em] mt-6 max-w-3xl"
         >
-          ¿Qué tipo de vela
+          Más de 30 años respaldando a quienes
           <br />
-          estás <span className="italic text-[#C8D0A8]">buscando?</span>
+          <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
         </AnimatedText>
+        <p className="font-sans text-[15px] md:text-[17px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-6 max-w-xl mx-auto">
+          Acompañamos a banqueterías, funerarias, iglesias y empresas con la
+          calidad y el cumplimiento que cada pedido exige.
+        </p>
         <p className="font-sans text-[12px] font-light tracking-[0.2em] uppercase text-[#F5F5EE]/50 mt-7">
-          elige una categoría
+          Explora nuestras categorías
         </p>
       </div>
 
@@ -175,14 +179,14 @@ export default function Entrada() {
                     abierto ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                   }`}
                 >
-                  {cat.descripcion}
+                  {COPY_MOVIL[cat.slug]}
                 </p>
                 <span
                   className={`inline-flex items-center gap-2.5 mt-7 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#C8D0A8] transition-all duration-500 delay-100 ${
                     abierto ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                   }`}
                 >
-                  {cat.cta}
+                  Ver catálogo
                   <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
                     →
                   </span>
