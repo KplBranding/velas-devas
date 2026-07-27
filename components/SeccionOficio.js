@@ -48,7 +48,7 @@ export default function SeccionOficio({
           botón queda pegado a la wincha (sin el hueco del centrado). El panel
           conserva min-h-100svh para cubrir por completo la imagen. */}
       <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-end">
-        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 py-16 md:py-20">
+        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 pt-16 pb-8 md:pt-20 md:pb-20">
           <p data-reveal-up className="type-eyebrow eyebrow-rule">
             {eyebrow}
           </p>
