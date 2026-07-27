@@ -319,7 +319,8 @@ export default function CatalogoCategoria({ categoria, productos }) {
 
             <div className="flex items-center gap-4 shrink-0">
               {hayGrupos && <LeyendaColores className="hidden md:flex" />}
-              <DescargarCatalogo />
+              <DescargarCatalogo pdf={categoria.pdf} categoria={categoria.slug} />
+
             </div>
           </div>
         </div>

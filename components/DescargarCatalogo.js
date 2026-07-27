@@ -34,8 +34,9 @@ function formatRut(rut) {
 const EASE = [0.23, 1, 0.32, 1];
 
 // Chip "Descargar catálogo PDF" + modal de captura (empresa, RUT, correo).
-// Al enviar, el catálogo con precios se remite al correo del cliente.
-export default function DescargarCatalogo({ className = '' }) {
+// Al enviar, se registra el lead y se descarga el PDF de precios de la categoría.
+// Si la categoría no tiene `pdf`, el chip no se muestra.
+export default function DescargarCatalogo({ className = '', pdf, categoria }) {
   const [abierto, setAbierto] = useState(false);
   const [datos, setDatos] = useState({ empresa: '', rut: '', email: '' });
   const [errores, setErrores] = useState({});
@@ -82,6 +83,17 @@ export default function DescargarCatalogo({ className = '' }) {
     return Object.keys(err).length === 0;
   };
 
+  // Dispara la descarga del PDF de la categoría (usa el nombre del archivo).
+  const descargarPdf = useCallback(() => {
+    if (!pdf) return;
+    const a = document.createElement('a');
+    a.href = pdf;
+    a.download = pdf.split('/').pop() || 'catalogo.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }, [pdf]);
+
   const enviar = async (e) => {
     e.preventDefault();
     if (!validar()) return;
@@ -90,14 +102,19 @@ export default function DescargarCatalogo({ className = '' }) {
       await fetch('/api/catalogo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...datos, rut: formatRut(datos.rut) }),
+        body: JSON.stringify({ ...datos, rut: formatRut(datos.rut), categoria }),
       });
     } catch (_) {
-      /* silencioso: igual mostramos confirmación (el lead se reintenta luego) */
+      /* silencioso: igual entregamos el PDF (el lead se reintenta luego) */
     }
     setEnviando(false);
     setListo(true);
+    // Entrega inmediata del PDF una vez capturado el lead.
+    descargarPdf();
   };
+
+  // Sin PDF definido para la categoría → no mostramos la opción de descarga.
+  if (!pdf) return null;
 
   return (
     <>
@@ -186,12 +203,17 @@ export default function DescargarCatalogo({ className = '' }) {
                   <h3 className="font-display text-[22px] text-text-primary mt-5">
                     ¡Listo!
                   </h3>
-                  <p className="type-body text-[14px] mt-2 max-w-[300px] mx-auto">
-                    Enviaremos el catálogo con precios a{' '}
-                    <span className="text-text-primary font-medium">
-                      {datos.email}
-                    </span>
-                    . Revisa tu bandeja de entrada.
+                  <p className="type-body text-[14px] mt-2 max-w-[320px] mx-auto">
+                    Tu catálogo con precios se está descargando. Si no comenzó
+                    automáticamente,{' '}
+                    <button
+                      type="button"
+                      onClick={descargarPdf}
+                      className="text-text-primary font-medium underline underline-offset-2 hover:text-accent-mid transition-colors"
+                    >
+                      descárgalo aquí
+                    </button>
+                    .
                   </p>
                   <button
                     type="button"
@@ -209,8 +231,8 @@ export default function DescargarCatalogo({ className = '' }) {
                     Descarga la lista completa en PDF
                   </h3>
                   <p className="type-body text-[13.5px] mt-2.5">
-                    Déjanos tus datos y te enviamos el catálogo con precios a tu
-                    correo.
+                    Déjanos tus datos y descarga al instante el catálogo con
+                    precios en PDF.
                   </p>
 
                   <div className="mt-6 space-y-4">
@@ -247,7 +269,7 @@ export default function DescargarCatalogo({ className = '' }) {
                     disabled={enviando}
                     className="btn-primary w-full text-center mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {enviando ? 'Enviando…' : 'Recibir catálogo'}
+                    {enviando ? 'Preparando…' : 'Descargar catálogo'}
                   </button>
                   <p className="type-label text-center mt-3">
                     Usaremos tus datos solo para enviarte el catálogo.

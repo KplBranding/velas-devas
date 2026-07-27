@@ -7,7 +7,7 @@
 // log del servidor y responde ok — la funcionalidad de captura ya queda armada.
 export async function POST(request) {
   try {
-    const { empresa, rut, email } = await request.json();
+    const { empresa, rut, email, categoria } = await request.json();
 
     if (!empresa || !rut || !email) {
       return Response.json(
@@ -17,7 +17,7 @@ export async function POST(request) {
     }
 
     // eslint-disable-next-line no-console
-    console.log('[catalogo] solicitud de PDF:', { empresa, rut, email });
+    console.log('[catalogo] solicitud de PDF:', { empresa, rut, email, categoria });
 
     // Aquí irá: enviar el PDF por correo + registrar el lead.
     return Response.json({ ok: true });
