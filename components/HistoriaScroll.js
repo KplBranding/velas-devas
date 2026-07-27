@@ -45,7 +45,7 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
       const mk = scrubEndRef.current;
       if (mk && mk.offsetParent !== null) {
         const mkTop = mk.getBoundingClientRect().top + window.scrollY;
-        total = Math.max(mkTop - top - window.innerHeight * 0.62, 1);
+        total = Math.max(mkTop - top - window.innerHeight * 0.5, 1);
       } else {
         total = Math.max(el.offsetHeight - window.innerHeight, 1);
       }
@@ -148,9 +148,9 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
             ))}
             {/* Marcador: aquí termina el scrub del video (último concepto centrado) */}
             <div ref={scrubEndRef} aria-hidden className="h-px" />
-            {/* Pausa (desktop): el video se queda en su fotograma final y el
-               último concepto sigue visible, antes de que suba el banner. */}
-            {children && <div aria-hidden className="hidden md:block h-[55vh]" />}
+            {/* Pausa + recorrido para que el banner suba por encima (desktop):
+               el video queda en su fotograma final y el concepto 3 anclado. */}
+            {children && <div aria-hidden className="hidden md:block h-[95vh]" />}
           </div>
         </div>
 
@@ -191,9 +191,11 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
         </div>
       </div>
 
-      {/* Cierre (banner): sube desde abajo en flujo normal (SIN solapamiento),
-         luego de la pausa del video en su fotograma final. */}
-      {children && <div className="relative z-20">{children}</div>}
+      {/* Cierre (banner): SUBE por encima del video + concepto 3 anclados
+         (z alto + margen negativo que lo solapa), luego de la pausa. */}
+      {children && (
+        <div className="relative z-20 md:-mt-[70vh]">{children}</div>
+      )}
     </section>
   );
 }
@@ -263,7 +265,13 @@ function Beat({ beat, index, isLast }) {
   return (
     <div
       ref={ref}
-      className="min-h-[42vh] md:min-h-[48vh] flex flex-col justify-center"
+      className={
+        isLast
+          ? // El último concepto se ANCLA (sticky) a la altura del pantallazo y
+            // se queda ahí mientras el banner sube por encima.
+            'flex flex-col justify-center md:sticky md:top-[24vh] md:z-10'
+          : 'min-h-[42vh] md:min-h-[48vh] flex flex-col justify-center'
+      }
     >
       <span
         data-b
