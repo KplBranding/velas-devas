@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
  *   - cada frame, currentTime del video se acerca suavemente al target
  *   - solo se anima video.currentTime (sin re-render); respeta reduced-motion
  */
-export default function HistoriaScroll({ video, poster, beats }) {
+export default function HistoriaScroll({ video, poster, beats, children }) {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const targetRef = useRef(0);
@@ -130,6 +130,9 @@ export default function HistoriaScroll({ video, poster, beats }) {
             {beats.map((b, i) => (
               <Beat key={i} beat={b} index={i} />
             ))}
+            {/* Espacio final (desktop): mantiene el video fijo y le da recorrido
+               al último concepto para centrarse y al banner para subir y taparlo. */}
+            {children && <div aria-hidden className="hidden md:block h-[100vh]" />}
           </div>
         </div>
 
@@ -169,6 +172,13 @@ export default function HistoriaScroll({ video, poster, beats }) {
           </div>
         </div>
       </div>
+
+      {/* Cierre (banner): en desktop SUBE por encima del video sticky y lo
+         tapa (z alto + margen negativo que solapa el espacio final). En móvil,
+         flujo normal después de los conceptos. */}
+      {children && (
+        <div className="relative z-20 md:-mt-[100vh]">{children}</div>
+      )}
     </section>
   );
 }

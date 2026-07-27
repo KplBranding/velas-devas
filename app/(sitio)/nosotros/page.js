@@ -10,12 +10,6 @@ export const metadata = {
     'Más de 30 años fabricando velas para banqueterías, funerarias, parroquias, distribuidores y empresas de todo Chile. Calidad, consistencia y fabricación nacional.',
 };
 
-const CIFRAS = [
-  { valor: '2000', label: 'Fabricando desde' },
-  { valor: '100+', label: 'Formatos en catálogo' },
-  { valor: '3', label: 'Rubros que abastecemos' },
-];
-
 // Relato editorial que acompaña a la vela mientras rota al hacer scroll.
 const BEATS = [
   {
@@ -73,63 +67,48 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* ── Scrollytelling: el video avanza al ritmo del scroll ── */}
+      {/* ── Scrollytelling: el video avanza al ritmo del scroll. El banner de
+             cierre (children) sube al final y tapa el video sticky. ── */}
       <HistoriaScroll
         video="/video/video_scrolling.mp4"
         poster={IMAGENES.velaOscura}
         beats={BEATS}
-      />
-
-      {/* ── Cifras ── */}
-      <section className="max-w-6xl mx-auto px-5 md:px-8 py-20">
-        <div className="grid grid-cols-3 gap-6 pt-2">
-          {CIFRAS.map((c) => (
-            <div key={c.label} data-reveal-up>
-              <p className="font-display text-[clamp(30px,5vw,48px)] text-text-primary leading-none">
-                {c.valor}
-              </p>
-              <p className="type-label mt-2.5 uppercase tracking-[0.12em]">
-                {c.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA con imagen ── */}
-      <section className="relative overflow-hidden bg-black-graphic grain">
-        <Image
-          src={IMAGENES.religiosas}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 veil-full" />
-        <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 py-20 text-center">
-          <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
-            Trabajemos juntos
-          </p>
-          <AnimatedText
-            as="h2"
-            animation="maskReveal"
-            className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5"
-          >
-            La confianza se construye con el tiempo.
-          </AnimatedText>
-          <p
-            data-reveal-up
-            className="font-sans text-[#EDEFE6] text-[15px] md:text-[16px] leading-[1.7] max-w-xl mx-auto mt-5 mb-8"
-          >
-            Más de 30 años de experiencia, productos de calidad y un equipo
-            comprometido nos permiten seguir siendo el proveedor de confianza de
-            cientos de clientes en todo Chile.
-          </p>
-          <Link href="/contacto" className="btn-light" data-reveal-up>
-            Conversemos sobre tu próximo proyecto
-          </Link>
-        </div>
-      </section>
+      >
+        {/* ── Cierre: banner que sube y tapa el video ── */}
+        <section className="relative overflow-hidden bg-black-graphic grain flex items-center md:min-h-[100svh]">
+          <Image
+            src={IMAGENES.religiosas}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-35"
+          />
+          <div className="absolute inset-0 veil-full" />
+          <div className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 py-24 md:py-20 text-center">
+            <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
+              Trabajemos juntos
+            </p>
+            <AnimatedText
+              as="h2"
+              animation="maskReveal"
+              className="font-display text-[#F5F5EE] text-[clamp(28px,4vw,44px)] font-normal mt-5"
+            >
+              La confianza se construye con el tiempo.
+            </AnimatedText>
+            <p
+              data-reveal-up
+              className="font-sans text-[#EDEFE6] text-[15px] md:text-[16px] leading-[1.7] max-w-xl mx-auto mt-5 mb-8"
+            >
+              Más de 30 años de experiencia, productos de calidad y un equipo
+              comprometido nos permiten seguir siendo el proveedor de confianza
+              de cientos de clientes en todo Chile.
+            </p>
+            <Link href="/contacto" className="btn-light" data-reveal-up>
+              Conversemos sobre tu próximo proyecto
+            </Link>
+          </div>
+        </section>
+      </HistoriaScroll>
     </>
   );
 }
