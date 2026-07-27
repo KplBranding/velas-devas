@@ -81,9 +81,11 @@ export default function NosotrosPage() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover opacity-35"
+            className="object-cover opacity-75"
           />
-          <div className="absolute inset-0 veil-full" />
+          {/* Degradado en vez del velo plano: oscurece arriba/abajo (texto
+             legible) y deja ver la vela en el centro. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#181C17]/80 via-[#181C17]/20 to-[#181C17]/85" />
           <div className="relative z-10 max-w-6xl mx-auto w-full px-5 md:px-8 py-24 md:py-20 text-center">
             <p className="type-eyebrow-light eyebrow-rule mx-auto" data-reveal-up>
               Trabajemos juntos
