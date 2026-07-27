@@ -133,8 +133,10 @@ export default function HistoriaScroll({ video, poster, beats }) {
           </div>
         </div>
 
-        {/* Video a tamaño completo (derecha), sin marco — como una sola imagen */}
-        <div className="order-1 md:order-2 md:sticky md:top-0 h-[62svh] md:h-[100svh]">
+        {/* Video a tamaño completo (derecha), sin marco — como una sola imagen.
+            Se fija justo bajo la barra (112px) y se solapa ~4px con ella, para
+            que NO quede escondido detrás pero tampoco muestre una costura/hueco. */}
+        <div className="order-1 md:order-2 md:sticky md:top-[108px] h-[62svh] md:h-[calc(100svh-108px)]">
           <div className="relative w-full h-full overflow-hidden bg-black-graphic">
             <video
               ref={videoRef}
@@ -191,11 +193,11 @@ function Beat({ beat, index }) {
       return () => ioActive.disconnect();
     }
 
-    // Revelado escalonado (kicker → título → párrafo), disparado cuando el
-    // bloque alcanza ~62% del viewport (centrado, no al top). Reversible al
-    // subir. Solo transform + opacity (autoAlpha) → 60 FPS, sin reflow.
+    // Solo transform + opacity (autoAlpha) → 60 FPS, sin reflow.
     const items = el.querySelectorAll('[data-b]');
     const ctx = gsap.context(() => {
+      // ENTRADA: revelado escalonado (kicker → título → párrafo), disparado
+      // cuando el centro del bloque está algo por debajo de la mitad (más abajo).
       gsap.from(items, {
         autoAlpha: 0,
         y: 34,
@@ -204,7 +206,20 @@ function Beat({ beat, index }) {
         stagger: 0.14,
         scrollTrigger: {
           trigger: el,
-          start: 'top 62%',
+          start: 'center 70%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+      // SALIDA: el bloque se desvanece y sube al llegar al tercio superior —
+      // mucho antes de alcanzar el giro/menú. Reversible al bajar.
+      gsap.to(el, {
+        autoAlpha: 0,
+        y: -28,
+        duration: 0.7,
+        ease: 'power2.in',
+        scrollTrigger: {
+          trigger: el,
+          start: 'center 42%',
           toggleActions: 'play none none reverse',
         },
       });
@@ -220,7 +235,7 @@ function Beat({ beat, index }) {
   return (
     <div
       ref={ref}
-      className="min-h-[52vh] md:min-h-[60vh] flex flex-col justify-center"
+      className="min-h-[42vh] md:min-h-[48vh] flex flex-col justify-center"
     >
       <span
         data-b

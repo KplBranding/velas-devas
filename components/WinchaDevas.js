@@ -10,7 +10,7 @@ function Bloque() {
       {Array.from({ length: 8 }).map((_, i) => (
         <span
           key={i}
-          className="font-display font-black not-italic uppercase text-[clamp(34px,6vw,82px)] leading-none tracking-[-0.01em] px-1 md:px-1.5 whitespace-nowrap"
+          className="font-display font-black not-italic uppercase text-[clamp(44px,7.8vw,107px)] leading-none tracking-[-0.01em] px-1 md:px-1.5 whitespace-nowrap"
           style={{ color: `rgba(30, 37, 30, ${ALFA[i % 2]})` }}
         >
           Velas Devas
@@ -22,7 +22,7 @@ function Bloque() {
 
 export default function WinchaDevas() {
   return (
-    <div aria-hidden className="relative overflow-hidden pt-8 pb-3 md:pt-12 md:pb-5">
+    <div aria-hidden className="relative overflow-hidden pt-2 pb-3 md:pt-3 md:pb-5">
       <div className="wincha-track flex w-max flex-nowrap items-center whitespace-nowrap">
         <Bloque />
         <Bloque />

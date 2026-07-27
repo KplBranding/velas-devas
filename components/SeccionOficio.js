@@ -45,7 +45,7 @@ export default function SeccionOficio({
 
       {/* Panel de texto: sube por encima de la foto (fondo sólido → la tapa) */}
       <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-center">
-        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 py-16 md:py-20">
           <p data-reveal-up className="type-eyebrow eyebrow-rule">
             {eyebrow}
           </p>
