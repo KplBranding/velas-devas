@@ -432,6 +432,19 @@
   /* La llama viva — firma de la marca */
   .flame { transform-origin: center bottom; animation: flame-flicker 3.2s ease-in-out infinite; }
   .flame-glow { animation: flame-glow 3.2s ease-in-out infinite; }
+
+  /* FAB WhatsApp — halo/latido muy sutil (verde salvia). Anillo que se expande
+     y desvanece con calma, sin robar atención. */
+  .fab-halo {
+    box-shadow: 0 0 0 0 rgba(96, 120, 96, 0.30);
+    animation: fab-pulse 3.2s ease-out infinite;
+  }
+}
+
+@keyframes fab-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(96, 120, 96, 0.30); }
+  70%  { box-shadow: 0 0 0 12px rgba(96, 120, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(96, 120, 96, 0); }
 }
 
 /* La llama de las cards despierta al hover (solo con puntero fino) */
@@ -555,7 +568,7 @@ textarea:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .stagger { animation: none !important; opacity: 1 !important; transform: none !important; }
-  .flame, .flame-glow { animation: none !important; }
+  .flame, .flame-glow, .fab-halo { animation: none !important; }
   .proc-step [data-reveal] { opacity: 1 !important; transform: none !important; }
   .proc-connector { transform: scaleY(1) !important; }
   .proc-icon [pathLength] { stroke-dashoffset: 0 !important; }
