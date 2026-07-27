@@ -339,55 +339,6 @@
     ]
   },
   {
-    "id": "vel-fun-001",
-    "categoria": "funerarias",
-    "nombre": "Vela nº 1",
-    "color": "blanca",
-    "alto_cm": 20,
-    "diametro_cm": 2,
-    "destacado": true
-  },
-  {
-    "id": "vel-fun-002",
-    "categoria": "funerarias",
-    "nombre": "Vela nº 2",
-    "color": "marfil",
-    "alto_cm": 25,
-    "diametro_cm": 2.5
-  },
-  {
-    "id": "vel-fun-003",
-    "categoria": "funerarias",
-    "nombre": "Velón nº 1",
-    "color": "blanca",
-    "alto_cm": 15,
-    "diametro_cm": 5
-  },
-  {
-    "id": "vel-fun-004",
-    "categoria": "funerarias",
-    "nombre": "Velón nº 2",
-    "color": "marfil",
-    "alto_cm": 18,
-    "diametro_cm": 6
-  },
-  {
-    "id": "vel-fun-005",
-    "categoria": "funerarias",
-    "nombre": "Vela nº 3",
-    "color": "blanca",
-    "alto_cm": 30,
-    "diametro_cm": 3
-  },
-  {
-    "id": "vel-fun-006",
-    "categoria": "funerarias",
-    "nombre": "Velón nº 3",
-    "color": "marfil",
-    "alto_cm": 22,
-    "diametro_cm": 7
-  },
-  {
     "id": "rel-d38",
     "categoria": "religiosas",
     "grupo": true,
@@ -832,6 +783,74 @@
         "alto": "Con color",
         "sku": "VD061",
         "neto": 2400
+      }
+    ]
+  },
+  {
+    "id": "fun-d36",
+    "categoria": "funerarias",
+    "grupo": true,
+    "nombre": "Velón Ø 3,6 cm",
+    "diametro_cm": 3.6,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "6",
+        "sku": "VD002",
+        "neto": 410
+      }
+    ]
+  },
+  {
+    "id": "fun-d49",
+    "categoria": "funerarias",
+    "grupo": true,
+    "nombre": "Velón Ø 4,9 cm",
+    "diametro_cm": 4.9,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "10",
+        "sku": "VD006",
+        "neto": 1420
+      },
+      {
+        "alto": "15",
+        "sku": "VD007",
+        "neto": 2000
+      },
+      {
+        "alto": "20",
+        "sku": "VD008",
+        "neto": 2400
+      },
+      {
+        "alto": "25",
+        "sku": "VD009",
+        "neto": 2600
+      }
+    ]
+  },
+  {
+    "id": "fun-d70",
+    "categoria": "funerarias",
+    "grupo": true,
+    "nombre": "Velón Ø 7 cm",
+    "diametro_cm": 7.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "15",
+        "sku": "VD033",
+        "neto": 4500
+      },
+      {
+        "alto": "20",
+        "sku": "VD034",
+        "neto": 5450
       }
     ]
   }
