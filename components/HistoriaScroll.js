@@ -10,12 +10,12 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * Scrollytelling con ESCENARIO FIJADO (pin): el video y el área de texto quedan
- * quietos mientras se hace scroll, y los conceptos aparecen CENTRADOS EN EL
- * MISMO LUGAR, uno reemplazando al anterior con crossfade (no en posiciones
- * distintas). El fotograma del video avanza suave con el progreso.
- * El banner de cierre (children) va después del escenario.
- * Respeta prefers-reduced-motion (versión estática, sin pin).
+ * Scrollytelling con ESCENARIO FIJO (CSS sticky): el video y el texto quedan
+ * quietos y los conceptos aparecen CENTRADOS EN EL MISMO LUGAR (crossfade). El
+ * fotograma del video avanza con el progreso y termina en su frame final. Luego
+ * el banner de cierre (children) SUBE por encima del escenario y lo tapa
+ * (panel opaco, z superior) — mismo patrón robusto que "Nuestro compromiso".
+ * Respeta prefers-reduced-motion (versión estática, en flujo).
  */
 export default function HistoriaScroll({ video, poster, beats, children }) {
   const sectionRef = useRef(null);
@@ -24,10 +24,11 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
   const targetRef = useRef(0);
   const smoothRef = useRef(0);
   const durationRef = useRef(0);
-  const bannerRef = useRef(null);
   const [reduce, setReduce] = useState(false);
 
-  // --- Suavizado del video: currentTime se acerca al target (progreso del pin) ---
+  const BEATS_VH = beats.length * 72; // recorrido del crossfade (stage sticky)
+
+  // --- Suavizado del video: currentTime se acerca al target (progreso) ---
   useEffect(() => {
     const r = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const vid = videoRef.current;
@@ -85,7 +86,7 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
     };
   }, []);
 
-  // --- Pin del escenario + crossfade de conceptos (mismo lugar) ---
+  // --- Crossfade de conceptos (scrub, sin pin: el stage es sticky por CSS) ---
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setReduce(true);
@@ -98,36 +99,23 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
     const n = beatEls.length;
     if (!n) return;
 
-    // Longitudes (en % de viewport) de cada fase del pin.
-    const BEATS = n * 92; // recorrido de los conceptos
-    const BANNER = 120; // recorrido para que el banner suba y tape
-    const beatsFrac = BEATS / (BEATS + BANNER); // el video completa su giro aquí
-    const banner = bannerRef.current;
-
     const ctx = gsap.context(() => {
-      // Todos apilados en el mismo punto; solo el primero visible al inicio.
       gsap.set(beatEls, { autoAlpha: 0, yPercent: 10 });
       gsap.set(beatEls[0], { autoAlpha: 1, yPercent: 0 });
-      if (banner) gsap.set(banner, { yPercent: 100 }); // banner esperando abajo
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=' + (BEATS + BANNER) + '%',
-          pin: stage,
+          end: '+=' + n * 72 + '%',
           scrub: 0.8,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            // El video COMPLETA su giro al terminar los conceptos (antes del
-            // banner) y se queda en su fotograma final durante la subida.
-            targetRef.current = Math.min(1, self.progress / beatsFrac);
+            targetRef.current = self.progress;
           },
         },
       });
 
-      // Crossfade: el concepto sale hacia arriba y el siguiente entra desde abajo,
-      // en el MISMO lugar. Pequeño solape para continuidad.
       for (let i = 1; i < n; i++) {
         tl.to(
           beatEls[i - 1],
@@ -140,16 +128,6 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
           i + 0.12
         );
       }
-      // Pausa: el último concepto + el video quedan quietos un tramo.
-      tl.to({}, { duration: 0.6 });
-      // El banner SUBE por encima del escenario (video + texto) y lo tapa.
-      if (banner) {
-        tl.to(banner, {
-          yPercent: 0,
-          duration: n * 0.42,
-          ease: 'power2.inOut',
-        });
-      }
     }, sectionRef);
 
     scheduleRefresh();
@@ -157,78 +135,71 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
   }, []);
 
   return (
-    <>
-      <section ref={sectionRef} className="relative bg-bg-hero">
-        <div
-          ref={stageRef}
-          className={
-            reduce
-              ? 'relative'
-              : 'relative h-[100svh] overflow-hidden'
-          }
-        >
-          <div className="grid h-full md:grid-cols-2">
-            {/* Texto (izq. desktop / abajo móvil): conceptos en el MISMO lugar */}
-            <div className="relative order-2 md:order-1 flex items-center px-5 md:pl-8 lg:pl-16 md:pr-14 py-12 md:py-0">
-              <div className="relative w-full max-w-xl min-h-[240px] md:min-h-[300px]">
-                {beats.map((b, i) => (
-                  <div
-                    key={i}
-                    data-beat
-                    className={
-                      reduce
-                        ? 'mb-14 last:mb-0'
-                        : 'absolute inset-0 flex flex-col justify-center'
-                    }
-                  >
-                    <span className="font-sans text-[11px] font-bold tracking-[0.2em] text-gold">
-                      {String(i + 1).padStart(2, '0')} — {b.kicker}
-                    </span>
-                    {b.titulo && (
-                      <h3 className="type-section text-[clamp(26px,3.4vw,40px)] mt-4">
-                        {b.titulo}
-                      </h3>
-                    )}
-                    <p className="type-body text-[15px] leading-[1.95] mt-5 max-w-md">
-                      {b.texto}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Video (der. desktop / arriba móvil) */}
-            <div className="order-1 md:order-2 h-[42svh] md:h-full relative overflow-hidden bg-black-graphic">
-              <video
-                ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover"
-                src={video}
-                poster={poster}
-                muted
-                playsInline
-                preload="auto"
-                aria-hidden="true"
-                tabIndex={-1}
-              />
+    <section ref={sectionRef} className="relative bg-bg-hero">
+      {/* Escenario fijo (sticky) mientras se hace scroll */}
+      <div
+        ref={stageRef}
+        className={
+          reduce
+            ? 'relative'
+            : 'sticky top-0 h-[100svh] overflow-hidden'
+        }
+      >
+        <div className="grid h-full md:grid-cols-2">
+          {/* Texto (izq. desktop / abajo móvil): conceptos en el MISMO lugar */}
+          <div className="relative order-2 md:order-1 flex items-center px-5 md:pl-8 lg:pl-16 md:pr-14 py-12 md:py-0">
+            <div className="relative w-full max-w-xl min-h-[240px] md:min-h-[300px]">
+              {beats.map((b, i) => (
+                <div
+                  key={i}
+                  data-beat
+                  className={
+                    reduce
+                      ? 'mb-14 last:mb-0'
+                      : 'absolute inset-0 flex flex-col justify-center'
+                  }
+                >
+                  <span className="font-sans text-[11px] font-bold tracking-[0.2em] text-gold">
+                    {String(i + 1).padStart(2, '0')} — {b.kicker}
+                  </span>
+                  {b.titulo && (
+                    <h3 className="type-section text-[clamp(26px,3.4vw,40px)] mt-4">
+                      {b.titulo}
+                    </h3>
+                  )}
+                  <p className="type-body text-[15px] leading-[1.95] mt-5 max-w-md">
+                    {b.texto}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Banner de cierre: espera abajo y SUBE por encima del escenario
-             (video + texto) tapándolo, una vez que el video terminó su giro. */}
-          {!reduce && children && (
-            <div
-              ref={bannerRef}
-              className="absolute inset-0 z-20"
-              style={{ transform: 'translateY(100%)' }}
-            >
-              {children}
-            </div>
-          )}
+          {/* Video (der. desktop / arriba móvil) */}
+          <div className="order-1 md:order-2 h-[42svh] md:h-full relative overflow-hidden bg-black-graphic">
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              src={video}
+              poster={poster}
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              tabIndex={-1}
+            />
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* En reduce-motion el banner va en flujo normal después del escenario. */}
-      {reduce && children}
-    </>
+      {/* Espaciador: da recorrido al crossfade mientras el escenario está fijo */}
+      {!reduce && (
+        <div aria-hidden style={{ height: BEATS_VH + 'vh' }} />
+      )}
+
+      {/* Banner de cierre: SUBE por encima del escenario fijo y lo tapa
+         (panel opaco, z superior). En reduce va en flujo normal. */}
+      {children && <div className="relative z-10">{children}</div>}
+    </section>
   );
 }
