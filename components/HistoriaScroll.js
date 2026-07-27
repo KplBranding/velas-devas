@@ -24,6 +24,7 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
   const targetRef = useRef(0);
   const smoothRef = useRef(0);
   const durationRef = useRef(0);
+  const bannerRef = useRef(null);
   const [reduce, setReduce] = useState(false);
 
   // --- Suavizado del video: currentTime se acerca al target (progreso del pin) ---
@@ -97,21 +98,30 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
     const n = beatEls.length;
     if (!n) return;
 
+    // Longitudes (en % de viewport) de cada fase del pin.
+    const BEATS = n * 92; // recorrido de los conceptos
+    const BANNER = 120; // recorrido para que el banner suba y tape
+    const beatsFrac = BEATS / (BEATS + BANNER); // el video completa su giro aquí
+    const banner = bannerRef.current;
+
     const ctx = gsap.context(() => {
       // Todos apilados en el mismo punto; solo el primero visible al inicio.
       gsap.set(beatEls, { autoAlpha: 0, yPercent: 10 });
       gsap.set(beatEls[0], { autoAlpha: 1, yPercent: 0 });
+      if (banner) gsap.set(banner, { yPercent: 100 }); // banner esperando abajo
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=' + n * 92 + '%',
+          end: '+=' + (BEATS + BANNER) + '%',
           pin: stage,
           scrub: 0.8,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            targetRef.current = self.progress;
+            // El video COMPLETA su giro al terminar los conceptos (antes del
+            // banner) y se queda en su fotograma final durante la subida.
+            targetRef.current = Math.min(1, self.progress / beatsFrac);
           },
         },
       });
@@ -130,8 +140,16 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
           i + 0.12
         );
       }
-      // Sostener el último concepto un tramo antes de soltar el pin.
-      tl.to({}, { duration: 0.5 });
+      // Pausa: el último concepto + el video quedan quietos un tramo.
+      tl.to({}, { duration: 0.6 });
+      // El banner SUBE por encima del escenario (video + texto) y lo tapa.
+      if (banner) {
+        tl.to(banner, {
+          yPercent: 0,
+          duration: n * 0.42,
+          ease: 'power2.inOut',
+        });
+      }
     }, sectionRef);
 
     scheduleRefresh();
@@ -194,11 +212,23 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
               />
             </div>
           </div>
+
+          {/* Banner de cierre: espera abajo y SUBE por encima del escenario
+             (video + texto) tapándolo, una vez que el video terminó su giro. */}
+          {!reduce && children && (
+            <div
+              ref={bannerRef}
+              className="absolute inset-0 z-20"
+              style={{ transform: 'translateY(100%)' }}
+            >
+              {children}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Cierre (banner): después del escenario. */}
-      {children}
+      {/* En reduce-motion el banner va en flujo normal después del escenario. */}
+      {reduce && children}
     </>
   );
 }

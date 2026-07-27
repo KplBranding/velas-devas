@@ -101,9 +101,9 @@ export default function NosotrosPage() {
               data-reveal-up
               className="font-sans text-[#EDEFE6] text-[15px] md:text-[16px] leading-[1.7] max-w-xl mx-auto mt-5 mb-8"
             >
-              Más de 30 años de experiencia, productos de calidad y un equipo
-              comprometido nos permiten seguir siendo el proveedor de confianza
-              de cientos de clientes en todo Chile.
+              Más de 30 años de experiencia, un equipo con oficio y un
+              compromiso permanente con la calidad nos permiten responder con
+              las exigencias y necesidades de nuestros clientes.
             </p>
             <Link href="/contacto" className="btn-light" data-reveal-up>
               Conversemos sobre tu próximo proyecto
