@@ -10,7 +10,7 @@ export default function Entrada() {
   const [activo, setActivo] = useState(null);
 
   return (
-    <main className="relative h-[100svh] w-full overflow-hidden bg-black-graphic grain">
+    <main className="relative md:h-[100svh] w-full md:overflow-hidden bg-black-graphic grain">
       {/* Nav absoluto — logo centrado, botón Contacto a la derecha */}
       <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-6 md:px-10 h-[124px]">
         {/* Logo centrado */}
@@ -52,16 +52,16 @@ export default function Entrada() {
         </a>
       </nav>
 
-      {/* Halo cálido central */}
+      {/* Halo cálido central (desktop) */}
       <div
-        className={`pointer-events-none absolute inset-0 z-20 warm-glow transition-opacity duration-700 ${
+        className={`hidden md:block pointer-events-none absolute inset-0 z-20 warm-glow transition-opacity duration-700 ${
           activo !== null ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Texto central (desaparece al hover) */}
+      {/* Texto central (desktop; desaparece al hover) */}
       <div
-        className={`pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-6 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+        className={`hidden md:flex pointer-events-none absolute inset-0 z-30 flex-col items-center justify-center text-center px-6 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
           activo !== null ? 'opacity-0 scale-[0.98]' : 'opacity-100 scale-100'
         }`}
       >
@@ -83,8 +83,8 @@ export default function Entrada() {
         </p>
       </div>
 
-      {/* Paneles */}
-      <div className="flex h-full w-full flex-col md:flex-row">
+      {/* Paneles (solo desktop) */}
+      <div className="hidden md:flex h-full w-full">
         {CATEGORIAS_LISTA.map((cat, i) => {
           const abierto = activo === i;
           const atenuado = activo !== null && !abierto;
@@ -181,6 +181,90 @@ export default function Entrada() {
             </Link>
           );
         })}
+      </div>
+
+      {/* ===== MÓVIL: intro + categorías como tarjetas apiladas ===== */}
+      <div className="md:hidden relative">
+        {/* Intro */}
+        <section className="relative px-6 pt-[128px] pb-8 text-center overflow-hidden">
+          <div className="warm-glow pointer-events-none absolute inset-0" />
+          <div className="relative">
+            <p className="type-eyebrow-light eyebrow-rule mx-auto">
+              Fabricantes mayoristas · Desde 2000
+            </p>
+            <h1 className="font-display text-[#F5F5EE] text-[clamp(30px,8.5vw,44px)] font-normal leading-[1.06] mt-5">
+              ¿Qué tipo de vela
+              <br />
+              estás <span className="italic text-[#C8D0A8]">buscando?</span>
+            </h1>
+            <p className="font-sans text-[11px] font-light tracking-[0.2em] uppercase text-[#F5F5EE]/50 mt-5">
+              Elige una categoría
+            </p>
+          </div>
+        </section>
+
+        {/* Tarjetas */}
+        <div
+          className="px-4 pb-12 space-y-4"
+          style={{
+            paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 3rem)',
+          }}
+        >
+          {CATEGORIAS_LISTA.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/${cat.slug}`}
+              aria-label={`${cat.nombre} — ${cat.descripcionCorta}`}
+              className="group relative flex items-end h-[232px] rounded-[10px] overflow-hidden press"
+              style={{ backgroundColor: cat.heroBg }}
+            >
+              <Image
+                src={cat.imagenPanel}
+                alt=""
+                fill
+                sizes="100vw"
+                style={{ objectPosition: cat.panelPos || '50% 50%' }}
+                className="object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 veil-full" />
+              <div className="pointer-events-none absolute inset-0 grain" />
+
+              <div className="relative z-10 p-6 w-full">
+                <div className="flex items-center gap-3 mb-2.5 text-[#F5F5EE]/80">
+                  <span className="font-sans text-[12px] font-bold tracking-[0.22em]">
+                    {cat.superindice}
+                  </span>
+                  <span className="h-px w-6 bg-current opacity-40" />
+                </div>
+                <h2 className="font-display text-[#F5F5EE] text-[26px] font-normal leading-none">
+                  {cat.nombre}
+                </h2>
+                <p className="font-sans text-[13px] font-light text-[#F5F5EE]/80 mt-2.5 leading-relaxed max-w-[280px]">
+                  {cat.descripcionCorta}
+                </p>
+                <span className="inline-flex items-center gap-2 mt-4 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#C8D0A8]">
+                  {cat.cta}
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  >
+                    <path
+                      d="M5 12h14M13 6l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   );
