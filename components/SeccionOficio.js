@@ -1,11 +1,25 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { scheduleRefresh } from '../lib/scrollRefresh';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // "Nuestro compromiso" (¿Por qué elegir Velas Devas?). Split editorial: la
 // página se divide en dos → IZQUIERDA la fotografía, DERECHA el texto. En móvil
 // se apila (imagen arriba, texto abajo). Las columnas se estiran a la misma
 // altura (grid items-stretch), así la foto acompaña al texto sin recortes raros.
-// Los textos entran con el reveal global [data-reveal-up] (vinculado al scroll).
+//
+// Reveal propio y scoped (no depende del batch global, que aquí mide mal por
+// estar entre secciones con pin): los textos [data-oficio-reveal] aparecen con
+// fade + subida al ENTRAR y se revierten al SUBIR (vinculado al sentido del
+// scroll). Escalonado. Respeta prefers-reduced-motion.
 export default function SeccionOficio({
   foto,
   fotoPos,
@@ -16,8 +30,53 @@ export default function SeccionOficio({
   beneficios = [],
   cta,
 }) {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = gsap.context(() => {
+      const els = gsap.utils.toArray(
+        section.querySelectorAll('[data-oficio-reveal]')
+      );
+      if (!els.length) return;
+
+      gsap.set(els, { opacity: 0, y: 26 });
+
+      const triggers = ScrollTrigger.batch(els, {
+        start: 'top 88%',
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.09,
+            overwrite: true,
+          }),
+        // Al subir (scroll inverso) el efecto se revierte.
+        onLeaveBack: (batch) =>
+          gsap.to(batch, {
+            opacity: 0,
+            y: 26,
+            duration: 0.5,
+            ease: 'power2.in',
+            stagger: 0.05,
+            overwrite: true,
+          }),
+      });
+
+      scheduleRefresh();
+      return () => triggers.forEach((t) => t.kill());
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative bg-bg-base">
+    <section ref={sectionRef} className="relative bg-bg-base">
       <div className="md:grid md:grid-cols-2 md:items-stretch">
         {/* IZQUIERDA · Fotografía protagonista */}
         <div className="relative h-[54vh] min-h-[340px] md:h-auto overflow-hidden grain">
@@ -42,17 +101,17 @@ export default function SeccionOficio({
         {/* DERECHA · Texto */}
         <div className="flex flex-col justify-center px-5 md:px-10 lg:px-16 py-14 md:py-20">
           <div className="w-full max-w-xl">
-            <p data-reveal-up className="type-eyebrow eyebrow-rule">
+            <p data-oficio-reveal className="type-eyebrow eyebrow-rule">
               {eyebrow}
             </p>
             <h2
-              data-reveal-up
+              data-oficio-reveal
               className="font-display text-[clamp(26px,3.6vw,40px)] text-text-primary leading-[1.2] mt-4"
             >
               {titulo}
             </h2>
             <p
-              data-reveal-up
+              data-oficio-reveal
               className="type-body text-[15px] leading-[1.9] mt-5"
             >
               {texto}
@@ -61,7 +120,7 @@ export default function SeccionOficio({
             <ul className="mt-9">
               {beneficios.map((b, i) => (
                 <li
-                  data-reveal-up
+                  data-oficio-reveal
                   key={b.t}
                   className={`group flex items-baseline gap-4 py-3.5 border-b border-border-default cursor-default ${
                     i === 0 ? 'border-t border-border-default' : ''
@@ -82,7 +141,7 @@ export default function SeccionOficio({
             </ul>
 
             {cta && (
-              <div data-reveal-up>
+              <div data-oficio-reveal>
                 <Link href="/contacto" className="btn-primary mt-9 inline-block">
                   {cta}
                 </Link>
