@@ -9,9 +9,11 @@ import AnimatedText from '../components/AnimatedText';
 // Copy de categorías específico para la Home móvil: descripciones que conectan
 // con la necesidad del cliente (no genéricas). No toca la data compartida.
 const COPY_MOVIL = {
-  banqueteria: 'Velas a la altura de tus matrimonios, eventos y banquetes.',
-  religiosas: 'Cirios y velones para parroquias y comunidades religiosas.',
-  funerarias: 'Velas de uso profesional para funerarias y velatorios.',
+  banqueteria:
+    'Velas para matrimonios, hoteles y eventos donde cada detalle importa.',
+  religiosas:
+    'Cirios y velones para iglesias, parroquias y comunidades religiosas.',
+  funerarias: 'Velas y velones para funerarias y salas velatorias.',
 };
 
 export default function Entrada() {
@@ -194,22 +196,22 @@ export default function Entrada() {
       {/* ===== MÓVIL: propuesta de valor + categorías ===== */}
       <div className="md:hidden relative">
         {/* Hero compacto: primero QUIÉNES somos y POR QUÉ elegirnos, luego invita */}
-        <section className="relative px-6 pt-[98px] pb-6 text-center overflow-hidden">
+        <section className="relative px-6 pt-[98px] pb-8 text-center overflow-hidden">
           <div className="warm-glow pointer-events-none absolute inset-0" />
           <div className="relative reveal">
             <p className="type-eyebrow-light eyebrow-rule mx-auto">
-              Fabricación nacional · +30 años
+              Venta mayorista · Todo Chile
             </p>
-            <h1 className="font-display text-[#F5F5EE] text-[clamp(27px,7.6vw,38px)] font-normal leading-[1.12] mt-4">
-              Más de 30 años fabricando las{' '}
-              <span className="italic text-[#C8D0A8]">velas de tu negocio.</span>
+            <h1 className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] mt-4">
+              Más de 30 años fabricando las velas de quienes{' '}
+              <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
             </h1>
-            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-4 max-w-[330px] mx-auto">
-              Producción nacional y venta mayorista para banqueterías,
-              funerarias, iglesias y empresas de todo Chile.
+            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[326px] mx-auto">
+              Fabricación nacional para banqueterías, funerarias, iglesias y
+              empresas que necesitan un proveedor confiable.
             </p>
-            <p className="font-sans text-[11px] font-light tracking-[0.18em] uppercase text-[#F5F5EE]/45 mt-6">
-              Elige tu categoría
+            <p className="font-sans text-[11px] font-light tracking-[0.18em] uppercase text-[#F5F5EE]/45 mt-7">
+              Explora nuestras categorías
             </p>
           </div>
         </section>
