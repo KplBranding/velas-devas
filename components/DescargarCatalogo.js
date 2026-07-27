@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ── Utilidades RUT (Chile) ──
@@ -42,6 +43,11 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
   const [errores, setErrores] = useState({});
   const [enviando, setEnviando] = useState(false);
   const [listo, setListo] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // El modal se renderiza vía portal en <body> para escapar del stacking context
+  // que crea la barra `chrome-glass` (backdrop-filter). Solo tras montar (cliente).
+  useEffect(() => setMounted(true), []);
 
   const set = (k) => (e) => {
     const v = e.target.value;
@@ -142,9 +148,11 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
         Descargar catálogo PDF
       </button>
 
-      <AnimatePresence>
-        {abierto && (
-          <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4">
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {abierto && (
+              <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4">
             {/* Fondo */}
             <motion.div
               className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -279,7 +287,9 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
             </motion.div>
           </div>
         )}
-      </AnimatePresence>
+          </AnimatePresence>,
+          document.body
+        )}
     </>
   );
 }
