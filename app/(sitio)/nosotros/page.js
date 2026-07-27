@@ -77,7 +77,7 @@ export default function NosotrosPage() {
         {/* ── Cierre: banner que sube y tapa el video ── */}
         <section className="relative overflow-hidden bg-black-graphic grain flex items-center md:min-h-[100svh]">
           <Image
-            src={IMAGENES.religiosas}
+            src="/images/fotos_web/cta_footer_nosotros.jpg"
             alt=""
             fill
             sizes="100vw"
