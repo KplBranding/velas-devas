@@ -192,21 +192,6 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
                 aria-hidden="true"
                 tabIndex={-1}
               />
-              {/* Difuminado hacia el fondo crema para fundir la costura */}
-              <div
-                className="pointer-events-none absolute inset-0 hidden md:block"
-                style={{
-                  background:
-                    'linear-gradient(to right, #ECEEE1 0%, rgba(244,242,238,0.6) 9%, rgba(244,242,238,0) 26%)',
-                }}
-              />
-              <div
-                className="pointer-events-none absolute inset-0 md:hidden"
-                style={{
-                  background:
-                    'linear-gradient(to bottom, rgba(244,242,238,0) 74%, #ECEEE1 100%)',
-                }}
-              />
             </div>
           </div>
         </div>
