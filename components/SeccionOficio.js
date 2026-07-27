@@ -1,14 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-// "Nuestro compromiso" (¿Por qué confiar?). La FOTOGRAFÍA queda fija (sticky)
-// ocupando la pantalla; el panel de texto —con fondo sólido— sube por encima y
-// la va TAPANDO a medida que se hace scroll, hasta cubrirla por completo, y
-// entonces la navegación continúa normal.
-//
-// Efecto CSS puro: sticky + z-index + fondo opaco. Sin pin de GSAP → sin jank y
-// funciona igual en móvil. Los textos entran con el reveal global
-// [data-reveal-up], que va vinculado al scroll (se revierte al subir).
+// "Nuestro compromiso" (¿Por qué elegir Velas Devas?). Split editorial: la
+// página se divide en dos → IZQUIERDA la fotografía, DERECHA el texto. En móvil
+// se apila (imagen arriba, texto abajo). Las columnas se estiran a la misma
+// altura (grid items-stretch), así la foto acompaña al texto sin recortes raros.
+// Los textos entran con el reveal global [data-reveal-up] (vinculado al scroll).
 export default function SeccionOficio({
   foto,
   fotoPos,
@@ -21,80 +18,77 @@ export default function SeccionOficio({
 }) {
   return (
     <section className="relative bg-bg-base">
-      {/* Fotografía protagonista: fija mientras el texto sube y la cubre.
-          min-h del panel de texto = 100svh → la foto queda fijada hasta que el
-          texto la tapa por completo. */}
-      <div className="sticky top-0 h-[100svh] overflow-hidden grain">
-        <Image
-          src={foto}
-          alt=""
-          fill
-          sizes="100vw"
-          priority={false}
-          className="object-cover"
-          style={{
-            objectPosition: fotoPos || '50% 50%',
-            filter: fotoColor
-              ? 'contrast(1.02)'
-              : 'grayscale(100%) contrast(1.06) brightness(0.98)',
-          }}
-        />
-        {/* Velo inferior sutil: da profundidad y funde el borde con el texto */}
-        <div className="pointer-events-none absolute inset-0 veil-bottom opacity-40" />
-      </div>
+      <div className="md:grid md:grid-cols-2 md:items-stretch">
+        {/* IZQUIERDA · Fotografía protagonista */}
+        <div className="relative h-[54vh] min-h-[340px] md:h-auto overflow-hidden grain">
+          <Image
+            src={foto}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={false}
+            className="object-cover"
+            style={{
+              objectPosition: fotoPos || '50% 50%',
+              filter: fotoColor
+                ? 'contrast(1.02)'
+                : 'grayscale(100%) contrast(1.06) brightness(0.98)',
+            }}
+          />
+          {/* Velo inferior sutil solo en móvil, para fundir con el texto de abajo */}
+          <div className="pointer-events-none absolute inset-0 veil-bottom opacity-40 md:hidden" />
+        </div>
 
-      {/* Panel de texto: sube por encima de la foto (fondo sólido → la tapa).
-          Alineado abajo: el contenido termina cerca del final del panel, así el
-          botón queda pegado a la wincha (sin el hueco del centrado). El panel
-          conserva min-h-100svh para cubrir por completo la imagen. */}
-      <div className="relative z-10 bg-bg-base min-h-[100svh] flex items-end">
-        <div className="max-w-3xl mx-auto w-full px-5 md:px-8 pt-16 pb-8 md:pt-20 md:pb-20">
-          <p data-reveal-up className="type-eyebrow eyebrow-rule">
-            {eyebrow}
-          </p>
-          <h2
-            data-reveal-up
-            className="font-display text-[clamp(26px,3.6vw,40px)] text-text-primary leading-[1.2] mt-4"
-          >
-            {titulo}
-          </h2>
-          <p
-            data-reveal-up
-            className="type-body text-[15px] leading-[1.9] mt-5 max-w-xl"
-          >
-            {texto}
-          </p>
+        {/* DERECHA · Texto */}
+        <div className="flex flex-col justify-center px-5 md:px-10 lg:px-16 py-14 md:py-20">
+          <div className="w-full max-w-xl">
+            <p data-reveal-up className="type-eyebrow eyebrow-rule">
+              {eyebrow}
+            </p>
+            <h2
+              data-reveal-up
+              className="font-display text-[clamp(26px,3.6vw,40px)] text-text-primary leading-[1.2] mt-4"
+            >
+              {titulo}
+            </h2>
+            <p
+              data-reveal-up
+              className="type-body text-[15px] leading-[1.9] mt-5"
+            >
+              {texto}
+            </p>
 
-          <ul className="mt-9 max-w-xl">
-            {beneficios.map((b, i) => (
-              <li
-                data-reveal-up
-                key={b.t}
-                className={`group flex items-baseline gap-4 py-3.5 border-b border-border-default cursor-default ${
-                  i === 0 ? 'border-t border-border-default' : ''
-                }`}
-              >
-                <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 transition-colors duration-[var(--dur-base)] group-hover:text-accent-mid">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-[var(--dur-base)] group-hover:text-text-primary">
-                  {b.t}
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-entrance)] group-hover:scale-x-100"
-                  />
-                </span>
-              </li>
-            ))}
-          </ul>
+            <ul className="mt-9">
+              {beneficios.map((b, i) => (
+                <li
+                  data-reveal-up
+                  key={b.t}
+                  className={`group flex items-baseline gap-4 py-3.5 border-b border-border-default cursor-default ${
+                    i === 0 ? 'border-t border-border-default' : ''
+                  }`}
+                >
+                  <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 transition-colors duration-[var(--dur-base)] group-hover:text-accent-mid">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-[var(--dur-base)] group-hover:text-text-primary">
+                    {b.t}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-entrance)] group-hover:scale-x-100"
+                    />
+                  </span>
+                </li>
+              ))}
+            </ul>
 
-          {cta && (
-            <div data-reveal-up>
-              <Link href="/contacto" className="btn-primary mt-9 inline-block">
-                {cta}
-              </Link>
-            </div>
-          )}
+            {cta && (
+              <div data-reveal-up>
+                <Link href="/contacto" className="btn-primary mt-9 inline-block">
+                  {cta}
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
