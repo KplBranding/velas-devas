@@ -9,10 +9,9 @@ import AnimatedText from '../components/AnimatedText';
 // Copy de categorías específico para la Home móvil: descripciones que conectan
 // con la necesidad del cliente (no genéricas). No toca la data compartida.
 const COPY_MOVIL = {
-  banqueteria:
-    'Velas para matrimonios, hoteles y eventos donde no hay margen de error.',
+  banqueteria: 'Velas a la altura de tus matrimonios, hoteles y eventos.',
   religiosas:
-    'Cirios y velones para iglesias, parroquias y comunidades religiosas.',
+    'Cirios y velones litúrgicos para iglesias, parroquias y comunidades religiosas.',
   funerarias: 'Velas y velones para funerarias y salas velatorias.',
 };
 
@@ -203,8 +202,8 @@ export default function Entrada() {
             <p className="type-eyebrow-light eyebrow-rule mx-auto">
               Fabricación nacional · Todo Chile
             </p>
-            <h1 className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] mt-4">
-              Más de 30 años siendo el proveedor de quienes{' '}
+            <h1 className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] tracking-[-0.01em] mt-4">
+              Más de 30 años respaldando a quienes{' '}
               <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
             </h1>
             <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[330px] mx-auto">
