@@ -142,7 +142,9 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
         className={
           reduce
             ? 'relative'
-            : 'sticky top-0 h-[100svh] overflow-hidden'
+            : // Móvil: se fija DEBAJO de la barra (112px) para que el video no
+              // quede cortado/escondido tras ella. Desktop: como estaba.
+              'sticky top-[112px] md:top-0 h-[calc(100svh-112px)] md:h-[100svh] overflow-hidden'
         }
       >
         <div className="grid h-full md:grid-cols-2">
@@ -175,11 +177,12 @@ export default function HistoriaScroll({ video, poster, beats, children }) {
             </div>
           </div>
 
-          {/* Video (der. desktop / arriba móvil) */}
-          <div className="order-1 md:order-2 h-[42svh] md:h-full relative overflow-hidden bg-black-graphic">
+          {/* Video (der. desktop / arriba móvil). En móvil ~cuadrado (el video
+             es 1:1) para minimizar el recorte y ver las llamas completas. */}
+          <div className="order-1 md:order-2 h-[46svh] md:h-full relative overflow-hidden bg-black-graphic">
             <video
               ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-[50%_40%] md:object-center"
               src={video}
               poster={poster}
               muted
