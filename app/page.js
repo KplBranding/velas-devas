@@ -10,7 +10,7 @@ import AnimatedText from '../components/AnimatedText';
 // con la necesidad del cliente (no genéricas). No toca la data compartida.
 const COPY_MOVIL = {
   banqueteria:
-    'Velas para matrimonios, hoteles y eventos donde cada detalle importa.',
+    'Velas para matrimonios, hoteles y eventos donde no hay margen de error.',
   religiosas:
     'Cirios y velones para iglesias, parroquias y comunidades religiosas.',
   funerarias: 'Velas y velones para funerarias y salas velatorias.',
@@ -35,18 +35,19 @@ export default function Entrada() {
             width={996}
             height={627}
             priority
-            className="h-12 md:h-20 lg:h-24 w-auto object-contain"
+            className="h-14 md:h-20 lg:h-24 w-auto object-contain"
           />
         </Link>
 
+        {/* Contacto: solo desktop. En móvil se quita (ya hay FAB de WhatsApp) */}
         <a
           href="https://wa.me/56998846164"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contacto por WhatsApp — Hablemos"
-          className="group ml-auto relative overflow-hidden rounded-[3px] px-1.5 py-1.5 md:px-5 md:py-2.5 press bg-transparent border-0 md:border border-[#F5F5EE]/45 hover:border-[#F5F5EE] md:hover:bg-[#F5F5EE]/[0.08] transition-colors duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
+          className="group ml-auto hidden md:inline-flex relative overflow-hidden rounded-[3px] px-5 py-2.5 press bg-transparent border border-[#F5F5EE]/45 hover:border-[#F5F5EE] hover:bg-[#F5F5EE]/[0.08] transition-colors duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
         >
-          <span className="grid font-sans text-[10px] md:text-[11px] font-medium md:font-bold uppercase tracking-[0.14em] md:tracking-[0.08em] text-[#F5F5EE]/70 md:text-[#F5F5EE]">
+          <span className="grid font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#F5F5EE]">
             {/* Estado por defecto: CONTACTO */}
             <span className="[grid-area:1/1] flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:opacity-0 group-hover:-translate-y-2">
               Contacto
@@ -196,19 +197,19 @@ export default function Entrada() {
       {/* ===== MÓVIL: propuesta de valor + categorías ===== */}
       <div className="md:hidden relative">
         {/* Hero compacto: primero QUIÉNES somos y POR QUÉ elegirnos, luego invita */}
-        <section className="relative px-6 pt-[98px] pb-8 text-center overflow-hidden">
+        <section className="relative px-6 pt-[92px] pb-6 text-center overflow-hidden">
           <div className="warm-glow pointer-events-none absolute inset-0" />
           <div className="relative reveal">
             <p className="type-eyebrow-light eyebrow-rule mx-auto">
-              Venta mayorista · Todo Chile
+              Fabricación nacional · Todo Chile
             </p>
             <h1 className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] mt-4">
-              Más de 30 años fabricando las velas de quienes{' '}
+              Más de 30 años siendo el proveedor de quienes{' '}
               <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
             </h1>
-            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[326px] mx-auto">
-              Fabricación nacional para banqueterías, funerarias, iglesias y
-              empresas que necesitan un proveedor confiable.
+            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[330px] mx-auto">
+              Acompañamos a banqueterías, funerarias, iglesias y empresas con la
+              calidad y el cumplimiento que cada pedido exige.
             </p>
             <p className="font-sans text-[11px] font-light tracking-[0.18em] uppercase text-[#F5F5EE]/45 mt-7">
               Explora nuestras categorías
