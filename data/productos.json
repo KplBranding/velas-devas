@@ -3,8 +3,8 @@
     "id": "ban-d38",
     "categoria": "banqueteria",
     "grupo": true,
-    "nombre": "Velón Ø 3,8 cm",
-    "diametro_cm": 3.8,
+    "nombre": "Velón Ø 3,6 cm",
+    "diametro_cm": 3.6,
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
@@ -800,6 +800,11 @@
         "sku": "VD002",
         "neto": 410
       }
+    ],
+    "imagenes": [
+      "/images/productos/funeraria-3-6x6-blanca/01.jpg",
+      "/images/productos/funeraria-3-6x6-blanca/02.jpg",
+      "/images/productos/funeraria-3-6x6-blanca/03.jpg"
     ]
   },
   {
@@ -831,6 +836,11 @@
         "sku": "VD009",
         "neto": 2600
       }
+    ],
+    "imagenes": [
+      "/images/productos/funeraria-4-9x15-blanca/01.jpg",
+      "/images/productos/funeraria-4-9x15-blanca/02.jpg",
+      "/images/productos/funeraria-4-9x15-blanca/03.jpg"
     ]
   },
   {
@@ -852,6 +862,11 @@
         "sku": "VD034",
         "neto": 5450
       }
+    ],
+    "imagenes": [
+      "/images/productos/funeraria-7x15-blanca/01.jpg",
+      "/images/productos/funeraria-7x15-blanca/02.jpg",
+      "/images/productos/funeraria-7x15-blanca/03.jpg"
     ]
   }
 ]
