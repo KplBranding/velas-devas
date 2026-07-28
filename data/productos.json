@@ -342,8 +342,8 @@
     "id": "rel-d38",
     "categoria": "religiosas",
     "grupo": true,
-    "nombre": "Velón Ø 3,8 cm",
-    "diametro_cm": 3.8,
+    "nombre": "Velón Ø 3,6 cm",
+    "diametro_cm": 3.6,
     "color": "blanca",
     "color_nombre": "Blanco nieve",
     "alturas": [
@@ -387,6 +387,11 @@
         "sku": "VD016",
         "neto": 4500
       }
+    ],
+    "imagenes": [
+      "/images/productos/religiosa-3-8x5-blanca/01.jpg",
+      "/images/productos/religiosa-3-8x5-blanca/02.jpg",
+      "/images/productos/religiosa-3-8x5-blanca/03.jpg"
     ]
   },
   {
@@ -475,6 +480,11 @@
         "sku": "VD010",
         "neto": 3580
       }
+    ],
+    "imagenes": [
+      "/images/productos/religiosa-4-9x15-blanca/01.jpg",
+      "/images/productos/religiosa-4-9x15-blanca/02.jpg",
+      "/images/productos/religiosa-4-9x15-blanca/03.jpg"
     ]
   },
   {
@@ -624,7 +634,12 @@
         "neto": 30550
       }
     ],
-    "destacado": true
+    "destacado": true,
+    "imagenes": [
+      "/images/productos/religiosa-7x15-blanca/01.jpg",
+      "/images/productos/religiosa-7x15-blanca/02.jpg",
+      "/images/productos/religiosa-7x15-blanca/03.jpg"
+    ]
   },
   {
     "id": "rel-d75",
@@ -640,6 +655,11 @@
         "sku": "VD136",
         "neto": 1550
       }
+    ],
+    "imagenes": [
+      "/images/productos/religiosa-7-5x5-blanca/01.jpg",
+      "/images/productos/religiosa-7-5x5-blanca/02.jpg",
+      "/images/productos/religiosa-7-5x5-blanca/03.jpg"
     ]
   },
   {
