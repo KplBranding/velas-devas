@@ -60,12 +60,27 @@ export default function Footer() {
         </div>
 
         {/* Línea inferior */}
-        <div className="mt-12 pt-6 border-t border-border-dark flex flex-col sm:flex-row justify-between gap-2">
-          <p className="font-sans text-[11px] font-light">
-            © 2026 Velas Devas · {EMPRESA.web}
-          </p>
-          <p className="font-sans text-[11px] font-light">
-            Fabricación mayorista desde el año {EMPRESA.desde}
+        <div className="mt-12 pt-6 border-t border-border-dark flex flex-col gap-3">
+          {/* Copyright + legal */}
+          <div className="flex flex-col sm:flex-row justify-between gap-2">
+            <p className="font-sans text-[11px] font-light">
+              © 2026 Velas Devas. Todos los derechos reservados.
+            </p>
+            <FooterLink href="/privacidad" className="text-[11px]">
+              Política de privacidad y cookies
+            </FooterLink>
+          </div>
+          {/* Crédito de desarrollo */}
+          <p className="font-sans text-[11px] font-light text-text-footer/70">
+            Sitio desarrollado por{' '}
+            <a
+              href="https://www.kplbranding.cl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-text-footer hover:text-[#F5F5EE] underline underline-offset-2 decoration-transparent hover:decoration-current transition-colors"
+            >
+              KPL Branding
+            </a>
           </p>
         </div>
       </div>
@@ -73,11 +88,11 @@ export default function Footer() {
   );
 }
 
-function FooterLink({ href, children }) {
+function FooterLink({ href, children, className = '' }) {
   return (
     <Link
       href={href}
-      className="font-sans text-[12px] font-light text-text-footer hover:text-[#F5F5EE] transition-colors"
+      className={`font-sans text-[12px] font-light text-text-footer hover:text-[#F5F5EE] transition-colors ${className}`}
     >
       {children}
     </Link>

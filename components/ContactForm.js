@@ -104,6 +104,7 @@ export default function ContactForm() {
             <option>Banquetería</option>
             <option>Religiosas</option>
             <option>Funerarias</option>
+            <option>Otro</option>
           </select>
         </div>
       </div>
