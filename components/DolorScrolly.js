@@ -22,9 +22,11 @@ export default function DolorScrolly({
   parrafo,
   bullets = [],
   marcador = 'punto', // 'punto' (default) | 'llama' → resalta cada concepto
+  simple = false, // true → intro centrada (sin pin ni conceptos), flujo sobrio
 }) {
   const esLlama = marcador === 'llama';
   const secRef = useRef(null);
+  const simpleRef = useRef(null);
   const phrasesRef = useRef(null);
   const paraRef = useRef(null);
   const bulletsRef = useRef(null);
@@ -53,7 +55,47 @@ export default function DolorScrolly({
     el.style.setProperty('--my', `${e.clientY - r.top}px`);
   };
 
+  // ── Modo simple (flujo sobrio): título con revelado por máscara + bajada,
+  //    centrado verticalmente, vinculado al scroll. Sin pin, sin conceptos. ──
   useEffect(() => {
+    if (!simple) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const el = simpleRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      const titleLines = el.querySelectorAll('[data-line]');
+      const h2 = el.querySelector('h2');
+      const para = el.querySelector('[data-para]');
+      // Triggers apuntados al TÍTULO/BAJADA reales (no al tope de la sección,
+      // que por ser alta y centrada disparaba la animación fuera de vista).
+      gsap.from(titleLines, {
+        yPercent: 120,
+        duration: 1,
+        stagger: 0.12,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: h2,
+          start: 'top 88%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+      gsap.from(para, {
+        opacity: 0,
+        y: 24,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: para,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+    }, simpleRef);
+    return () => ctx.revert();
+  }, [simple]);
+
+  useEffect(() => {
+    if (simple) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mobile = window.matchMedia('(max-width: 767px)').matches;
     // En móvil (y con reduce-motion) NO usamos el pin scrubbeado: los conceptos
@@ -172,6 +214,57 @@ export default function DolorScrolly({
   const bulletInner = 'flex items-center justify-center gap-3';
   // Con llama damos más respiro vertical entre conceptos (estilo depurado).
   const bulletsGap = esLlama ? 'gap-7 md:gap-9' : 'gap-4 md:gap-5';
+
+  // ── Modo simple (flujo sobrio): intro centrada, sin pin ni conceptos ──
+  if (simple) {
+    return (
+      <section
+        ref={simpleRef}
+        className="relative bg-[#FCFCFB] grain flex items-center justify-center min-h-[76svh] md:min-h-[82svh]"
+      >
+        <div className="max-w-5xl mx-auto px-6 py-28 md:py-36 text-center">
+          <h2 className="font-display text-text-primary text-[clamp(28px,5vw,58px)] leading-[1.1] tracking-[-0.015em]">
+            {lineas.map((l, i) => {
+              const last = i === lineas.length - 1;
+              return (
+                <span key={i} className="block overflow-hidden">
+                  <span data-line className="block whitespace-nowrap">
+                    {last ? (
+                      <span className="relative inline-block">
+                        {l}
+                        <svg
+                          aria-hidden
+                          viewBox="0 0 300 22"
+                          preserveAspectRatio="none"
+                          className="absolute left-0 right-0 -bottom-[0.14em] w-full h-[0.36em] overflow-visible text-gold"
+                        >
+                          <path
+                            d="M4 13 C 62 5, 118 19, 178 11 S 262 6, 296 13"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      l
+                    )}
+                  </span>
+                </span>
+              );
+            })}
+          </h2>
+          <p
+            data-para
+            className="text-text-body text-[clamp(16px,1.9vw,20px)] leading-[1.75] mt-8 max-w-2xl mx-auto"
+          >
+            {parrafo}
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   // ── Versión estática (móvil + reduce-motion): sin pin, en flujo normal ──
   if (statico) {

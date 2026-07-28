@@ -23,8 +23,8 @@ export default function ContactoPage() {
           <p className="type-body text-[15px] mt-6 max-w-lg">
             Cuéntanos qué formatos y cantidades necesitas y te prepararemos una
             cotización a medida. Fabricamos principalmente para mayoristas, con
-            stock permanente en velas color Blanco Nieve y Marfil, y despacho a
-            todo Chile vía Starken.
+            producción propia y stock permanente en los colores Blanco Nieve y
+            Marfil. Despachamos a todo Chile.
           </p>
         </div>
 

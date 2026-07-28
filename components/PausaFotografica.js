@@ -22,6 +22,10 @@ export default function PausaFotografica({
   posicion = '50% 50%',
   cta,
   ctaHref = '/contacto',
+  // true → la sección queda FIJA por CSS (sticky) y la siguiente sección sube
+  // por encima tapándola. Sin pin de GSAP (evita conflictos). El CTA se revela
+  // con un trigger simple. Usado en el flujo sobrio (Funerarias).
+  modoSticky = false,
 }) {
   const secRef = useRef(null);
   const mediaRef = useRef(null);
@@ -49,14 +53,36 @@ export default function PausaFotografica({
     if (reduce) return () => io && io.disconnect();
 
     const ctx = gsap.context(() => {
-      // El texto aparece mientras la sección sube a su lugar (siempre).
+      // El texto aparece mientras la sección sube a su lugar. En modo sticky se
+      // revierte al subir (aparece al bajar, desaparece al volver a subir).
       gsap.from(textRef.current, {
         opacity: 0,
         y: 22,
         duration: 1,
         ease: 'power2.out',
-        scrollTrigger: { trigger: secRef.current, start: 'top 75%' },
+        scrollTrigger: {
+          trigger: secRef.current,
+          start: 'top 75%',
+          ...(modoSticky ? { toggleActions: 'play none none reverse' } : {}),
+        },
       });
+
+      // Modo sticky (CSS): sin pin. El CTA se revela con un trigger simple en
+      // todos los tamaños; la sección queda fija por CSS y la siguiente la tapa.
+      if (modoSticky) {
+        gsap.from(ctaRef.current, {
+          opacity: 0,
+          y: 24,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: secRef.current,
+            start: 'top 45%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+        return;
+      }
 
       const mm = gsap.matchMedia();
 
@@ -104,7 +130,11 @@ export default function PausaFotografica({
   return (
     <section
       ref={secRef}
-      className="relative z-30 h-[100svh] min-h-[520px] overflow-hidden grain"
+      className={
+        modoSticky
+          ? 'relative z-0 md:sticky md:top-0 h-[100svh] min-h-[520px] overflow-hidden grain'
+          : 'relative z-30 h-[100svh] min-h-[520px] overflow-hidden grain'
+      }
     >
       {/* Media con overscan para el parallax */}
       <div

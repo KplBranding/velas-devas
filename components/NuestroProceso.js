@@ -44,6 +44,41 @@ const PASOS = [
   },
 ];
 
+// Texto de los pasos adaptado por categoría (mismo diseño, íconos y animaciones;
+// solo cambia el contenido). Si una categoría no está aquí, usa PASOS por defecto.
+const PASOS_POR_CATEGORIA = {
+  funerarias: [
+    {
+      num: '01',
+      icon: 'materias',
+      titulo: 'Selección de materias primas',
+      texto:
+        'Utilizamos parafinas de alta calidad, pabilos cuidadosamente seleccionados y materiales que permiten obtener una combustión estable y uniforme.',
+    },
+    {
+      num: '02',
+      icon: 'procesos',
+      titulo: 'Fabricación controlada',
+      texto:
+        'Cada etapa del proceso es supervisada para asegurar que todas las velas mantengan las mismas características de terminación y rendimiento.',
+    },
+    {
+      num: '03',
+      icon: 'fabricacion',
+      titulo: 'Experiencia y oficio',
+      texto:
+        'Nuestra producción combina maquinaria especializada con trabajo artesanal, permitiendo revisar cuidadosamente cada lote antes de su despacho.',
+    },
+    {
+      num: '04',
+      icon: 'despacho',
+      titulo: 'Preparación y despacho',
+      texto:
+        'Preparamos cada pedido cuidadosamente para asegurar que llegue en óptimas condiciones y dentro de los plazos comprometidos.',
+    },
+  ],
+};
+
 // Íconos lineales propios con micro-animación en loop (tipo gif, sutil).
 // Los trazos estructurales se dibujan al entrar (pathLength); los acentos animan.
 function Icono({ tipo }) {
@@ -136,6 +171,7 @@ function Icono({ tipo }) {
 export default function NuestroProceso({ categoria }) {
   const ref = useRef(null);
   const cta = CTA_POR_CATEGORIA[categoria];
+  const pasos = PASOS_POR_CATEGORIA[categoria] || PASOS;
 
   useEffect(() => {
     const root = ref.current;
@@ -188,7 +224,7 @@ export default function NuestroProceso({ categoria }) {
 
         {/* Pasos */}
         <div className="max-w-3xl">
-          {PASOS.map((paso, i) => (
+          {pasos.map((paso, i) => (
             <div
               key={paso.num}
               data-step
@@ -202,7 +238,7 @@ export default function NuestroProceso({ categoria }) {
                 >
                   <Icono tipo={paso.icon} />
                 </div>
-                {i < PASOS.length - 1 && (
+                {i < pasos.length - 1 && (
                   <div className="relative w-px flex-1 my-3">
                     <div className="absolute inset-0 bg-border-default" />
                     <div className="proc-connector absolute inset-0 bg-gold" />

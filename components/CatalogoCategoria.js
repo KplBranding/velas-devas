@@ -33,6 +33,7 @@ const ORDENES = [
 export default function CatalogoCategoria({ categoria, productos }) {
   const [orden, setOrden] = useState('alto-desc');
   const landing = categoria.landing;
+  const sobria = landing?.variante === 'sobria';
   const hayGrupos = productos.some((p) => Array.isArray(p.alturas));
   const procesoRef = useRef(null);
 
@@ -173,7 +174,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
                 className="btn-light"
                 style={{ textShadow: 'none' }}
               >
-                Ver catálogo
+                {landing.ctaVerCatalogo || 'Ver catálogo'}
               </a>
               <Link
                 href="/contacto"
@@ -208,6 +209,49 @@ export default function CatalogoCategoria({ categoria, productos }) {
       {/* {landing && <SubNav />} */}
 
       {landing ? (
+        sobria ? (
+          /* ── Flujo SOBRIO (Funerarias): intro simple → pausa sticky que
+                "Nuestro compromiso" tapa al subir, con costura orgánica. ── */
+          <>
+            <DolorScrolly
+              simple
+              lineas={landing.dolorLineas}
+              parrafo={landing.dolor}
+            />
+
+            <div className="relative">
+              {landing.pausa && (
+                <PausaFotografica
+                  modoSticky
+                  src={landing.pausa.imagen}
+                  video={landing.pausa.video}
+                  frase={landing.pausa.frase}
+                  posicion={landing.pausa.pos}
+                  cta={landing.pausa.cta}
+                />
+              )}
+
+              {/* El oficio sube por encima de la pausa fija y la tapa (borde
+                 recto, panel opaco). */}
+              {landing.oficio && (
+                <div className="relative z-10">
+                  <SeccionOficio
+                    foto={landing.oficio.foto}
+                    fotoPos={landing.oficio.fotoPos}
+                    fotoColor={landing.oficio.fotoColor}
+                    eyebrow={landing.oficio.eyebrow}
+                    titulo={landing.oficio.titulo}
+                    texto={landing.oficio.texto}
+                    beneficios={landing.beneficios}
+                    cta={landing.oficio.cta}
+                  />
+                </div>
+              )}
+            </div>
+
+            <WinchaDevas />
+          </>
+        ) : (
         <>
 
           {/* ── Quiebre: la sección 1 (sticky) se queda y el video sube por
@@ -253,6 +297,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
           {/* ── Wincha divisoria hacia el catálogo ── */}
           <WinchaDevas />
         </>
+        )
       ) : (
         /* Layout base para categorías sin narrativa definida */
         <div className="border-b border-border-default bg-bg-base">
