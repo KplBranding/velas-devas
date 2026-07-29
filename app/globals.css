@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Desplazamiento suave para las Quick Actions (anclas a secciones) */
-@media (prefers-reduced-motion: no-preference) {
-  html { scroll-behavior: smooth; }
-}
+/* El scroll suave lo gestiona el Motion System (Lenis). El smooth nativo se
+   elimina porque compite con los pins/scrubs de ScrollTrigger. Para usuarios con
+   reduce-motion, Lenis se desactiva y el scroll es nativo instantáneo. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 /* ── Wincha marquee "Velas Devas" (derecha → izquierda, loop) ── */
 @keyframes wincha-marquee {

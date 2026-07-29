@@ -1,10 +1,12 @@
 import { EMPRESA } from '../../../lib/categorias';
+import { buildMeta } from '../../../lib/seo';
 
-export const metadata = {
-  title: 'Política de privacidad y cookies — Velas Devas',
+export const metadata = buildMeta({
+  title: 'Política de privacidad y cookies',
   description:
     'Cómo Velas Devas recopila, usa y protege tus datos personales, y el uso de cookies en el sitio.',
-};
+  path: '/privacidad',
+});
 
 export default function PrivacidadPage() {
   return (

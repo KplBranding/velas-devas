@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { parallaxLayer } from '../lib/motion/presets';
+import { PARALLAX } from '../lib/motion/config';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -70,6 +72,8 @@ export default function PausaFotografica({
       // Modo sticky (CSS): sin pin. El CTA se revela con un trigger simple en
       // todos los tamaños; la sección queda fija por CSS y la siguiente la tapa.
       if (modoSticky) {
+        // Parallax sutil de la media (ya viene con overscan) → profundidad.
+        parallaxLayer(mediaRef.current, PARALLAX.background);
         gsap.from(ctaRef.current, {
           opacity: 0,
           y: 24,

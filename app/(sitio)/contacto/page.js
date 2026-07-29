@@ -1,12 +1,14 @@
 import ContactForm from '../../../components/ContactForm';
 import AnimatedText from '../../../components/AnimatedText';
 import { EMPRESA } from '../../../lib/categorias';
+import { buildMeta } from '../../../lib/seo';
 
-export const metadata = {
+export const metadata = buildMeta({
   title: 'Contacto — Cotizaciones mayoristas',
   description:
     'Solicita una cotización mayorista de velas para banquetería, iglesias o funerarias. Fabricación artesanal en Santiago, Chile.',
-};
+  path: '/contacto',
+});
 
 export default function ContactoPage() {
   return (

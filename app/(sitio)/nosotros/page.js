@@ -3,12 +3,14 @@ import Image from 'next/image';
 import { IMAGENES } from '../../../lib/categorias';
 import HistoriaScroll from '../../../components/HistoriaScroll';
 import AnimatedText from '../../../components/AnimatedText';
+import { buildMeta } from '../../../lib/seo';
 
-export const metadata = {
+export const metadata = buildMeta({
   title: 'Nosotros — Más de 30 años fabricando confianza',
   description:
     'Más de 30 años fabricando velas para banqueterías, funerarias, parroquias, distribuidores y empresas de todo Chile. Calidad, consistencia y fabricación nacional.',
-};
+  path: '/nosotros',
+});
 
 // Relato editorial que acompaña a la vela mientras rota al hacer scroll.
 const BEATS = [

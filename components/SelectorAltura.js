@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 import { useCotizacion } from '../context/CotizacionContext';
-
-// Formato peso chileno: 1420 -> $1.420
-export const clp = (n) => '$' + Number(n).toLocaleString('es-CL');
+import { clp } from '../lib/utils';
 
 // Chips de altura seleccionables. Al elegir un alto, muestra el valor neto
 // unitario correspondiente. Si el grupo no tiene precios -> "Consultar precios".

@@ -29,6 +29,8 @@ export default function SeccionOficio({
   texto,
   beneficios = [],
   cta,
+  bgClass = 'bg-bg-base', // fondo del panel (flujo sobrio lo pone blanco)
+  compacto = false, // reduce altura (para caber junto a la wincha en la cadena)
 }) {
   const sectionRef = useRef(null);
 
@@ -76,10 +78,14 @@ export default function SeccionOficio({
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-bg-base">
+    <section ref={sectionRef} className={`relative ${bgClass}`}>
       <div className="md:grid md:grid-cols-2 md:items-stretch">
         {/* IZQUIERDA · Fotografía protagonista */}
-        <div className="relative h-[54vh] min-h-[340px] md:h-auto overflow-hidden grain">
+        <div
+          className={`relative overflow-hidden grain ${
+            compacto ? 'h-[38vh] min-h-[260px] md:h-auto' : 'h-[54vh] min-h-[340px] md:h-auto'
+          }`}
+        >
           <Image
             src={foto}
             alt=""
@@ -99,50 +105,76 @@ export default function SeccionOficio({
         </div>
 
         {/* DERECHA · Texto */}
-        <div className="flex flex-col justify-center px-5 md:px-10 lg:px-16 py-14 md:py-20">
+        <div
+          className={`flex flex-col justify-center px-5 md:px-10 lg:px-16 ${
+            compacto ? 'py-8 md:py-10' : 'py-14 md:py-20'
+          }`}
+        >
           <div className="w-full max-w-xl">
             <p data-oficio-reveal className="type-eyebrow eyebrow-rule">
               {eyebrow}
             </p>
             <h2
               data-oficio-reveal
-              className="font-display text-[clamp(26px,3.6vw,40px)] text-text-primary leading-[1.2] mt-4"
+              className={`font-display text-text-primary leading-[1.2] mt-4 ${
+                compacto
+                  ? 'text-[clamp(23px,3vw,32px)]'
+                  : 'text-[clamp(26px,3.6vw,40px)]'
+              }`}
             >
               {titulo}
             </h2>
             <p
               data-oficio-reveal
-              className="type-body text-[15px] leading-[1.9] mt-5"
+              className={`type-body leading-[1.75] ${
+                compacto ? 'text-[14px] mt-3' : 'text-[15px] leading-[1.9] mt-5'
+              }`}
             >
               {texto}
             </p>
 
-            <ul className="mt-9">
+            <ul className={compacto ? 'mt-5' : 'mt-9'}>
               {beneficios.map((b, i) => (
                 <li
                   data-oficio-reveal
-                  key={b.t}
-                  className={`group flex items-baseline gap-4 py-3.5 border-b border-border-default cursor-default ${
-                    i === 0 ? 'border-t border-border-default' : ''
-                  }`}
+                  key={b.titulo || b.t}
+                  className={`group flex items-baseline gap-4 border-b border-border-default cursor-default ${
+                    compacto ? 'py-2.5' : 'py-3.5'
+                  } ${i === 0 ? 'border-t border-border-default' : ''}`}
                 >
-                  <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 transition-colors duration-[var(--dur-base)] group-hover:text-accent-mid">
+                  <span className="font-display text-gold text-[14px] leading-none w-6 shrink-0 pt-0.5 transition-colors duration-[var(--dur-base)] group-hover:text-accent-mid">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-[var(--dur-base)] group-hover:text-text-primary">
-                    {b.t}
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-entrance)] group-hover:scale-x-100"
-                    />
-                  </span>
+                  {b.titulo ? (
+                    // Formato con título + descripción
+                    <span className="font-sans leading-snug">
+                      <span className="block text-[14px] md:text-[15px] font-semibold text-text-primary">
+                        {b.titulo}
+                      </span>
+                      <span className="block text-[13px] md:text-[13.5px] text-text-body mt-0.5">
+                        {b.desc}
+                      </span>
+                    </span>
+                  ) : (
+                    // Formato de una sola línea (otras categorías)
+                    <span className="relative font-sans text-[14px] md:text-[15px] text-text-body leading-snug transition-colors duration-[var(--dur-base)] group-hover:text-text-primary">
+                      {b.t}
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute left-0 -bottom-1 h-px w-full bg-accent-mid origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-entrance)] group-hover:scale-x-100"
+                      />
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
 
             {cta && (
               <div data-oficio-reveal>
-                <Link href="/contacto" className="btn-primary mt-9 inline-block">
+                <Link
+                  href="/contacto"
+                  className={`btn-primary inline-block ${compacto ? 'mt-6' : 'mt-9'}`}
+                >
                   {cta}
                 </Link>
               </div>

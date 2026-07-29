@@ -1,13 +1,15 @@
 import CatalogoCategoria from '../../../components/CatalogoCategoria';
 import { CATEGORIAS } from '../../../lib/categorias';
+import { buildMeta } from '../../../lib/seo';
 import productos from '../../../data/productos.json';
 
 const categoria = CATEGORIAS.religiosas;
 
-export const metadata = {
+export const metadata = buildMeta({
   title: 'Religiosas — Cirios y velones para iglesias',
   description: categoria.descripcion,
-};
+  path: '/religiosas',
+});
 
 export default function ReligiosasPage() {
   const items = productos.filter((p) => p.categoria === 'religiosas');

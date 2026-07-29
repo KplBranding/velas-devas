@@ -1,7 +1,8 @@
 import VelaSVG from './VelaSVG';
 import ProductGaleria from './ProductGaleria';
-import SelectorAltura, { clp } from './SelectorAltura';
+import SelectorAltura from './SelectorAltura';
 import AgregarSimple from './cotizacion/AgregarSimple';
+import { clp } from '../lib/utils';
 
 export default function ProductCard({ producto, index = 0 }) {
   const bgImagen = index % 2 === 0 ? 'bg-bg-card-1' : 'bg-bg-card-2';

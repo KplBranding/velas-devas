@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { crossfadeOut } from '../lib/motion/presets';
 import Flame from './Flame';
 
 if (typeof window !== 'undefined') {
@@ -31,7 +32,6 @@ export default function DolorScrolly({
   const paraRef = useRef(null);
   const bulletsRef = useRef(null);
   const arrowRef = useRef(null);
-  const underlineRef = useRef(null);
   const [statico, setStatico] = useState(false);
   const [hover, setHover] = useState(false);
   const rectRef = useRef(null);
@@ -90,6 +90,9 @@ export default function DolorScrolly({
           toggleActions: 'play none none reverse',
         },
       });
+      // Motion System: al salir por arriba pierde protagonismo (crossfade),
+      // dando continuidad hacia la pausa que sigue.
+      crossfadeOut(el);
     }, simpleRef);
     return () => ctx.revert();
   }, [simple]);
@@ -132,12 +135,6 @@ export default function DolorScrolly({
           { opacity: 0, y: 24 },
           { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
           0.9
-        )
-        // Subrayado dibujado a mano bajo "marca la diferencia"
-        .to(
-          underlineRef.current,
-          { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' },
-          1.5
         )
         // Las frases se retiran hacia arriba (deja el escenario limpio)
         .to(
@@ -222,31 +219,18 @@ export default function DolorScrolly({
         ref={simpleRef}
         className="relative bg-[#FCFCFB] grain flex items-center justify-center min-h-[76svh] md:min-h-[82svh]"
       >
-        <div className="max-w-5xl mx-auto px-6 py-28 md:py-36 text-center">
-          <h2 className="font-display text-text-primary text-[clamp(28px,5vw,58px)] leading-[1.1] tracking-[-0.015em]">
+        <div className="max-w-6xl mx-auto px-6 py-28 md:py-36 text-center">
+          <h2 className="font-display text-text-primary text-[clamp(30px,6.4vw,80px)] leading-[1.08] tracking-[-0.015em]">
             {lineas.map((l, i) => {
               const last = i === lineas.length - 1;
               return (
-                <span key={i} className="block overflow-hidden">
+                <span
+                key={i}
+                className="block overflow-hidden pb-[0.18em] -mb-[0.18em]"
+              >
                   <span data-line className="block whitespace-nowrap">
                     {last ? (
-                      <span className="relative inline-block">
-                        {l}
-                        <svg
-                          aria-hidden
-                          viewBox="0 0 300 22"
-                          preserveAspectRatio="none"
-                          className="absolute left-0 right-0 -bottom-[0.14em] w-full h-[0.36em] overflow-visible text-gold"
-                        >
-                          <path
-                            d="M4 13 C 62 5, 118 19, 178 11 S 262 6, 296 13"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </span>
+                      <span className="italic text-accent-mid">{l}</span>
                     ) : (
                       l
                     )}
@@ -278,11 +262,19 @@ export default function DolorScrolly({
             data-reveal
             className="font-display text-text-primary text-[clamp(30px,5.8vw,68px)] leading-[1.08] tracking-[-0.01em]"
           >
-            {lineas.join(' ')}
+            {lineas.map((l, i) => {
+              const last = i === lineas.length - 1;
+              return (
+                <span key={i}>
+                  {last ? <span className="italic text-accent-mid">{l}</span> : l}
+                  {last ? '' : ' '}
+                </span>
+              );
+            })}
           </h2>
           <p
             data-reveal
-            className="text-text-body text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto"
+            className="text-text-body text-[17px] leading-[1.8] mt-7 max-w-2xl mx-auto whitespace-pre-line"
           >
             {parrafo}
           </p>
@@ -318,39 +310,22 @@ export default function DolorScrolly({
         style={{ opacity: hover ? 1 : 0, background: GLOW }}
       />
 
-      {/* Capa 1 — frases (título 4 líneas + bajada) */}
+      {/* Capa 1 — frases (título 4 líneas + bajada). Centradas verticalmente. */}
       <div
         ref={phrasesRef}
-        className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-[12vh] md:pt-[14vh] px-6 text-center"
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
       >
         <h2 className="font-display text-text-primary text-[clamp(30px,6.4vw,80px)] leading-[1.08] tracking-[-0.015em]">
           {lineas.map((l, i) => {
             const last = i === lineas.length - 1;
             return (
-              <span key={i} className="block overflow-hidden">
+              <span
+                key={i}
+                className="block overflow-hidden pb-[0.18em] -mb-[0.18em]"
+              >
                 <span data-line className="block">
                   {last ? (
-                    <span className="relative inline-block">
-                      {l}
-                      {/* Subrayado dibujado a mano (se traza con el scroll) */}
-                      <svg
-                        aria-hidden
-                        viewBox="0 0 300 22"
-                        preserveAspectRatio="none"
-                        className="absolute left-0 right-0 -bottom-[0.14em] w-full h-[0.36em] overflow-visible text-gold"
-                      >
-                        <path
-                          ref={underlineRef}
-                          d="M4 13 C 62 5, 118 19, 178 11 S 262 6, 296 13"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="5"
-                          strokeLinecap="round"
-                          pathLength="1"
-                          style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
-                        />
-                      </svg>
-                    </span>
+                    <span className="italic text-accent-mid">{l}</span>
                   ) : (
                     l
                   )}
@@ -361,16 +336,18 @@ export default function DolorScrolly({
         </h2>
         <p
           ref={paraRef}
-          className="text-text-body text-[clamp(16px,1.9vw,20px)] leading-[1.7] mt-8 max-w-2xl"
+          className="text-text-body text-[clamp(16px,1.9vw,20px)] leading-[1.7] mt-8 max-w-2xl whitespace-pre-line"
         >
           {parrafo}
         </p>
       </div>
 
-      {/* Capa 2 — conceptos (entran uno por uno) */}
+      {/* Capa 2 — conceptos (entran uno por uno). Centrados verticalmente: al
+         aparecer el último, todo el bloque queda al centro de la pantalla (no
+         pegado a la barra de menú). */}
       <ul
         ref={bulletsRef}
-        className={`absolute inset-0 z-10 flex flex-col items-center justify-start pt-[12vh] md:pt-[14vh] px-6 text-center ${bulletsGap}`}
+        className={`absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center ${bulletsGap}`}
       >
         {bullets.map((b, i) => (
           <li key={i} className="overflow-hidden py-1">
