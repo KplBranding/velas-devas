@@ -572,9 +572,13 @@ export default function CatalogoCategoria({ categoria, productos }) {
 
           {/* Prueba social */}
           <MarcasCarrusel categoria={categoria.slug} />
+          {/* ── TESTIMONIOS: oculto hasta tener testimonios reales. Para
+             reactivar, descomentar este bloque (el import de Testimonios se
+             mantiene arriba). ──
           <div id="testimonios" className="scroll-mt-[128px]">
             <Testimonios />
           </div>
+          */}
           <div id="faq" className="scroll-mt-[128px]">
             <FAQ />
           </div>
