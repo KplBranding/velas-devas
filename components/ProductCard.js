@@ -58,9 +58,15 @@ export default function ProductCard({ producto, index = 0 }) {
       {/* Cuerpo */}
       <div className="pt-4">
         <div className="flex items-baseline justify-between gap-2">
-          <h3 className="type-card-title">{producto.nombre}</h3>
+          {/* Título destacado: la medida del título es el DIÁMETRO de la vela. */}
+          <h3 className="type-card-title text-[18px] leading-tight">
+            {producto.nombre}
+          </h3>
           {!esGrupo && <span className="type-label">{colorLabel}</span>}
         </div>
+        {producto.diametro_cm != null && (
+          <p className="type-eyebrow mt-1">Diámetro</p>
+        )}
 
         {esGrupo ? (
           producto.alturas.length ? (
