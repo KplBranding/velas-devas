@@ -6,7 +6,9 @@ import { clp } from '../lib/utils';
 
 export default function ProductCard({ producto, index = 0 }) {
   const bgImagen = index % 2 === 0 ? 'bg-bg-card-1' : 'bg-bg-card-2';
-  const agregable = producto.categoria === 'banqueteria';
+  const agregable = ['banqueteria', 'religiosas', 'funerarias'].includes(
+    producto.categoria
+  );
   const colorLabel =
     producto.color_nombre || (producto.color === 'marfil' ? 'Marfil' : 'Blanca');
   const tieneFotos = producto.imagenes && producto.imagenes.length > 0;
