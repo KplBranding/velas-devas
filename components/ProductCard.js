@@ -58,9 +58,19 @@ export default function ProductCard({ producto, index = 0 }) {
       {/* Cuerpo */}
       <div className="pt-4">
         <div className="flex items-baseline justify-between gap-2">
-          {/* Título destacado: la medida del título es el DIÁMETRO de la vela. */}
+          {/* Título: se resalta solo el NÚMERO del diámetro (negrita + 1px). */}
           <h3 className="type-card-title text-[18px] leading-tight">
-            {producto.nombre}
+            {(() => {
+              const m = producto.nombre.match(/^(.*?)(\d+(?:,\d+)?)(.*)$/);
+              if (!m) return producto.nombre;
+              return (
+                <>
+                  {m[1]}
+                  <span className="font-bold text-[19px]">{m[2]}</span>
+                  {m[3]}
+                </>
+              );
+            })()}
           </h3>
           {!esGrupo && <span className="type-label">{colorLabel}</span>}
         </div>
