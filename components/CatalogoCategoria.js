@@ -13,6 +13,7 @@ import useParallax from '../lib/motion/useParallax';
 import { PARALLAX } from '../lib/motion/config';
 import { getLenis } from '../lib/motion/engine';
 import ProductCard from './ProductCard';
+import ConfiguradorVelones from './ConfiguradorVelones';
 import AnimatedText from './AnimatedText';
 import ComoCotizar from './ComoCotizar';
 import LeyendaColores from './LeyendaColores';
@@ -170,6 +171,15 @@ export default function CatalogoCategoria({ categoria, productos }) {
     });
   }, [productos, orden]);
 
+  // Modo configurador: los velones (grupos con diámetro y alturas) se muestran en
+  // un solo módulo con selector de diámetro/alto + silueta a escala. Los sueltos
+  // (p. ej. Vela de Bautizo) siguen como tarjeta normal. El orden manual no aplica
+  // a los velones (el configurador los ordena por diámetro internamente).
+  const usarConfigurador = !!categoria.configurador;
+  const esVelon = (p) => p.diametro_cm != null && Array.isArray(p.alturas);
+  const velones = usarConfigurador ? lista.filter(esVelon) : [];
+  const sueltos = usarConfigurador ? lista.filter((p) => !esVelon(p)) : lista;
+
   // Scroll suave y controlado hacia el catálogo (más sutil que el smooth nativo,
   // que además choca con las secciones pinned). Easing propio + duración según
   // distancia. Aplica igual en móvil y escritorio.
@@ -240,22 +250,28 @@ export default function CatalogoCategoria({ categoria, productos }) {
       >
         <div className="max-w-6xl mx-auto px-5 md:px-8 h-[54px] flex items-center justify-between gap-6">
           <div className="flex items-center gap-5 overflow-x-auto no-scrollbar">
-            <label className="flex items-center gap-2 shrink-0">
-              <span className="type-label whitespace-nowrap hidden sm:inline">
-                Ordenar por
+            {usarConfigurador ? (
+              <span className="type-label whitespace-nowrap">
+                Selecciona diámetro y alto abajo
               </span>
-              <select
-                value={orden}
-                onChange={(e) => setOrden(e.target.value)}
-                className="font-sans text-nav text-text-primary bg-transparent border-none focus:outline-none cursor-pointer pr-1"
-              >
-                {ORDENES.map((o) => (
-                  <option key={o.key} value={o.key}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            ) : (
+              <label className="flex items-center gap-2 shrink-0">
+                <span className="type-label whitespace-nowrap hidden sm:inline">
+                  Ordenar por
+                </span>
+                <select
+                  value={orden}
+                  onChange={(e) => setOrden(e.target.value)}
+                  className="font-sans text-nav text-text-primary bg-transparent border-none focus:outline-none cursor-pointer pr-1"
+                >
+                  {ORDENES.map((o) => (
+                    <option key={o.key} value={o.key}>
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
           </div>
 
           <div className="flex items-center gap-4 shrink-0">
@@ -265,20 +281,44 @@ export default function CatalogoCategoria({ categoria, productos }) {
         </div>
       </div>
 
-      {/* Grilla de productos */}
-      <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
-          {lista.map((p, i) => (
-            <ProductCard key={p.id} producto={p} index={i} />
-          ))}
-        </div>
+      {/* Productos: configurador (velones) + tarjetas (sueltos), o grilla simple */}
+      {usarConfigurador ? (
+        <>
+          {velones.length > 0 && (
+            <ConfiguradorVelones
+              productos={velones}
+              titulo={categoria.configuradorTitulo}
+              lead={categoria.configuradorLead}
+            />
+          )}
+          {sueltos.length > 0 && (
+            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-2 pb-20">
+              <p className="type-eyebrow eyebrow-rule mb-6">
+                También en {categoria.nombre}
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+                {sueltos.map((p, i) => (
+                  <ProductCard key={p.id} producto={p} index={i} />
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+            {lista.map((p, i) => (
+              <ProductCard key={p.id} producto={p} index={i} />
+            ))}
+          </div>
 
-        {lista.length === 0 && (
-          <p className="type-body py-16 text-center">
-            No hay formatos para este filtro.
-          </p>
-        )}
-      </div>
+          {lista.length === 0 && (
+            <p className="type-body py-16 text-center">
+              No hay formatos para este filtro.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 
