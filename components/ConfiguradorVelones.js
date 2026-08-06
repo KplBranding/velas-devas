@@ -13,10 +13,12 @@ const num = (s) => parseFloat(String(s).replace(',', '.'));
 // comunicar. El "fantasma" punteado marca el alto máximo del diámetro elegido,
 // para leer el alto seleccionado como fracción del rango.
 function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
+  // Lienzo 4:5 (vertical): coincide con las fotos del catálogo y da más aire
+  // vertical a los velones altos.
   const W = 400,
-    H = 400,
-    padT = 26,
-    padB = 42,
+    H = 500,
+    padT = 30,
+    padB = 46,
     padL = 62,
     padR = 26;
   const availH = H - padT - padB;
@@ -73,7 +75,7 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
 
   return (
     <svg
-      viewBox="0 0 400 400"
+      viewBox="0 0 400 500"
       className="w-full h-full"
       role="img"
       aria-label={`Silueta a escala: velón de ${diamLabel} cm de diámetro por ${alto} cm de alto`}
@@ -266,7 +268,7 @@ export default function ConfiguradorVelones({ productos, titulo, lead }) {
               ))}
             </div>
 
-            <div className="relative aspect-square">
+            <div className="relative aspect-[4/5]">
               {vista === 'escala' ? (
                 <>
                   <SiluetaEscala
