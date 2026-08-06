@@ -64,9 +64,6 @@ export default function ProductCard({ producto, index = 0 }) {
           </h3>
           {!esGrupo && <span className="type-label">{colorLabel}</span>}
         </div>
-        {producto.diametro_cm != null && (
-          <p className="type-eyebrow mt-1">Diámetro</p>
-        )}
 
         {esGrupo ? (
           producto.alturas.length ? (
