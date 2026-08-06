@@ -287,6 +287,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
           {velones.length > 0 && (
             <ConfiguradorVelones
               productos={velones}
+              galeria={categoria.configuradorFotos}
               titulo={categoria.configuradorTitulo}
               lead={categoria.configuradorLead}
             />

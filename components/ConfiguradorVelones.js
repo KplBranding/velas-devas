@@ -159,35 +159,23 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
 }
 
 // ── Configurador de velones (un módulo para todos los diámetros) ────────────
-export default function ConfiguradorVelones({ productos, titulo, lead }) {
+export default function ConfiguradorVelones({ productos, galeria = [], titulo, lead }) {
   const { agregar } = useCotizacion();
 
-  // Ordena por diámetro asc. Precalcula, para cada diámetro sin foto propia, la
-  // foto del diámetro más cercano que sí tenga (para la pestaña "Foto").
-  const diams = useMemo(() => {
-    const orden = [...productos].sort((a, b) => a.diametro_cm - b.diametro_cm);
-    const conFoto = orden.filter((p) => p.imagenes?.length);
-    return orden.map((p) => {
-      const propia = p.imagenes?.length ? p : null;
-      const cercano =
-        propia ||
-        conFoto.reduce(
-          (best, c) =>
-            best == null ||
-            Math.abs(c.diametro_cm - p.diametro_cm) <
-              Math.abs(best.diametro_cm - p.diametro_cm)
-              ? c
-              : best,
-          null
-        );
-      return {
-        ...p,
-        label: String(p.diametro_cm).replace('.', ','),
-        fotos: (propia || cercano)?.imagenes || [],
-        fotoReal: !!propia,
-      };
-    });
-  }, [productos]);
+  // Ordena los diámetros de menor a mayor. La foto NO depende del diámetro: la
+  // pestaña "Foto" es una galería COMPARTIDA que muestra el acabado y color
+  // reales (idénticos en todas las medidas). El tamaño lo comunica la silueta.
+  const diams = useMemo(
+    () =>
+      [...productos]
+        .sort((a, b) => a.diametro_cm - b.diametro_cm)
+        .map((p) => ({ ...p, label: String(p.diametro_cm).replace('.', ',') })),
+    [productos]
+  );
+
+  // Galería compartida: hasta 6 fotos de acabado/color.
+  const fotos = galeria.slice(0, 6);
+  const hayFotos = fotos.length > 0;
 
   const destacadoIdx = Math.max(
     0,
@@ -195,7 +183,7 @@ export default function ConfiguradorVelones({ productos, titulo, lead }) {
   );
   const [di, setDi] = useState(destacadoIdx);
   const [ai, setAi] = useState(0);
-  const [imgIdx, setImgIdx] = useState(0);
+  const [imgIdx, setImgIdx] = useState(0); // índice en la galería compartida
   const [cant, setCant] = useState(1);
   const [vista, setVista] = useState('escala'); // 'escala' | 'foto'
   const [tablaAbierta, setTablaAbierta] = useState(false);
@@ -208,7 +196,6 @@ export default function ConfiguradorVelones({ productos, titulo, lead }) {
   const seleccionarDiametro = (i) => {
     setDi(i);
     setAi(0);
-    setImgIdx(0);
   };
 
   const agregarLinea = () => {
@@ -250,7 +237,7 @@ export default function ConfiguradorVelones({ productos, titulo, lead }) {
             <div className="flex border-b border-border-default">
               {[
                 ['escala', 'Tamaño real (a escala)'],
-                ['foto', 'Foto'],
+                ...(hayFotos ? [['foto', 'Foto']] : []),
               ].map(([k, label]) => (
                 <button
                   key={k}
@@ -287,27 +274,25 @@ export default function ConfiguradorVelones({ productos, titulo, lead }) {
               ) : (
                 <>
                   <Image
-                    key={prod.fotos[imgIdx] || prod.id}
-                    src={prod.fotos[imgIdx] || '/images/editorial/llama.jpg'}
-                    alt={`Velón litúrgico Ø ${prod.label} cm`}
+                    key={fotos[imgIdx]}
+                    src={fotos[imgIdx]}
+                    alt="Acabado del velón litúrgico"
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
                   <span className="absolute left-3 bottom-3 font-sans text-[11px] text-[#EDEFE4] bg-graphite/85 rounded-[3px] px-2.5 py-1.5">
-                    {prod.fotoReal
-                      ? 'Foto real · el acabado y color son iguales en todas las medidas'
-                      : 'Foto referencial · mismo acabado y color'}
+                    Acabado y color reales · iguales en todas las medidas
                   </span>
                 </>
               )}
             </div>
           </div>
 
-          {/* Miniaturas (solo cuando el diámetro tiene fotos propias) */}
-          {vista === 'foto' && prod.fotoReal && prod.fotos.length > 1 && (
-            <div className="mt-3 flex gap-2.5">
-              {prod.fotos.map((src, i) => (
+          {/* Miniaturas de la galería compartida */}
+          {vista === 'foto' && fotos.length > 1 && (
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              {fotos.map((src, i) => (
                 <button
                   key={src}
                   type="button"
