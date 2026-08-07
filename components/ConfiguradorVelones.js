@@ -100,15 +100,23 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
           >
             {hayFotos ? (
               <>
-                <Image
-                  key={actual.src}
-                  src={actual.src}
-                  alt="Cirios y velones litúrgicos Devas"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover animate-[fadeIn_.5s_ease]"
-                />
+                {/* Capas apiladas: crossfade real (la nueva funde sobre la
+                   anterior) + leve settle de escala → transición suave y fluida. */}
+                {fotos.map((f, i) => (
+                  <Image
+                    key={f.src}
+                    src={f.src}
+                    alt="Cirios y velones litúrgicos Devas"
+                    fill
+                    priority={i === 0}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className={`object-cover transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                      i === imgIdx
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-[1.04]'
+                    }`}
+                  />
+                ))}
 
                 {/* Label fijo: imágenes referenciales */}
                 <span className="absolute top-3 left-3 font-sans text-[10px] font-bold uppercase tracking-[0.1em] text-[#EDEFE4] bg-graphite/80 rounded-full px-3 py-1.5 backdrop-blur-sm">

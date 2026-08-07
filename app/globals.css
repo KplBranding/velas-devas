@@ -465,12 +465,6 @@ html.lenis, html.lenis body { height: auto; }
   to { transform: scale(1.04); }
 }
 
-/* Cross-fade suave al cambiar de foto en el carrusel del configurador. */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 /* Barra de progreso del autoplay del carrusel: se "consume" de izquierda a
    derecha. La duración va inline (AUTOPLAY_MS); al terminar, el JS avanza. */
 .carousel-timer {
