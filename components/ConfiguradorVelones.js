@@ -13,7 +13,13 @@ const num = (s) => parseFloat(String(s).replace(',', '.'));
 const AUTOPLAY_MS = 4200;
 
 // ── Configurador de velones (un módulo para todos los diámetros) ────────────
-export default function ConfiguradorVelones({ productos, galeria = [], titulo, lead }) {
+export default function ConfiguradorVelones({
+  productos,
+  galeria = [],
+  eyebrow,
+  titulo,
+  lead,
+}) {
   const { agregar } = useCotizacion();
 
   // Ordena los diámetros de menor a mayor. El visual es una galería de fotos
@@ -207,7 +213,7 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
 
         {/* ── Selectores + precio ── */}
         <div>
-          <p className="type-eyebrow eyebrow-rule">Velón litúrgico · {color}</p>
+          <p className="type-eyebrow eyebrow-rule">{eyebrow || 'Velón litúrgico'}</p>
           <h3 className="type-section text-[clamp(26px,3.2vw,36px)] mt-3">
             {titulo || 'Velón para uso religioso'}
           </h3>

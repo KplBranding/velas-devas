@@ -172,13 +172,13 @@ export default function CatalogoCategoria({ categoria, productos }) {
   }, [productos, orden]);
 
   // Modo configurador: los velones (grupos con diámetro y alturas) se muestran en
-  // un solo módulo con selector de diámetro/alto + silueta a escala. Los sueltos
-  // (p. ej. Vela de Bautizo) siguen como tarjeta normal. El orden manual no aplica
-  // a los velones (el configurador los ordena por diámetro internamente).
+  // un módulo con selector de diámetro/alto + galería. Los sueltos (p. ej. Vela de
+  // Bautizo) van como tarjeta. Cuando la categoría define `segmentos`, se apilan
+  // varios configuradores (uno por segmento: normales, decorados, impresos),
+  // filtrando los productos por su campo `segmento`.
   const usarConfigurador = !!categoria.configurador;
   const esVelon = (p) => p.diametro_cm != null && Array.isArray(p.alturas);
-  const velones = usarConfigurador ? lista.filter(esVelon) : [];
-  const sueltos = usarConfigurador ? lista.filter((p) => !esVelon(p)) : lista;
+  const segmentos = categoria.segmentos || [];
 
   // Scroll suave y controlado hacia el catálogo (más sutil que el smooth nativo,
   // que además choca con las secciones pinned). Easing propio + duración según
@@ -281,30 +281,50 @@ export default function CatalogoCategoria({ categoria, productos }) {
         </div>
       </div>
 
-      {/* Productos: configurador (velones) + tarjetas (sueltos), o grilla simple */}
+      {/* Productos: configuradores por segmento (apilados) o grilla simple */}
       {usarConfigurador ? (
-        <>
-          {velones.length > 0 && (
-            <ConfiguradorVelones
-              productos={velones}
-              galeria={categoria.configuradorFotos}
-              titulo={categoria.configuradorTitulo}
-              lead={categoria.configuradorLead}
-            />
-          )}
-          {sueltos.length > 0 && (
-            <div className="max-w-6xl mx-auto px-5 md:px-8 pt-2 pb-20">
-              <p className="type-eyebrow eyebrow-rule mb-6">
-                También en {categoria.nombre}
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
-                {sueltos.map((p, i) => (
-                  <ProductCard key={p.id} producto={p} index={i} />
-                ))}
+        <div>
+          {segmentos.map((seg, si) => {
+            const segVelones = lista.filter(
+              (p) => esVelon(p) && p.segmento === seg.key
+            );
+            const segSueltos = lista.filter(
+              (p) => !esVelon(p) && p.segmento === seg.key
+            );
+            if (!segVelones.length && !segSueltos.length) return null;
+            return (
+              <div
+                key={seg.key}
+                id={`seg-${seg.key}`}
+                className={`scroll-mt-[128px] ${
+                  si > 0 ? 'border-t border-border-default' : ''
+                }`}
+              >
+                {segVelones.length > 0 && (
+                  <ConfiguradorVelones
+                    productos={segVelones}
+                    galeria={seg.fotos}
+                    eyebrow={seg.eyebrow}
+                    titulo={seg.titulo}
+                    lead={seg.lead}
+                  />
+                )}
+                {segSueltos.length > 0 && (
+                  <div className="max-w-6xl mx-auto px-5 md:px-8 pt-2 pb-16">
+                    <p className="type-eyebrow eyebrow-rule mb-6">
+                      {seg.sueltosTitulo || `También · ${seg.titulo}`}
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+                      {segSueltos.map((p, i) => (
+                        <ProductCard key={p.id} producto={p} index={i} />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
-        </>
+            );
+          })}
+        </div>
       ) : (
         <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">

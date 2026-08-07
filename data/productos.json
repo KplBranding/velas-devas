@@ -392,7 +392,8 @@
       "/images/productos/religiosa-3-8x5-blanca/01.jpg",
       "/images/productos/religiosa-3-8x5-blanca/02.jpg",
       "/images/productos/religiosa-3-8x5-blanca/03.jpg"
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d4",
@@ -413,7 +414,8 @@
         "sku": "VD018",
         "neto": 3100
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d45",
@@ -429,7 +431,8 @@
         "sku": "VD019",
         "neto": 1380
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d49",
@@ -485,7 +488,8 @@
       "/images/productos/religiosa-4-9x15-blanca/01.jpg",
       "/images/productos/religiosa-4-9x15-blanca/02.jpg",
       "/images/productos/religiosa-4-9x15-blanca/03.jpg"
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d5",
@@ -526,7 +530,8 @@
         "sku": "VD025",
         "neto": 6680
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d6",
@@ -562,7 +567,8 @@
         "sku": "VD030",
         "neto": 6100
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d7",
@@ -639,7 +645,8 @@
       "/images/productos/religiosa-7x15-blanca/01.jpg",
       "/images/productos/religiosa-7x15-blanca/02.jpg",
       "/images/productos/religiosa-7x15-blanca/03.jpg"
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d75",
@@ -660,7 +667,8 @@
       "/images/productos/religiosa-7-5x5-blanca/01.jpg",
       "/images/productos/religiosa-7-5x5-blanca/02.jpg",
       "/images/productos/religiosa-7-5x5-blanca/03.jpg"
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d8",
@@ -726,7 +734,8 @@
         "sku": "VD052",
         "neto": 40000
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d10",
@@ -747,7 +756,8 @@
         "sku": "VD054",
         "neto": 51500
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-d105",
@@ -783,7 +793,8 @@
         "sku": "VD059",
         "neto": 17600
       }
-    ]
+    ],
+    "segmento": "normales"
   },
   {
     "id": "rel-bautizo",
@@ -804,7 +815,252 @@
         "sku": "VD061",
         "neto": 2400
       }
-    ]
+    ],
+    "segmento": "decorados"
+  },
+  {
+    "id": "rel-dec-d36",
+    "categoria": "religiosas",
+    "segmento": "decorados",
+    "grupo": true,
+    "nombre": "Velón decorado 3,6 cm diámetro",
+    "diametro_cm": 3.6,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "5",
+        "sku": "VD062",
+        "neto": 1850
+      },
+      {
+        "alto": "10",
+        "sku": "VD064",
+        "neto": 2350
+      },
+      {
+        "alto": "15",
+        "sku": "VD065",
+        "neto": 2830
+      },
+      {
+        "alto": "20",
+        "sku": "VD066",
+        "neto": 3300
+      },
+      {
+        "alto": "25",
+        "sku": "VD067",
+        "neto": 3850
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-dec-d49",
+    "categoria": "religiosas",
+    "segmento": "decorados",
+    "grupo": true,
+    "nombre": "Velón decorado 4,9 cm diámetro",
+    "diametro_cm": 4.9,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "15",
+        "sku": "VD063",
+        "neto": 4600
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-dec-d7",
+    "categoria": "religiosas",
+    "segmento": "decorados",
+    "grupo": true,
+    "nombre": "Velón decorado 7 cm diámetro",
+    "diametro_cm": 7.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "15",
+        "sku": "VD068",
+        "neto": 7810
+      },
+      {
+        "alto": "20",
+        "sku": "VD069",
+        "neto": 8900
+      },
+      {
+        "alto": "25",
+        "sku": "VD070",
+        "neto": 10400
+      },
+      {
+        "alto": "30",
+        "sku": "VD071",
+        "neto": 12000
+      },
+      {
+        "alto": "40",
+        "sku": "VD072",
+        "neto": 19300
+      },
+      {
+        "alto": "50",
+        "sku": "VD073",
+        "neto": 22500
+      },
+      {
+        "alto": "60",
+        "sku": "VD074",
+        "neto": 26400
+      },
+      {
+        "alto": "70",
+        "sku": "VD075",
+        "neto": 28500
+      },
+      {
+        "alto": "80",
+        "sku": "VD076",
+        "neto": 31680
+      },
+      {
+        "alto": "100",
+        "sku": "VD077",
+        "neto": 40150
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-dec-d8",
+    "categoria": "religiosas",
+    "segmento": "decorados",
+    "grupo": true,
+    "nombre": "Velón decorado 8 cm diámetro",
+    "diametro_cm": 8.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "30",
+        "sku": "VD078",
+        "neto": 17500
+      },
+      {
+        "alto": "40",
+        "sku": "VD079",
+        "neto": 25800
+      },
+      {
+        "alto": "50",
+        "sku": "VD080",
+        "neto": 29850
+      },
+      {
+        "alto": "60",
+        "sku": "VD081",
+        "neto": 32890
+      },
+      {
+        "alto": "80",
+        "sku": "VD082",
+        "neto": 38610
+      },
+      {
+        "alto": "100",
+        "sku": "VD083",
+        "neto": 48620
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-dec-d10",
+    "categoria": "religiosas",
+    "segmento": "decorados",
+    "grupo": true,
+    "nombre": "Velón decorado 10 cm diámetro",
+    "diametro_cm": 10.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "80",
+        "sku": "VD084",
+        "neto": 55600
+      },
+      {
+        "alto": "100",
+        "sku": "VD085",
+        "neto": 60100
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-imp-d36",
+    "categoria": "religiosas",
+    "segmento": "impresos",
+    "grupo": true,
+    "nombre": "Velón impreso 3,6 cm diámetro",
+    "diametro_cm": 3.6,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "5",
+        "sku": "VD086",
+        "neto": 1500
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-imp-d49",
+    "categoria": "religiosas",
+    "segmento": "impresos",
+    "grupo": true,
+    "nombre": "Velón impreso 4,9 cm diámetro",
+    "diametro_cm": 4.9,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "7,5",
+        "sku": "VD087",
+        "neto": 2600
+      },
+      {
+        "alto": "15",
+        "sku": "VD088",
+        "neto": 3700
+      }
+    ],
+    "imagenes": null
+  },
+  {
+    "id": "rel-imp-d7",
+    "categoria": "religiosas",
+    "segmento": "impresos",
+    "grupo": true,
+    "nombre": "Velón impreso 7 cm diámetro",
+    "diametro_cm": 7.0,
+    "color": "blanca",
+    "color_nombre": "Blanco nieve",
+    "alturas": [
+      {
+        "alto": "20",
+        "sku": "VD089",
+        "neto": 6500
+      }
+    ],
+    "imagenes": null
   },
   {
     "id": "fun-d36",
