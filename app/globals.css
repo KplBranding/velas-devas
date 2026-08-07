@@ -471,6 +471,24 @@ html.lenis, html.lenis body { height: auto; }
   to { opacity: 1; }
 }
 
+/* Barra de progreso del autoplay del carrusel: se "consume" de izquierda a
+   derecha. La duración va inline (AUTOPLAY_MS); al terminar, el JS avanza. */
+.carousel-timer {
+  transform: scaleX(0);
+  animation-name: carouselTimer;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes carouselTimer {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Sin movimiento: la barra no corre y el autoplay no dispara (navegación
+     manual con flechas/miniaturas). */
+  .carousel-timer { animation: none; transform: scaleX(0); }
+}
+
 /* El carrusel de marcas se mueve por JS (rAF con velocidad suavizada),
    ver components/MarcasCarrusel.js — no usa animación CSS. */
 

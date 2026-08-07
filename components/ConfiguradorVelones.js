@@ -1,11 +1,16 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useCotizacion } from '../context/CotizacionContext';
 import { clp } from '../lib/utils';
 
 const num = (s) => parseFloat(String(s).replace(',', '.'));
+
+// Duración del autoplay del carrusel (ms). La barra de progreso consume este
+// tiempo y, al terminar, dispara el avance (onAnimationEnd) → barra y cambio de
+// foto quedan sincronizados, incluso al pausar con el mouse.
+const AUTOPLAY_MS = 4200;
 
 // ── Configurador de velones (un módulo para todos los diámetros) ────────────
 export default function ConfiguradorVelones({ productos, galeria = [], titulo, lead }) {
@@ -43,19 +48,6 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
   const actual = fotos[imgIdx] || fotos[0] || {};
   const navegar = (dir) =>
     setImgIdx((i) => (i + dir + fotos.length) % fotos.length);
-
-  // Autoplay del carrusel: avanza una foto tras otra. Se pausa al pasar el mouse
-  // y se desactiva si el usuario prefiere menos movimiento. Se re-arma en cada
-  // cambio de imagen (así una navegación manual reinicia el temporizador).
-  useEffect(() => {
-    if (pausado || fotos.length < 2) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const t = setTimeout(
-      () => setImgIdx((i) => (i + 1) % fotos.length),
-      4200
-    );
-    return () => clearTimeout(t);
-  }, [imgIdx, pausado, fotos.length]);
 
   const prod = diams[di];
   const alt = prod.alturas[ai] || prod.alturas[0];
@@ -158,6 +150,20 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
                     <span className="absolute bottom-3 right-3 font-sans text-[11px] font-bold tabular-nums text-[#EDEFE4] bg-graphite/80 rounded-full px-2.5 py-1 backdrop-blur-sm">
                       {String(imgIdx + 1).padStart(2, '0')} / {String(fotos.length).padStart(2, '0')}
                     </span>
+
+                    {/* Mini barra: se "consume" durante el autoplay y al llenarse
+                       dispara el avance (queda en sync con el cambio de foto). */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-graphite/15">
+                      <div
+                        key={imgIdx}
+                        onAnimationEnd={() => navegar(1)}
+                        style={{
+                          animationDuration: `${AUTOPLAY_MS}ms`,
+                          animationPlayState: pausado ? 'paused' : 'running',
+                        }}
+                        className="carousel-timer h-full origin-left bg-accent-mid"
+                      />
+                    </div>
                   </>
                 )}
               </>
