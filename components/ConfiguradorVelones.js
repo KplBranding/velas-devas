@@ -7,157 +7,13 @@ import { clp } from '../lib/utils';
 
 const num = (s) => parseFloat(String(s).replace(',', '.'));
 
-// ── Silueta a escala real ──────────────────────────────────────────────────
-// A diferencia de VelaSVG (que normaliza proporciones para el placeholder), esta
-// dibuja el velón a ESCALA sobre una regla en cm: es lo que la foto no puede
-// comunicar. El "fantasma" punteado marca el alto máximo del diámetro elegido,
-// para leer el alto seleccionado como fracción del rango.
-function SiluetaEscala({ diam, diamLabel, alto }) {
-  // Lienzo 4:5 (vertical): coincide con las fotos del catálogo y da más aire
-  // vertical a los velones altos.
-  const W = 400,
-    H = 500,
-    padT = 30,
-    padB = 46,
-    padL = 62,
-    padR = 26;
-  const availH = H - padT - padB;
-  const availW = W - padL - padR;
-  const D = diam;
-  const A = num(alto);
-
-  // Escala ISOTRÓPICA: el mismo px/cm en ancho y alto → la proporción es REAL
-  // (un 7×7 se ve cuadrado; un 7×100, una barra alta y fina). Se ajusta al velón
-  // SELECCIONADO para que llene el marco; la regla en cm indica su tamaño real.
-  // (Antes se anclaba al alto máximo del diámetro y un velón bajo quedaba diminuto.)
-  const s = Math.min((availH * 0.86) / A, (availW * 0.6) / D);
-
-  const baseY = H - padB;
-  const cw = D * s;
-  const ch = A * s;
-  const cx = padL + availW * 0.5;
-  const gx = cx - cw / 2;
-  const rx = Math.min(cw * 0.16, 10);
-
-  // Regla en cm: paso que deje ~5–8 marcas y suba hasta llenar el alto visible
-  // (ya no se ancla al máximo del diámetro).
-  const rangoCm = availH / s;
-  const niceStep = (r) => {
-    for (const st of [1, 2, 5, 10, 20, 25, 50]) if (r / st <= 8) return st;
-    return 100;
-  };
-  const step = niceStep(rangoCm);
-  const ticks = [];
-  for (let cm = 0; baseY - cm * s >= padT - 1; cm += step) {
-    const y = baseY - cm * s;
-    ticks.push(
-      <g key={cm}>
-        <line x1={padL - 8} y1={y} x2={padL} y2={y} stroke="#9AA48C" strokeWidth="1" />
-        <line
-          x1={padL}
-          y1={y}
-          x2={W - padR}
-          y2={y}
-          stroke="#CDD3BE"
-          strokeWidth="1"
-          strokeDasharray="2 5"
-        />
-        <text
-          x={padL - 12}
-          y={y + 3.5}
-          textAnchor="end"
-          fontFamily="var(--font-sans)"
-          fontSize="10"
-          fill="#7A8471"
-        >
-          {cm}
-        </text>
-      </g>
-    );
-  }
-
-  const flameY = baseY - ch;
-  const wick = Math.min(Math.max(ch * 0.05, 3.5), 9);
-  const flH = Math.min(Math.max(ch * 0.1, 7), 18);
-
-  return (
-    <svg
-      viewBox="0 0 400 500"
-      className="w-full h-full"
-      role="img"
-      aria-label={`Silueta a escala: velón de ${diamLabel} cm de diámetro por ${alto} cm de alto`}
-    >
-      <defs>
-        <linearGradient id="wax-escala" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#FBFBF6" />
-          <stop offset="1" stopColor="#E7E9DA" />
-        </linearGradient>
-      </defs>
-
-      {ticks}
-      <text
-        x={padL - 42}
-        y={padT + 6}
-        fontFamily="var(--font-sans)"
-        fontSize="9"
-        letterSpacing="1"
-        fill="#9AA48C"
-      >
-        CM
-      </text>
-
-      {/* Cuerpo a escala */}
-      <rect
-        x={gx}
-        y={baseY - ch}
-        width={cw}
-        height={ch}
-        rx={rx}
-        fill="url(#wax-escala)"
-        stroke="#B7BDA2"
-        strokeWidth="1"
-      />
-      <rect
-        x={gx}
-        y={baseY - ch}
-        width={Math.max(cw * 0.26, 3)}
-        height={ch}
-        rx={rx}
-        fill="#ffffff"
-        opacity="0.45"
-      />
-
-      {/* Mecha + llama (proporcional al cuerpo, con tope) */}
-      <line x1={cx} y1={flameY} x2={cx} y2={flameY - wick} stroke="#6B5A3A" strokeWidth="1.4" />
-      <ellipse cx={cx} cy={flameY - wick - flH * 0.5} rx={flH * 0.3} ry={flH * 0.55} fill="#E9B44C" />
-      <ellipse cx={cx} cy={flameY - wick - flH * 0.42} rx={flH * 0.14} ry={flH * 0.34} fill="#F6E27A" />
-
-      {/* Cota de diámetro */}
-      <line x1={gx} y1={baseY + 14} x2={gx + cw} y2={baseY + 14} stroke="#607860" strokeWidth="1" />
-      <line x1={gx} y1={baseY + 10} x2={gx} y2={baseY + 18} stroke="#607860" strokeWidth="1" />
-      <line x1={gx + cw} y1={baseY + 10} x2={gx + cw} y2={baseY + 18} stroke="#607860" strokeWidth="1" />
-      <text
-        x={cx}
-        y={baseY + 30}
-        textAnchor="middle"
-        fontFamily="var(--font-sans)"
-        fontSize="11"
-        fontWeight="700"
-        fill="#485848"
-      >
-        Ø {diamLabel} cm
-      </text>
-    </svg>
-  );
-}
-
 // ── Configurador de velones (un módulo para todos los diámetros) ────────────
 export default function ConfiguradorVelones({ productos, galeria = [], titulo, lead }) {
   const { agregar } = useCotizacion();
 
-  // Ordena los diámetros de menor a mayor. La foto NO depende del diámetro: la
-  // pestaña "Foto" es una galería COMPARTIDA que muestra el acabado y color
-  // reales (idénticos en todas las medidas). El tamaño lo comunica la silueta.
+  // Ordena los diámetros de menor a mayor. El visual es una galería de fotos
+  // reales COMPARTIDA (no depende del diámetro): muestra los cirios/velones y su
+  // acabado. Las medidas se eligen con los selectores de diámetro y alto.
   const diams = useMemo(
     () =>
       [...productos]
@@ -176,9 +32,8 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
   );
   const [di, setDi] = useState(destacadoIdx);
   const [ai, setAi] = useState(0);
-  const [imgIdx, setImgIdx] = useState(0); // índice en la galería compartida
+  const [imgIdx, setImgIdx] = useState(0); // índice en la galería de fotos
   const [cant, setCant] = useState(1);
-  const [vista, setVista] = useState('escala'); // 'escala' | 'foto'
   const [tablaAbierta, setTablaAbierta] = useState(false);
 
   const prod = diams[di];
@@ -223,65 +78,28 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
   return (
     <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-16">
       <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-        {/* ── Visual: escala / foto ── */}
+        {/* ── Galería de fotos reales ── */}
         <div className="md:sticky md:top-[128px]">
-          <div className="rounded-[4px] border border-border-default overflow-hidden bg-bg-hero">
-            <div className="flex border-b border-border-default">
-              {[
-                ['escala', 'Tamaño real (a escala)'],
-                ...(hayFotos ? [['foto', 'Foto']] : []),
-              ].map(([k, label]) => (
-                <button
-                  key={k}
-                  type="button"
-                  onClick={() => setVista(k)}
-                  aria-pressed={vista === k}
-                  className={`flex-1 font-sans text-[11px] font-bold uppercase tracking-[0.06em] py-3 transition-colors press ${
-                    vista === k
-                      ? 'text-text-primary shadow-[inset_0_-2px_0_var(--accent-mid)]'
-                      : 'text-text-muted hover:text-text-body'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative aspect-[4/5]">
-              {vista === 'escala' ? (
-                <>
-                  <SiluetaEscala
-                    diam={prod.diametro_cm}
-                    diamLabel={prod.label}
-                    alto={alt.alto}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 px-4 py-3 bg-gradient-to-t from-bg-hero via-bg-hero/85 to-transparent">
-                    <span className="type-label">Silueta a escala real · regla en cm</span>
-                    <span className="font-display text-[15px] text-text-primary tabular-nums">
-                      Ø {prod.label} × {alt.alto} cm
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Image
-                    key={fotos[imgIdx]}
-                    src={fotos[imgIdx]}
-                    alt="Acabado del velón litúrgico"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <span className="absolute left-3 bottom-3 font-sans text-[11px] text-[#EDEFE4] bg-graphite/85 rounded-[3px] px-2.5 py-1.5">
-                    Acabado y color reales · iguales en todas las medidas
-                  </span>
-                </>
-              )}
-            </div>
+          <div className="relative aspect-square rounded-[4px] border border-border-default overflow-hidden bg-bg-hero">
+            {hayFotos ? (
+              <Image
+                key={fotos[imgIdx]}
+                src={fotos[imgIdx]}
+                alt="Cirios y velones litúrgicos Devas"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="type-label">Galería próximamente</span>
+              </div>
+            )}
           </div>
 
-          {/* Miniaturas de la galería compartida */}
-          {vista === 'foto' && fotos.length > 1 && (
+          {/* Miniaturas */}
+          {fotos.length > 1 && (
             <div className="mt-3 flex flex-wrap gap-2.5">
               {fotos.map((src, i) => (
                 <button
@@ -289,8 +107,11 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
                   type="button"
                   onClick={() => setImgIdx(i)}
                   aria-pressed={i === imgIdx}
+                  aria-label={`Ver foto ${i + 1}`}
                   className={`relative w-16 h-16 rounded-[3px] overflow-hidden border press transition-colors ${
-                    i === imgIdx ? 'border-text-primary' : 'border-border-default'
+                    i === imgIdx
+                      ? 'border-text-primary'
+                      : 'border-border-default hover:border-text-muted'
                   }`}
                 >
                   <Image src={src} alt="" fill sizes="64px" className="object-cover" />
@@ -308,7 +129,7 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
           </h3>
           <p className="type-body text-[14px] leading-[1.8] mt-4 max-w-md">
             {lead ||
-              'Un solo producto, todas sus medidas. Elige el diámetro y el alto que necesitas: el precio y la silueta se ajustan al instante.'}
+              'Un solo producto, todas sus medidas. Elige el diámetro y el alto que necesitas: el precio se ajusta al instante.'}
           </p>
 
           {/* Diámetro */}
