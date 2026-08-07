@@ -281,49 +281,60 @@ export default function CatalogoCategoria({ categoria, productos }) {
         </div>
       </div>
 
-      {/* Productos: configuradores por segmento (apilados) o grilla simple */}
+      {/* Productos: configuradores por segmento (apilados, fondo intercalado)
+         + sueltos (Bautizo) al final. O grilla simple si no hay configurador. */}
       {usarConfigurador ? (
         <div>
           {segmentos.map((seg, si) => {
             const segVelones = lista.filter(
               (p) => esVelon(p) && p.segmento === seg.key
             );
-            const segSueltos = lista.filter(
-              (p) => !esVelon(p) && p.segmento === seg.key
-            );
-            if (!segVelones.length && !segSueltos.length) return null;
+            if (!segVelones.length) return null;
             return (
               <div
                 key={seg.key}
                 id={`seg-${seg.key}`}
                 className={`scroll-mt-[128px] ${
                   si > 0 ? 'border-t border-border-default' : ''
-                }`}
+                } ${si % 2 === 1 ? 'bg-bg-hero' : 'bg-bg-base'}`}
               >
-                {segVelones.length > 0 && (
-                  <ConfiguradorVelones
-                    productos={segVelones}
-                    galeria={seg.fotos}
-                    eyebrow={seg.eyebrow}
-                    titulo={seg.titulo}
-                    lead={seg.lead}
-                  />
-                )}
-                {segSueltos.length > 0 && (
-                  <div className="max-w-6xl mx-auto px-5 md:px-8 pt-2 pb-16">
-                    <p className="type-eyebrow eyebrow-rule mb-6">
-                      {seg.sueltosTitulo || `También · ${seg.titulo}`}
-                    </p>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
-                      {segSueltos.map((p, i) => (
-                        <ProductCard key={p.id} producto={p} index={i} />
-                      ))}
-                    </div>
-                  </div>
-                )}
+                <ConfiguradorVelones
+                  productos={segVelones}
+                  galeria={seg.fotos}
+                  eyebrow={seg.eyebrow}
+                  titulo={seg.titulo}
+                  lead={seg.lead}
+                />
               </div>
             );
           })}
+
+          {/* Sueltos (p. ej. Vela de Bautizo) — SIEMPRE al final de todo */}
+          {(() => {
+            const sueltos = lista.filter((p) => !esVelon(p));
+            if (!sueltos.length) return null;
+            const titulo =
+              segmentos.find((s) => s.sueltosTitulo)?.sueltosTitulo ||
+              `También en ${categoria.nombre}`;
+            // Continúa la alternancia de fondos según cuántos segmentos hubo.
+            const bandaHero = segmentos.length % 2 === 1;
+            return (
+              <div
+                className={`scroll-mt-[128px] border-t border-border-default ${
+                  bandaHero ? 'bg-bg-hero' : 'bg-bg-base'
+                }`}
+              >
+                <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-16">
+                  <p className="type-eyebrow eyebrow-rule mb-6">{titulo}</p>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+                    {sueltos.map((p, i) => (
+                      <ProductCard key={p.id} producto={p} index={i} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       ) : (
         <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-20">
