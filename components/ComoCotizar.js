@@ -1,10 +1,10 @@
 // Banda destacada con ícono de bolsa (misma metáfora que el navbar) + los 4
-// pasos para cotizar.
+// pasos para hacer el pedido.
 const PASOS = [
   'Revisa el catálogo',
   'Selecciona formato y cantidad',
-  'Agrégalo a la cotización',
-  'Envía tu solicitud',
+  'Agrégalo al pedido',
+  'Envía tu pedido',
 ];
 
 // Bolsa — mismo pictograma y trazo (1.5) que el navbar, para un solo lenguaje.
@@ -37,7 +37,7 @@ export default function ComoCotizar() {
       <div className="flex items-center gap-3 shrink-0 text-gold">
         <IconoBolsa />
         <span className="font-sans text-[12px] font-bold uppercase tracking-[0.1em] text-text-primary">
-          Cómo cotizar
+          Cómo pedir
         </span>
       </div>
 

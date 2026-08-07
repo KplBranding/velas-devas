@@ -102,7 +102,7 @@ export default function Navbar() {
             className="relative font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#F5F5EE] bg-graphite hover:bg-[#1F261F] px-4 py-2.5 rounded-[3px] press transition-colors inline-flex items-center gap-2"
           >
             <IconoBolsa />
-            Cotización
+            Mi pedido
             {count > 0 && (
               <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 flex items-center justify-center rounded-full bg-gold text-[#F5F5EE] text-[10px] font-bold">
                 {count}
@@ -116,7 +116,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setAbierto(true)}
-            aria-label="Ver cotización"
+            aria-label="Ver pedido"
             className="relative w-11 h-11 flex items-center justify-center text-text-primary press"
           >
             <IconoBolsa />

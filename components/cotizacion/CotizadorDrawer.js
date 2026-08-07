@@ -6,7 +6,7 @@ import { useCotizacion } from '../../context/CotizacionContext';
 import { EMPRESA } from '../../lib/categorias';
 import { clp } from '../../lib/utils';
 
-// Arma el texto de la cotización para WhatsApp / correo.
+// Arma el texto del pedido para WhatsApp / correo.
 function construirMensaje(items, datos, tot) {
   const lineas = items
     .map((it, i) => {
@@ -25,7 +25,7 @@ function construirMensaje(items, datos, tot) {
   }${datos.email ? `\n${datos.email}` : ''}${
     datos.telefono ? `\n${datos.telefono}` : ''
   }${datos.comentario ? `\n\n${datos.comentario}` : ''}`;
-  return `Hola Velas Devas, quisiera cotizar:\n\n${lineas}${totales}${cliente}`;
+  return `Hola Velas Devas, quiero hacer este pedido:\n\n${lineas}${totales}${cliente}`;
 }
 
 function Campo({ label, ...props }) {
@@ -82,7 +82,7 @@ export default function CotizadorDrawer() {
   };
   const enviarCorreo = () => {
     const msg = construirMensaje(items, datos, { subtotalNeto, iva, total });
-    const subject = `Cotización — ${datos.nombre || 'Nuevo cliente'}`;
+    const subject = `Pedido — ${datos.nombre || 'Nuevo cliente'}`;
     window.location.href = `mailto:${EMPRESA.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(msg)}`;
@@ -110,7 +110,7 @@ export default function CotizadorDrawer() {
             <div className="flex items-center justify-between px-6 h-[68px] border-b border-border-default shrink-0">
               <div className="flex items-baseline gap-2.5">
                 <h2 className="font-display text-[20px] text-text-primary">
-                  {vista === 'lista' ? 'Mi cotización' : 'Tus datos'}
+                  {vista === 'lista' ? 'Mi pedido' : 'Tus datos'}
                 </h2>
                 {items.length > 0 && vista === 'lista' && (
                   <span className="type-label">
@@ -138,7 +138,7 @@ export default function CotizadorDrawer() {
             {items.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center px-8 text-center gap-3">
                 <p className="font-display text-[19px] text-text-primary">
-                  Tu cotización está vacía
+                  Tu pedido está vacío
                 </p>
                 <p className="type-body text-[14px] max-w-[240px]">
                   Elige una medida en el catálogo y agrégala para armar tu
@@ -243,13 +243,13 @@ export default function CotizadorDrawer() {
                     onClick={() => setVista('formulario')}
                     className="btn-primary w-full text-center"
                   >
-                    Solicitar cotización
+                    Hacer mi pedido
                   </button>
                   <button
                     onClick={vaciar}
                     className="mt-2.5 w-full type-label hover:text-text-primary press"
                   >
-                    Vaciar cotización
+                    Vaciar pedido
                   </button>
                 </div>
               </>
@@ -258,7 +258,7 @@ export default function CotizadorDrawer() {
               <>
                 <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4">
                   <p className="type-body text-[14px]">
-                    Déjanos tus datos y te preparamos la cotización a tu medida.
+                    Déjanos tus datos y coordinamos tu pedido.
                   </p>
                   <Campo
                     label="Nombre *"

@@ -298,7 +298,7 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
               disabled={alt?.neto == null}
               className="w-full sm:flex-1 font-sans text-[12px] font-bold uppercase tracking-[0.05em] text-bg-base bg-graphite hover:bg-[#1F261F] rounded-[4px] py-3 px-4 press transition-colors disabled:opacity-40"
             >
-              Agregar a la cotización
+              Agregar al pedido
             </button>
           </div>
 
