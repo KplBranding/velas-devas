@@ -12,7 +12,7 @@ const num = (s) => parseFloat(String(s).replace(',', '.'));
 // dibuja el velón a ESCALA sobre una regla en cm: es lo que la foto no puede
 // comunicar. El "fantasma" punteado marca el alto máximo del diámetro elegido,
 // para leer el alto seleccionado como fracción del rango.
-function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
+function SiluetaEscala({ diam, diamLabel, alto }) {
   // Lienzo 4:5 (vertical): coincide con las fotos del catálogo y da más aire
   // vertical a los velones altos.
   const W = 400,
@@ -25,24 +25,30 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
   const availW = W - padL - padR;
   const D = diam;
   const A = num(alto);
-  const Amax = Math.max(altoMax, A);
 
-  // Escala: encaja el alto máximo del diámetro; si el cuerpo queda muy ancho,
-  // reduce para no invadir la regla.
-  let s = availH / Amax;
-  if (D * s > availW * 0.7) s = (availW * 0.7) / D;
+  // Escala ISOTRÓPICA: el mismo px/cm en ancho y alto → la proporción es REAL
+  // (un 7×7 se ve cuadrado; un 7×100, una barra alta y fina). Se ajusta al velón
+  // SELECCIONADO para que llene el marco; la regla en cm indica su tamaño real.
+  // (Antes se anclaba al alto máximo del diámetro y un velón bajo quedaba diminuto.)
+  const s = Math.min((availH * 0.86) / A, (availW * 0.6) / D);
 
   const baseY = H - padB;
   const cw = D * s;
   const ch = A * s;
-  const ghostH = Amax * s;
-  const cx = padL + availW * 0.62;
+  const cx = padL + availW * 0.5;
   const gx = cx - cw / 2;
-  const rx = Math.min(cw / 2, 6);
+  const rx = Math.min(cw * 0.16, 10);
 
-  const step = Amax > 60 ? 20 : Amax > 25 ? 10 : 5;
+  // Regla en cm: paso que deje ~5–8 marcas y suba hasta llenar el alto visible
+  // (ya no se ancla al máximo del diámetro).
+  const rangoCm = availH / s;
+  const niceStep = (r) => {
+    for (const st of [1, 2, 5, 10, 20, 25, 50]) if (r / st <= 8) return st;
+    return 100;
+  };
+  const step = niceStep(rangoCm);
   const ticks = [];
-  for (let cm = 0; cm <= Amax + 0.001; cm += step) {
+  for (let cm = 0; baseY - cm * s >= padT - 1; cm += step) {
     const y = baseY - cm * s;
     ticks.push(
       <g key={cm}>
@@ -71,7 +77,8 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
   }
 
   const flameY = baseY - ch;
-  const wick = Math.min(ch * 0.12, 9);
+  const wick = Math.min(Math.max(ch * 0.05, 3.5), 9);
+  const flH = Math.min(Math.max(ch * 0.1, 7), 18);
 
   return (
     <svg
@@ -99,20 +106,6 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
         CM
       </text>
 
-      {/* Fantasma: alto máximo del diámetro */}
-      <rect
-        x={gx}
-        y={baseY - ghostH}
-        width={cw}
-        height={ghostH}
-        rx={rx}
-        fill="none"
-        stroke="#B9C0A6"
-        strokeWidth="1"
-        strokeDasharray="3 4"
-        opacity="0.8"
-      />
-
       {/* Cuerpo a escala */}
       <rect
         x={gx}
@@ -134,10 +127,10 @@ function SiluetaEscala({ diam, diamLabel, alto, altoMax }) {
         opacity="0.45"
       />
 
-      {/* Mecha + llama */}
+      {/* Mecha + llama (proporcional al cuerpo, con tope) */}
       <line x1={cx} y1={flameY} x2={cx} y2={flameY - wick} stroke="#6B5A3A" strokeWidth="1.4" />
-      <ellipse cx={cx} cy={flameY - wick - 6} rx="4.5" ry="8" fill="#E9B44C" />
-      <ellipse cx={cx} cy={flameY - wick - 5} rx="2" ry="4.5" fill="#F6E27A" />
+      <ellipse cx={cx} cy={flameY - wick - flH * 0.5} rx={flH * 0.3} ry={flH * 0.55} fill="#E9B44C" />
+      <ellipse cx={cx} cy={flameY - wick - flH * 0.42} rx={flH * 0.14} ry={flH * 0.34} fill="#F6E27A" />
 
       {/* Cota de diámetro */}
       <line x1={gx} y1={baseY + 14} x2={gx + cw} y2={baseY + 14} stroke="#607860" strokeWidth="1" />
@@ -190,7 +183,6 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
 
   const prod = diams[di];
   const alt = prod.alturas[ai] || prod.alturas[0];
-  const altoMax = Math.max(...prod.alturas.map((a) => num(a.alto)));
   const color = prod.color_nombre || 'Blanco nieve';
 
   const seleccionarDiametro = (i) => {
@@ -262,7 +254,6 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
                     diam={prod.diametro_cm}
                     diamLabel={prod.label}
                     alto={alt.alto}
-                    altoMax={altoMax}
                   />
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 px-4 py-3 bg-gradient-to-t from-bg-hero via-bg-hero/85 to-transparent">
                     <span className="type-label">Silueta a escala real · regla en cm</span>
