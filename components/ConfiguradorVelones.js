@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useCotizacion } from '../context/CotizacionContext';
 import { clp } from '../lib/utils';
@@ -22,8 +22,11 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
     [productos]
   );
 
-  // Galería compartida: hasta 6 fotos de acabado/color.
-  const fotos = galeria.slice(0, 6);
+  // Galería: hasta 6 fotos reales. Cada entrada puede ser un string (ruta) o un
+  // objeto { src, color } para mostrar el color (marfil / blanco nieve) por foto.
+  const fotos = galeria
+    .slice(0, 6)
+    .map((f) => (typeof f === 'string' ? { src: f } : f));
   const hayFotos = fotos.length > 0;
 
   const destacadoIdx = Math.max(
@@ -33,8 +36,26 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
   const [di, setDi] = useState(destacadoIdx);
   const [ai, setAi] = useState(0);
   const [imgIdx, setImgIdx] = useState(0); // índice en la galería de fotos
+  const [pausado, setPausado] = useState(false); // autoplay en pausa (hover)
   const [cant, setCant] = useState(1);
   const [tablaAbierta, setTablaAbierta] = useState(false);
+
+  const actual = fotos[imgIdx] || fotos[0] || {};
+  const navegar = (dir) =>
+    setImgIdx((i) => (i + dir + fotos.length) % fotos.length);
+
+  // Autoplay del carrusel: avanza una foto tras otra. Se pausa al pasar el mouse
+  // y se desactiva si el usuario prefiere menos movimiento. Se re-arma en cada
+  // cambio de imagen (así una navegación manual reinicia el temporizador).
+  useEffect(() => {
+    if (pausado || fotos.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setTimeout(
+      () => setImgIdx((i) => (i + 1) % fotos.length),
+      4200
+    );
+    return () => clearTimeout(t);
+  }, [imgIdx, pausado, fotos.length]);
 
   const prod = diams[di];
   const alt = prod.alturas[ai] || prod.alturas[0];
@@ -78,19 +99,68 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
   return (
     <div className="max-w-6xl mx-auto px-5 md:px-8 pt-10 pb-16">
       <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-        {/* ── Galería de fotos reales ── */}
+        {/* ── Galería de fotos reales (carrusel) ── */}
         <div className="md:sticky md:top-[128px]">
-          <div className="relative aspect-square rounded-[4px] border border-border-default overflow-hidden bg-bg-hero">
+          <div
+            className="group/gal relative aspect-square rounded-[4px] border border-border-default overflow-hidden bg-bg-hero"
+            onMouseEnter={() => setPausado(true)}
+            onMouseLeave={() => setPausado(false)}
+          >
             {hayFotos ? (
-              <Image
-                key={fotos[imgIdx]}
-                src={fotos[imgIdx]}
-                alt="Cirios y velones litúrgicos Devas"
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
+              <>
+                <Image
+                  key={actual.src}
+                  src={actual.src}
+                  alt="Cirios y velones litúrgicos Devas"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover animate-[fadeIn_.5s_ease]"
+                />
+
+                {/* Label fijo: imágenes referenciales */}
+                <span className="absolute top-3 left-3 font-sans text-[10px] font-bold uppercase tracking-[0.1em] text-[#EDEFE4] bg-graphite/80 rounded-full px-3 py-1.5 backdrop-blur-sm">
+                  Imágenes referenciales
+                </span>
+
+                {/* Label de color por foto */}
+                {actual.color && (
+                  <span className="absolute top-3 right-3 font-sans text-[10px] font-bold uppercase tracking-[0.1em] text-text-primary bg-bg-base/85 rounded-full px-3 py-1.5 backdrop-blur-sm">
+                    {actual.color}
+                  </span>
+                )}
+
+                {/* Flechas laterales */}
+                {fotos.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => navegar(-1)}
+                      aria-label="Foto anterior"
+                      className="absolute left-2.5 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-bg-base/85 border border-border-default text-text-primary hover:bg-bg-base transition-all press backdrop-blur-sm md:opacity-0 md:group-hover/gal:opacity-100 focus-visible:opacity-100"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navegar(1)}
+                      aria-label="Foto siguiente"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-bg-base/85 border border-border-default text-text-primary hover:bg-bg-base transition-all press backdrop-blur-sm md:opacity-0 md:group-hover/gal:opacity-100 focus-visible:opacity-100"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+
+                    {/* Contador */}
+                    <span className="absolute bottom-3 right-3 font-sans text-[11px] font-bold tabular-nums text-[#EDEFE4] bg-graphite/80 rounded-full px-2.5 py-1 backdrop-blur-sm">
+                      {String(imgIdx + 1).padStart(2, '0')} / {String(fotos.length).padStart(2, '0')}
+                    </span>
+                  </>
+                )}
+              </>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="type-label">Galería próximamente</span>
@@ -101,9 +171,9 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
           {/* Miniaturas */}
           {fotos.length > 1 && (
             <div className="mt-3 flex flex-wrap gap-2.5">
-              {fotos.map((src, i) => (
+              {fotos.map((f, i) => (
                 <button
-                  key={src}
+                  key={f.src}
                   type="button"
                   onClick={() => setImgIdx(i)}
                   aria-pressed={i === imgIdx}
@@ -114,7 +184,7 @@ export default function ConfiguradorVelones({ productos, galeria = [], titulo, l
                       : 'border-border-default hover:border-text-muted'
                   }`}
                 >
-                  <Image src={src} alt="" fill sizes="64px" className="object-cover" />
+                  <Image src={f.src} alt="" fill sizes="64px" className="object-cover" />
                 </button>
               ))}
             </div>

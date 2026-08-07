@@ -465,6 +465,12 @@ html.lenis, html.lenis body { height: auto; }
   to { transform: scale(1.04); }
 }
 
+/* Cross-fade suave al cambiar de foto en el carrusel del configurador. */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* El carrusel de marcas se mueve por JS (rAF con velocidad suavizada),
    ver components/MarcasCarrusel.js — no usa animación CSS. */
 
