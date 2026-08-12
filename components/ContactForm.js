@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { EMPRESA } from '../lib/categorias';
 import { track } from '../lib/analytics';
+
+const MSG_VACIO = 'Cuéntanos qué es lo que quieres antes de enviar el correo.';
 
 const CAMPO =
   'w-full bg-transparent border border-border-default rounded-[4px] px-3 py-2.5 font-sans text-[13px] font-light text-text-primary placeholder:text-text-muted focus:outline-none focus:border-gold transition-colors';
@@ -20,6 +22,7 @@ export default function ContactForm() {
     telefono: '',
     mensaje: '',
   });
+  const mensajeRef = useRef(null);
 
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
@@ -28,6 +31,15 @@ export default function ContactForm() {
   // del visitante (el mailto anterior fallaba si no tenía app de correo).
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // El mensaje es obligatorio: no permitir enviar en blanco (ni solo espacios).
+    if (!form.mensaje.trim()) {
+      const el = mensajeRef.current;
+      if (el) {
+        el.setCustomValidity(MSG_VACIO);
+        el.reportValidity();
+      }
+      return;
+    }
     setEnviando(true);
     setError(false);
     track('enviar_formulario', { rubro: form.rubro });
@@ -154,9 +166,15 @@ export default function ContactForm() {
         </label>
         <textarea
           id="mensaje"
+          ref={mensajeRef}
+          required
           rows={4}
           value={form.mensaje}
-          onChange={update('mensaje')}
+          onChange={(e) => {
+            update('mensaje')(e);
+            e.currentTarget.setCustomValidity('');
+          }}
+          onInvalid={(e) => e.currentTarget.setCustomValidity(MSG_VACIO)}
           className={`${CAMPO} resize-none`}
           placeholder="Cuéntanos qué formatos y cantidades necesitas"
         />
