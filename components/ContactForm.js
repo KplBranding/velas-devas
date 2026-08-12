@@ -15,6 +15,7 @@ export default function ContactForm() {
   const [form, setForm] = useState({
     nombre: '',
     empresa: '',
+    email: '',
     rubro: 'Banquetería',
     telefono: '',
     mensaje: '',
@@ -117,18 +118,34 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div>
-        <label className={ETIQUETA} htmlFor="telefono">
-          Teléfono
-        </label>
-        <input
-          id="telefono"
-          type="tel"
-          value={form.telefono}
-          onChange={update('telefono')}
-          className={CAMPO}
-          placeholder="+56 9 ..."
-        />
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label className={ETIQUETA} htmlFor="email">
+            Correo
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={update('email')}
+            className={CAMPO}
+            placeholder="tucorreo@empresa.cl"
+          />
+        </div>
+        <div>
+          <label className={ETIQUETA} htmlFor="telefono">
+            Teléfono
+          </label>
+          <input
+            id="telefono"
+            type="tel"
+            value={form.telefono}
+            onChange={update('telefono')}
+            className={CAMPO}
+            placeholder="+56 9 ..."
+          />
+        </div>
       </div>
 
       <div>
