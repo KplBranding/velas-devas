@@ -7,6 +7,7 @@ import {
   useState,
   useCallback,
 } from 'react';
+import { track } from '../lib/analytics';
 
 const CotizacionContext = createContext(null);
 const STORAGE_KEY = 'devas_cotizacion_v1';
@@ -36,6 +37,14 @@ export function CotizacionProvider({ children }) {
 
   // linea: { id, productId, nombre, medida, medidaLabel, sku, neto, color, cantidad }
   const agregar = useCallback((linea) => {
+    track('add_to_pedido', {
+      item_id: linea.productId,
+      item_name: linea.nombre,
+      medida: linea.medida || undefined,
+      color: linea.color,
+      cantidad: linea.cantidad,
+      value: (linea.neto || 0) * linea.cantidad,
+    });
     setItems((prev) => {
       const i = prev.findIndex((it) => it.id === linea.id);
       if (i >= 0) {

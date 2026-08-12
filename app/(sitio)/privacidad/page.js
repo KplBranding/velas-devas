@@ -56,13 +56,17 @@ export default function PrivacidadPage() {
             No vendemos ni cedemos tus datos a terceros con fines publicitarios.
           </Bloque>
 
-          <Bloque titulo="4. Cookies">
+          <Bloque titulo="4. Cookies y analítica">
             Este sitio utiliza cookies propias y de terceros para su correcto
-            funcionamiento y para obtener estadísticas de uso de forma anónima. Las
-            cookies son pequeños archivos que se almacenan en tu navegador. Puedes
-            configurar o eliminar las cookies desde los ajustes de tu navegador en
-            cualquier momento; ten en cuenta que desactivarlas puede afectar algunas
-            funciones del sitio.
+            funcionamiento y para obtener estadísticas de uso de forma anónima. En
+            particular, usamos <strong>Google Analytics</strong> (Google Ireland Ltd.)
+            para entender cómo se navega el sitio —páginas visitadas, origen de las
+            visitas y acciones como descargas de catálogo o envíos de pedido— con el fin
+            de mejorar la experiencia. Estos datos se tratan de forma agregada y no se
+            usan para identificarte personalmente. Las cookies son pequeños archivos que
+            se almacenan en tu navegador; puedes configurarlas o eliminarlas desde los
+            ajustes de tu navegador en cualquier momento (desactivarlas puede afectar
+            algunas funciones del sitio).
           </Bloque>
 
           <Bloque titulo="5. Conservación y seguridad">

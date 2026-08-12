@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { track } from '../lib/analytics';
 
 // ── Utilidades RUT (Chile) ──
 function limpiarRut(rut) {
@@ -115,6 +116,7 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
     }
     setEnviando(false);
     setListo(true);
+    track('descargar_pdf', { categoria });
     // Entrega inmediata del PDF una vez capturado el lead.
     descargarPdf();
   };

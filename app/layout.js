@@ -7,6 +7,8 @@ import { EMPRESA } from '../lib/categorias';
 import { CotizacionProvider } from '../context/CotizacionContext';
 import CotizadorDrawer from '../components/cotizacion/CotizadorDrawer';
 import WhatsAppFAB from '../components/WhatsAppFAB';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GA_ID } from '../lib/analytics';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -104,6 +106,8 @@ export default function RootLayout({ children }) {
           <CotizadorDrawer />
           <WhatsAppFAB />
         </CotizacionProvider>
+        {/* GA4: solo si NEXT_PUBLIC_GA_ID está definido (Vercel → Settings → Env). */}
+        {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCotizacion } from '../../context/CotizacionContext';
 import { EMPRESA } from '../../lib/categorias';
 import { clp } from '../../lib/utils';
+import { track } from '../../lib/analytics';
 
 // Arma el texto del pedido para WhatsApp / correo.
 function construirMensaje(items, datos, tot) {
@@ -74,6 +75,11 @@ export default function CotizadorDrawer() {
     (datos.email.trim() || datos.telefono.trim());
 
   const enviarWhatsApp = () => {
+    track('enviar_pedido', {
+      metodo: 'whatsapp',
+      items: items.length,
+      value: total,
+    });
     const msg = construirMensaje(items, datos, { subtotalNeto, iva, total });
     window.open(
       `https://wa.me/${EMPRESA.whatsapp}?text=${encodeURIComponent(msg)}`,
@@ -81,6 +87,7 @@ export default function CotizadorDrawer() {
     );
   };
   const enviarCorreo = () => {
+    track('enviar_pedido', { metodo: 'correo', items: items.length, value: total });
     const msg = construirMensaje(items, datos, { subtotalNeto, iva, total });
     const subject = `Pedido — ${datos.nombre || 'Nuevo cliente'}`;
     window.location.href = `mailto:${EMPRESA.email}?subject=${encodeURIComponent(

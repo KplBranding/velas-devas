@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { EMPRESA } from '../lib/categorias';
+import { track } from '../lib/analytics';
 
 const CAMPO =
   'w-full bg-transparent border border-border-default rounded-[4px] px-3 py-2.5 font-sans text-[13px] font-light text-text-primary placeholder:text-text-muted focus:outline-none focus:border-gold transition-colors';
@@ -21,6 +22,7 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    track('enviar_formulario', { rubro: form.rubro });
     // Sin backend: abre el cliente de correo con los datos precargados.
     const cuerpo = [
       `Nombre: ${form.nombre}`,
