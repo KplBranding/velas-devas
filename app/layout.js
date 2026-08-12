@@ -1,12 +1,11 @@
 import './globals.css';
 import { Playfair_Display, Lato } from 'next/font/google';
-import CustomCursor from '../components/CustomCursor';
+import SiteChrome from '../components/SiteChrome';
 import ScrollReveal from '../components/ScrollReveal';
 import SmoothScroll from '../lib/motion/SmoothScroll';
 import { EMPRESA } from '../lib/categorias';
 import { CotizacionProvider } from '../context/CotizacionContext';
 import CotizadorDrawer from '../components/cotizacion/CotizadorDrawer';
-import WhatsAppFAB from '../components/WhatsAppFAB';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_ID } from '../lib/analytics';
 
@@ -100,11 +99,10 @@ export default function RootLayout({ children }) {
         />
         <CotizacionProvider>
           <SmoothScroll />
-          <CustomCursor />
           <ScrollReveal />
           {children}
           <CotizadorDrawer />
-          <WhatsAppFAB />
+          <SiteChrome />
         </CotizacionProvider>
         {/* GA4: se renderiza (server-side) SOLO en el deploy de producción de
            Vercel → el gtag va en el HTML (detección rápida) y local/preview no

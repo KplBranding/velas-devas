@@ -23,7 +23,13 @@ export default function ContactForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     track('enviar_formulario', { rubro: form.rubro });
-    // Sin backend: abre el cliente de correo con los datos precargados.
+    // Guarda el lead en la base (fire-and-forget; no debe bloquear el mailto).
+    fetch('/api/contacto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    }).catch(() => {});
+    // Además, abre el cliente de correo con los datos precargados.
     const cuerpo = [
       `Nombre: ${form.nombre}`,
       `Empresa: ${form.empresa}`,

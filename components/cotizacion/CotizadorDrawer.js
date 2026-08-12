@@ -74,12 +74,21 @@ export default function CotizadorDrawer() {
     datos.nombre.trim() &&
     (datos.email.trim() || datos.telefono.trim());
 
+  // Registra el evento en GA4 (track) y en Supabase (panel /admin), sin bloquear.
+  const registrarEnvio = (metodo) => {
+    track('enviar_pedido', { metodo, items: items.length, value: total });
+    fetch('/api/evento', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tipo: 'enviar_pedido',
+        params: { metodo, items: items.length, value: total },
+      }),
+    }).catch(() => {});
+  };
+
   const enviarWhatsApp = () => {
-    track('enviar_pedido', {
-      metodo: 'whatsapp',
-      items: items.length,
-      value: total,
-    });
+    registrarEnvio('whatsapp');
     const msg = construirMensaje(items, datos, { subtotalNeto, iva, total });
     window.open(
       `https://wa.me/${EMPRESA.whatsapp}?text=${encodeURIComponent(msg)}`,
@@ -87,7 +96,7 @@ export default function CotizadorDrawer() {
     );
   };
   const enviarCorreo = () => {
-    track('enviar_pedido', { metodo: 'correo', items: items.length, value: total });
+    registrarEnvio('correo');
     const msg = construirMensaje(items, datos, { subtotalNeto, iva, total });
     const subject = `Pedido — ${datos.nombre || 'Nuevo cliente'}`;
     window.location.href = `mailto:${EMPRESA.email}?subject=${encodeURIComponent(
