@@ -10,6 +10,8 @@ const ETIQUETA = 'block type-label mb-1.5 text-text-body';
 
 export default function ContactForm() {
   const [enviado, setEnviado] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     nombre: '',
     empresa: '',
@@ -20,29 +22,26 @@ export default function ContactForm() {
 
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  const handleSubmit = (e) => {
+  // Envío confiable al backend: guarda el lead (panel /admin) y —si el correo
+  // está configurado— notifica al equipo. Ya NO depende del cliente de correo
+  // del visitante (el mailto anterior fallaba si no tenía app de correo).
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setEnviando(true);
+    setError(false);
     track('enviar_formulario', { rubro: form.rubro });
-    // Guarda el lead en la base (fire-and-forget; no debe bloquear el mailto).
-    fetch('/api/contacto', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    }).catch(() => {});
-    // Además, abre el cliente de correo con los datos precargados.
-    const cuerpo = [
-      `Nombre: ${form.nombre}`,
-      `Empresa: ${form.empresa}`,
-      `Rubro: ${form.rubro}`,
-      `Teléfono: ${form.telefono}`,
-      '',
-      form.mensaje,
-    ].join('\n');
-    const asunto = `Cotización mayorista — ${form.rubro}`;
-    window.location.href = `mailto:contacto@velasdevas.cl?subject=${encodeURIComponent(
-      asunto
-    )}&body=${encodeURIComponent(cuerpo)}`;
-    setEnviado(true);
+    try {
+      const r = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!r.ok) throw new Error();
+      setEnviado(true);
+    } catch {
+      setError(true);
+    }
+    setEnviando(false);
   };
 
   if (enviado) {
@@ -51,11 +50,12 @@ export default function ContactForm() {
         <p className="type-eyebrow">Solicitud lista</p>
         <h3 className="type-section text-[28px] mt-2 mb-3">Gracias por escribirnos</h3>
         <p className="type-body">
-          Se abrió tu correo con la solicitud. Si prefieres, llámanos al{' '}
+          Recibimos tu solicitud y te responderemos a la brevedad. Si prefieres,
+          llámanos al{' '}
           <a href={`tel:${EMPRESA.telefonoLink}`} className="text-gold">
             {EMPRESA.telefono}
           </a>
-          . Te responderemos a la brevedad.
+          .
         </p>
         <button
           type="button"
@@ -145,9 +145,24 @@ export default function ContactForm() {
         />
       </div>
 
-      <button type="submit" className="btn-primary w-full sm:w-auto">
-        Enviar solicitud
-      </button>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <button
+          type="submit"
+          disabled={enviando}
+          className="btn-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {enviando ? 'Enviando…' : 'Enviar solicitud'}
+        </button>
+        {error && (
+          <p className="text-[12.5px] text-red-500">
+            No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a{' '}
+            <a href="mailto:contacto@velasdevas.cl" className="underline">
+              contacto@velasdevas.cl
+            </a>
+            .
+          </p>
+        )}
+      </div>
     </form>
   );
 }
