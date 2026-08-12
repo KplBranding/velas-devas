@@ -7,7 +7,8 @@ import { EMPRESA } from '../lib/categorias';
 import { CotizacionProvider } from '../context/CotizacionContext';
 import CotizadorDrawer from '../components/cotizacion/CotizadorDrawer';
 import WhatsAppFAB from '../components/WhatsAppFAB';
-import Analytics from '../components/Analytics';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GA_ID } from '../lib/analytics';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -105,8 +106,10 @@ export default function RootLayout({ children }) {
           <CotizadorDrawer />
           <WhatsAppFAB />
         </CotizacionProvider>
-        {/* GA4 (solo en el dominio de producción; ver components/Analytics.js). */}
-        <Analytics />
+        {/* GA4: se renderiza (server-side) SOLO en el deploy de producción de
+           Vercel → el gtag va en el HTML (detección rápida) y local/preview no
+           ensucian los datos. Los eventos (track) además se gatean por dominio. */}
+        {process.env.VERCEL_ENV === 'production' && <GoogleAnalytics gaId={GA_ID} />}
       </body>
     </html>
   );
