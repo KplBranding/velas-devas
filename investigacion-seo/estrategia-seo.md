@@ -42,7 +42,7 @@ Fuente: `datos-fuente/keyword-planner-2026-11-17.csv`, Chile, 1 de noviembre de 
 |---|---|
 | 1 mil – 10 mil | velas por mayor |
 | 100 – 1 mil | fábrica de velas, velas blancas por mayor, velas flotantes, cirio pascual, velas de bautizo, vela primera comunión, velas de adviento, velas de confirmación |
-| 10 – 100 | 53 palabras, entre ellas todas las de funerarias que tienen dato y casi todas las que llevan "chile" o "santiago" |
+| 10 – 100 | 57 palabras, entre ellas todas las de funerarias que tienen dato y casi todas las que llevan "chile" o "santiago" |
 
 **Qué cambia respecto de la primera versión**
 
@@ -50,8 +50,8 @@ Fuente: `datos-fuente/keyword-planner-2026-11-17.csv`, Chile, 1 de noviembre de 
 2. **El término principal es caro y disputado en anuncios**: competencia alta (100 de 100). "Fábrica de velas" tiene la puja más alta de la lista, entre CLP 140 y 1.072 por clic.
 3. **Cirio pascual sube a prioridad ALTA**: 100–1 mil búsquedas y competencia publicitaria media (47), la más baja entre las palabras con ese volumen.
 4. **Adviento se confirma**: "velas de adviento" tiene 100–1 mil búsquedas.
-5. **Funerarias se confirma como nicho pequeño**: ninguna palabra supera el rango 10–100 y varias no tienen dato. La competencia publicitaria es baja (4 a 20), así que anunciar ahí sería barato.
-6. **Catorce palabras largas no tienen dato** (por ejemplo "velones blancos por mayor" o "velas para centros de mesa por mayor"). Las que eran ALTA bajaron a MEDIA: 9 en total. Siguen sirviendo como variantes dentro de los textos.
+5. **Funerarias se confirma como nicho pequeño**: ninguna palabra supera el rango 10–100 y varias no tienen dato. La competencia publicitaria es baja en "velas funerarias", "velas para velorio" y "cirios funerarios" (4 a 20 de 100); "velas para funeral" es la excepción, con 100.
+6. **Catorce palabras largas no tienen dato** (por ejemplo "velones blancos por mayor" o "velas para centros de mesa por mayor"). Las que eran ALTA bajaron a MEDIA: 10 en total, contando una con volumen cero. Siguen sirviendo como variantes dentro de los textos.
 7. **El ruido es grande**: aromáticas, cumpleaños, LED y decorativas están en 1 mil–10 mil. Confirma la utilidad de la lista de negativas.
 
 Los datos estructurales del Top 20 no cambian: las siete primeras posiciones ya eran las de mayor volumen. "Cirio pascual" y "velas de adviento" pasan a ser las dos páginas nuevas con mejor respaldo.
