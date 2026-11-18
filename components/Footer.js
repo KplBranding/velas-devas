@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { EMPRESA } from '../lib/categorias';
+import PreferenciasCookies from './PreferenciasCookies';
 
 export default function Footer() {
   return (
@@ -66,9 +67,12 @@ export default function Footer() {
             <p className="font-sans text-[11px] font-light">
               © 2026 Velas Devas. Todos los derechos reservados.
             </p>
-            <FooterLink href="/privacidad" className="text-[11px]">
-              Política de privacidad y cookies
-            </FooterLink>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-5">
+              <PreferenciasCookies />
+              <FooterLink href="/privacidad" className="text-[11px]">
+                Política de privacidad y cookies
+              </FooterLink>
+            </div>
           </div>
           {/* Crédito de desarrollo */}
           <p className="font-sans text-[11px] font-light text-text-footer/70">

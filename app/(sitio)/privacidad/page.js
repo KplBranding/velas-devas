@@ -16,7 +16,7 @@ export default function PrivacidadPage() {
         <h1 className="font-display text-[clamp(30px,5vw,48px)] text-text-primary leading-[1.1] mt-4">
           Política de privacidad y cookies
         </h1>
-        <p className="type-label mt-4">Última actualización: julio de 2026</p>
+        <p className="type-label mt-4">Última actualización: noviembre de 2026</p>
 
         <div className="mt-10 space-y-9">
           <Bloque titulo="1. Responsable">
@@ -63,10 +63,14 @@ export default function PrivacidadPage() {
             para entender cómo se navega el sitio —páginas visitadas, origen de las
             visitas y acciones como descargas de catálogo o envíos de pedido— con el fin
             de mejorar la experiencia. Estos datos se tratan de forma agregada y no se
-            usan para identificarte personalmente. Las cookies son pequeños archivos que
-            se almacenan en tu navegador; puedes configurarlas o eliminarlas desde los
-            ajustes de tu navegador en cualquier momento (desactivarlas puede afectar
-            algunas funciones del sitio).
+            usan para identificarte personalmente.
+            <p className="mt-3">
+              Las cookies de medición solo se guardan en tu navegador si las aceptas en
+              el aviso que aparece al entrar al sitio. Si las rechazas, el sitio funciona
+              igual y Google solo recibe señales básicas sin cookies, que no permiten
+              reconocerte entre una visita y otra. Puedes cambiar tu decisión cuando
+              quieras en «Preferencias de cookies», al pie de cada página.
+            </p>
           </Bloque>
 
           <Bloque titulo="5. Conservación y seguridad">

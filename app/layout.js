@@ -9,6 +9,7 @@ import { CotizacionProvider } from '../context/CotizacionContext';
 import CotizadorDrawer from '../components/cotizacion/CotizadorDrawer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_ID } from '../lib/analytics';
+import { CONSENT_SCRIPT } from '../lib/consentimiento';
 import { SITE_URL } from '../lib/seo';
 import JsonLd from '../components/JsonLd';
 
@@ -122,6 +123,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${playfair.variable} ${lato.variable}`}>
       <body>
+        {/* Consentimiento de cookies: fija el estado por defecto ANTES de que
+           cargue gtag (ver lib/consentimiento.js). */}
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_SCRIPT }} />
         <JsonLd data={jsonLd} />
         <CotizacionProvider>
           <SmoothScroll />

@@ -85,7 +85,7 @@ export default function WhatsAppFAB() {
       rel="noopener noreferrer"
       aria-label="Contáctanos por WhatsApp"
       style={{
-        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)',
+        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem + var(--aviso-cookies, 0px))',
         right: 'calc(env(safe-area-inset-right, 0px) + 1.5rem)',
         willChange: 'transform, opacity',
       }}

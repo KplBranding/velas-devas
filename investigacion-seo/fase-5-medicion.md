@@ -6,13 +6,13 @@
 
 | Tarea | Estado | Quién |
 |---|---|---|
-| Eventos de GA4 en el sitio | Hechos en local, **sin publicar** | Claude |
+| Eventos de GA4 en el sitio | Publicados el 18-11-2026 | Claude |
 | Marcar eventos clave en GA4 | Pendiente | Javier |
 | Search Console | Pendiente | Javier |
 | Cuenta de Google Ads y enlace con GA4 | Pendiente | Javier |
 | Google Business Profile | Pendiente | Javier |
 | Redirecciones 301 | Bloqueado: faltan las URLs del sitio Wix | — |
-| Aviso de cookies | Por decidir (ver punto 6) | Javier y Devas |
+| Aviso de cookies | Construido en local, **sin publicar**; espera aprobación del diseño (ver punto 6) | Javier |
 
 ## 1. Eventos de GA4
 
@@ -108,6 +108,8 @@ Opciones:
 | B. Aviso con aceptar y rechazar, conectado al "modo de consentimiento" de Google | Un componente nuevo y discreto. GA4 y Ads respetan la elección; se pierde parte de la medición de quienes rechazan |
 
 Recomendación: opción B antes de activar campañas. Es un elemento visual nuevo, así que requiere aprobar su diseño.
+
+**18-11-2026:** opción B construida en local (`components/AvisoCookies.js`, `lib/consentimiento.js`). Sin decisión del visitante, todo parte denegado; la constante `DEFECTO` de `lib/consentimiento.js` cambia ese comportamiento. Efecto esperado: GA4 dejará de contar con detalle a quienes rechacen o ignoren el aviso.
 
 ## 7. Tablero mensual
 
