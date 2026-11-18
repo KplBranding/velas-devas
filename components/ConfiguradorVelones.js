@@ -114,7 +114,6 @@ export default function ConfiguradorVelones({
                     src={f.src}
                     alt={`${titulo || 'Cirios y velones litúrgicos'} Velas Devas, foto ${i + 1}`}
                     fill
-                    priority={i === 0}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className={`object-cover transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
                       i === imgIdx

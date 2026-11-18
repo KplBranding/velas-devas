@@ -145,28 +145,31 @@ export default function PausaFotografica({
         ref={mediaRef}
         className="absolute inset-x-0 -top-[14%] h-[128%] will-change-transform"
       >
-        {video ? (
+        {/* Performance: la foto va siempre debajo, optimizada y con carga
+            diferida. El video no descarga nada (preload="none") hasta que la
+            sección entra en pantalla y se llama a play(); mientras tanto es
+            transparente y se ve la foto. Antes, el poster bajaba el JPG original
+            completo al abrir la página y competía con la imagen del hero. */}
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: posicion }}
+        />
+        {video && (
           <video
             ref={vidRef}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             style={{ objectPosition: posicion }}
             muted
             loop
             playsInline
-            preload="metadata"
-            poster={src}
+            preload="none"
           >
             <source src={video} type="video/mp4" />
           </video>
-        ) : (
-          <Image
-            src={src}
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-            style={{ objectPosition: posicion }}
-          />
         )}
       </div>
 

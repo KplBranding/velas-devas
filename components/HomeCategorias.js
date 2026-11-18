@@ -228,7 +228,7 @@ export default function HomeCategorias() {
             paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 3rem)',
           }}
         >
-          {CATEGORIAS_LISTA.map((cat) => (
+          {CATEGORIAS_LISTA.map((cat, i) => (
             <Link
               key={cat.slug}
               href={`/${cat.slug}`}
@@ -241,6 +241,9 @@ export default function HomeCategorias() {
                 src={cat.imagenPanel}
                 alt=""
                 fill
+                // Performance: la primera tarjeta es la imagen principal (LCP) en
+                // móvil; se carga con prioridad y no diferida.
+                priority={i === 0}
                 sizes="100vw"
                 style={{ objectPosition: cat.panelPos || '50% 50%' }}
                 className="object-cover"
