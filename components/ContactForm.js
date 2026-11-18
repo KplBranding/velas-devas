@@ -50,6 +50,9 @@ export default function ContactForm() {
         body: JSON.stringify(form),
       });
       if (!r.ok) throw new Error();
+      // Conversión: solo cuando el envío se confirmó (enviar_formulario se
+      // dispara al intentar; generate_lead, al lograrlo).
+      track('generate_lead', { lead_type: 'formulario_contacto', rubro: form.rubro });
       setEnviado(true);
     } catch {
       setError(true);

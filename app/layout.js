@@ -1,6 +1,7 @@
 import './globals.css';
 import { Playfair_Display, Lato } from 'next/font/google';
 import SiteChrome from '../components/SiteChrome';
+import ClickTracker from '../components/ClickTracker';
 import ScrollReveal from '../components/ScrollReveal';
 import SmoothScroll from '../lib/motion/SmoothScroll';
 import { EMPRESA } from '../lib/categorias';
@@ -128,6 +129,7 @@ export default function RootLayout({ children }) {
           {children}
           <CotizadorDrawer />
           <SiteChrome />
+          <ClickTracker />
         </CotizacionProvider>
         {/* GA4: se renderiza (server-side) SOLO en el deploy de producción de
            Vercel → el gtag va en el HTML (detección rápida) y local/preview no

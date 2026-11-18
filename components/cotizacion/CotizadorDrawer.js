@@ -77,6 +77,7 @@ export default function CotizadorDrawer() {
   // Registra el evento en GA4 (track) y en Supabase (panel /admin), sin bloquear.
   const registrarEnvio = (metodo) => {
     track('enviar_pedido', { metodo, items: items.length, value: total });
+    track('generate_lead', { lead_type: 'pedido', metodo, value: total, currency: 'CLP' });
     fetch('/api/evento', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

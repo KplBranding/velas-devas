@@ -117,6 +117,7 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
     setEnviando(false);
     setListo(true);
     track('descargar_pdf', { categoria });
+    track('generate_lead', { lead_type: 'descarga_pdf', categoria });
     // Entrega inmediata del PDF una vez capturado el lead.
     descargarPdf();
   };
