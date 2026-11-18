@@ -24,11 +24,37 @@ Consulta de todos los datos: 17-11-2026. Dominio definitivo: `https://www.velasd
 | Google Trends | 12 términos contra el ancla "velas aromaticas", Chile, 12 meses | Dato real, interés relativo |
 | DuckDuckGo región Chile | 15 búsquedas, 10 resultados cada una | Aproximación: no es Google |
 | Sitios de competidores | Ficha de la home de 14 sitios | Dato real |
-| Keyword Planner | No consultado | `PENDIENTE` |
+| Keyword Planner | 92 palabras, Chile, 12 meses | Dato real, en rangos |
 | Search Console | No consultado | `PENDIENTE` |
 | Semrush / Ahrefs | Sin acceso | `PENDIENTE` |
 
 La relevancia (1 a 5), la intención y la conversión esperada de cada palabra son **criterio profesional**, no datos.
+
+## Actualización con Keyword Planner (17-11-2026)
+
+Fuente: `datos-fuente/keyword-planner-2026-11-17.csv`, Chile, 1 de noviembre de 2025 a 31 de octubre de 2026. Cruce hecho con `datos-fuente/kp_merge.py`; la versión anterior quedó en `keyword-research.respaldo-2026-11-17.csv`.
+
+**Qué tipo de dato es.** La cuenta no tiene inversión activa, así que Keyword Planner entregó **rangos**, no cifras exactas: 10–100, 100–1 mil y 1 mil–10 mil búsquedas al mes. La exportación no trae el detalle mes a mes, por lo que la estacionalidad sigue apoyándose solo en Trends. La dificultad orgánica sigue `PENDIENTE`.
+
+**Cobertura.** De 94 palabras: 76 con rango, 14 sin dato, 2 con cero y 2 sin fila propia ("velas al por mayor" y "velas por mayor chile", que Keyword Planner agrupa con una variante cercana).
+
+| Rango mensual | Palabras del negocio |
+|---|---|
+| 1 mil – 10 mil | velas por mayor |
+| 100 – 1 mil | fábrica de velas, velas blancas por mayor, velas flotantes, cirio pascual, velas de bautizo, vela primera comunión, velas de adviento, velas de confirmación |
+| 10 – 100 | 53 palabras, entre ellas todas las de funerarias que tienen dato y casi todas las que llevan "chile" o "santiago" |
+
+**Qué cambia respecto de la primera versión**
+
+1. **"Velas por mayor" es mucho más grande de lo que sugería Trends.** Está en el mismo rango que "velas aromáticas" (1 mil–10 mil). Ambos datos son compatibles, porque el rango es ancho, pero el hallazgo 1 de más abajo ("el mercado es chico") vale para los términos específicos, no para el término principal.
+2. **El término principal es caro y disputado en anuncios**: competencia alta (100 de 100). "Fábrica de velas" tiene la puja más alta de la lista, entre CLP 140 y 1.072 por clic.
+3. **Cirio pascual sube a prioridad ALTA**: 100–1 mil búsquedas y competencia publicitaria media (47), la más baja entre las palabras con ese volumen.
+4. **Adviento se confirma**: "velas de adviento" tiene 100–1 mil búsquedas.
+5. **Funerarias se confirma como nicho pequeño**: ninguna palabra supera el rango 10–100 y varias no tienen dato. La competencia publicitaria es baja (4 a 20), así que anunciar ahí sería barato.
+6. **Catorce palabras largas no tienen dato** (por ejemplo "velones blancos por mayor" o "velas para centros de mesa por mayor"). Las que eran ALTA bajaron a MEDIA: 9 en total. Siguen sirviendo como variantes dentro de los textos.
+7. **El ruido es grande**: aromáticas, cumpleaños, LED y decorativas están en 1 mil–10 mil. Confirma la utilidad de la lista de negativas.
+
+Los datos estructurales del Top 20 no cambian: las siete primeras posiciones ya eran las de mayor volumen. "Cirio pascual" y "velas de adviento" pasan a ser las dos páginas nuevas con mejor respaldo.
 
 ## Hallazgos
 
@@ -103,7 +129,7 @@ La lista completa (94 palabras) está en `keyword-research.csv`.
 
 ## Limitaciones
 
-- No hay ninguna cifra de volumen de búsqueda en esta investigación.
+- El volumen de búsqueda está en rangos anchos, no en cifras exactas, y sin detalle mensual.
 - Las posiciones provienen de DuckDuckGo y pueden diferir de Google.
 - El autocompletado se consultó sin sesión ni ubicación precisa; no refleja diferencias entre regiones de Chile.
 - Trends no distingue intención: "cirios" incluye búsquedas ajenas al producto.

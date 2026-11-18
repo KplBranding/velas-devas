@@ -23,8 +23,8 @@ Las búsquedas de velas por mayor en Chile son pocas, y quienes las ganan hoy so
 
 - Confirmar los datos marcados con ⚠️: duración de velones y velas flotantes, medidas y precios de cirio pascual, si se vende por caja y si se atienden pedidos chicos de bautizo.
 - Corregir en el sitio el año de inicio: hoy dice 2000 y el dato correcto es 1992.
-- Acceso a Search Console y una exportación de Keyword Planner.
+- Acceso a Search Console.
 
 ## Qué no sabemos todavía
 
-No tenemos cifras de cuántas búsquedas mensuales hay por cada palabra ni las posiciones reales en Google. Ambas dependen de los accesos pendientes; por eso las prioridades actuales son provisorias.
+Ya tenemos el volumen de búsqueda, pero en rangos anchos y no en cifras exactas: "velas por mayor" tiene entre 1.000 y 10.000 búsquedas al mes en Chile; "fábrica de velas", "cirio pascual", "velas flotantes" y "velas de adviento", entre 100 y 1.000. Seguimos sin conocer las posiciones reales en Google, que dependen de Search Console.
