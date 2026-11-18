@@ -65,10 +65,10 @@ export default function PrivacidadPage() {
             de mejorar la experiencia. Estos datos se tratan de forma agregada y no se
             usan para identificarte personalmente.
             <p className="mt-3">
-              Las cookies de medición solo se guardan en tu navegador si las aceptas en
-              el aviso que aparece al entrar al sitio. Si las rechazas, el sitio funciona
-              igual y Google solo recibe señales básicas sin cookies, que no permiten
-              reconocerte entre una visita y otra. Puedes cambiar tu decisión cuando
+              Las cookies de medición solo se guardan en tu navegador si eliges
+              «Aceptar todas» en el aviso que aparece al entrar al sitio. Si eliges «Solo
+              las necesarias», el sitio funciona igual y Google solo recibe señales
+              básicas sin cookies, que no permiten reconocerte entre una visita y otra. Puedes cambiar tu decisión cuando
               quieras en «Preferencias de cookies», al pie de cada página.
             </p>
           </Bloque>
