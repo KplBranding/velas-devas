@@ -69,7 +69,8 @@ export default function PrivacidadPage() {
               «Aceptar todas» en el aviso que aparece al entrar al sitio. Si eliges «Solo
               las necesarias», el sitio funciona igual y Google solo recibe señales
               básicas sin cookies, que no permiten reconocerte entre una visita y otra. Puedes cambiar tu decisión cuando
-              quieras en «Preferencias de cookies», al pie de cada página.
+              quieras en «Preferencias de cookies», al final de esta página y de las
+              demás secciones del sitio.
             </p>
           </Bloque>
 

@@ -39,7 +39,6 @@ Detalle paso a paso en `fase-5-medicion.md`. En este orden:
 
 | Tarea | Requisito | Urgencia |
 |---|---|---|
-| Corregir en la política de privacidad la frase "al pie de cada página" (el Home no tiene pie) | Visto bueno de Javier | Baja, es rápido |
 | Página `/religiosas/cirio-pascual` | Datos y fotos de Devas; aprobar el diseño | **Publicar antes de febrero de 2027** |
 | Preguntas frecuentes nuevas por categoría | Respuestas de Devas | Media |
 | Redirecciones 301 | URLs antiguas (Wix o Search Console) | Media |
