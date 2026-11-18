@@ -110,8 +110,8 @@ export default function AvisoCookies() {
     >
       <p className="type-eyebrow">Cookies</p>
       <p className="type-body mt-2.5" style={{ fontSize: 'calc(13px + 2px * var(--k, 0) + 1px * var(--k, 0) * var(--m))' }}>
-        Además de lo necesario para que el sitio funcione, usamos cookies de medición para
-        entender cómo se usa y mejorarlo. Tú eliges.{' '}
+        Trabajamos día a día para mejorar tu experiencia en el sitio. Por eso usamos cookies
+        de medición, que nos muestran cómo se navega y qué podemos hacer mejor. Tú eliges.{' '}
         <Link
           href="/privacidad"
           className="text-text-primary underline underline-offset-2 hover:text-accent-mid transition-colors"
