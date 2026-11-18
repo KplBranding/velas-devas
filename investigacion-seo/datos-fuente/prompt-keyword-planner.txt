@@ -1,0 +1,120 @@
+Necesito que obtengas datos de búsqueda desde el Planificador de palabras clave de Google Ads. Es solo una consulta: no vas a crear ni modificar nada en la cuenta.
+
+PASOS
+1. Abre https://ads.google.com/aw/keywordplanner/home. Si hay más de una cuenta, pregúntame cuál usar antes de seguir. Si pide iniciar sesión, detente y avísame: yo ingreso la contraseña.
+2. Elige "Obtener volumen de búsqueda y previsiones".
+3. Pega la lista de palabras clave que está al final de este mensaje, una por línea, y continúa.
+4. Configura la consulta así:
+   - Ubicación: Chile (quita cualquier otra).
+   - Idioma: español.
+   - Redes de búsqueda: solo Google (sin socios de búsqueda).
+   - Período: últimos 12 meses.
+5. Ve a la pestaña de historial de métricas ("Palabras clave guardadas" o "Historial de métricas", según la versión).
+6. Descarga el historial de métricas del plan en formato .csv.
+7. Dime el nombre del archivo descargado y en qué carpeta quedó, y si las cifras salieron exactas o en rangos (por ejemplo, "100 – 1 mil").
+
+PROHIBIDO
+- Crear, guardar o publicar campañas, grupos de anuncios, anuncios o planes.
+- Ingresar, cambiar o confirmar datos de pago o de facturación.
+- Cambiar cualquier configuración de la cuenta, de las campañas existentes o de los usuarios.
+- Aceptar recomendaciones, promociones, créditos o cambios que proponga Google Ads.
+- Usar "Descubrir nuevas palabras clave" o agregar palabras que no estén en la lista.
+
+SI ALGO NO CALZA
+Si aparece un aviso que exige crear una campaña, completar la facturación o aceptar condiciones para continuar, detente y cuéntame qué dice la pantalla. No busques otra forma de avanzar.
+
+LISTA DE PALABRAS CLAVE
+velas por mayor
+velas al por mayor
+velas por mayor santiago
+velas al por mayor chile
+velas por mayor chile
+venta de velas por mayor en santiago
+fabrica de velas
+fabrica de velas en santiago
+fabrica de velas en chile
+fabrica de velas y velones
+donde comprar velas por mayor
+velas blancas por mayor
+velones por mayor
+velones blancos por mayor
+velas blancas por caja
+proveedor de velas
+distribuidora de velas y velones
+velas por mayor meiggs
+velas devas
+velas para eventos por mayor
+velas para eventos
+velas para matrimonio
+velas para matrimonios
+velas blancas para matrimonio
+velones para matrimonio
+velas para bodas
+velas para centros de mesa
+velas para centros de mesa por mayor
+velas flotantes
+velas flotantes por mayor
+velas flotantes chile
+velas flotantes para centros de mesa
+velas para restaurantes
+velas cilindricas blancas
+velas cilindricas al por mayor
+velas largas por mayor
+velas largas para candelabros
+velas color marfil
+velones blancos grandes
+cirio pascual
+cirio pascual precio
+cirio pascual precio chile
+cirio pascual chile
+venta de cirio pascual en santiago
+cirio pascual donde comprar
+cirios pascuales precios en chile
+cirios para iglesia
+venta de cirios para iglesia
+cirios por mayor
+velas para iglesia
+venta de velas para iglesias
+velas liturgicas
+velas liturgicas al por mayor
+fabrica de velas liturgicas
+velas religiosas al por mayor
+velas de altar
+velas para misa
+velon de iglesia
+velones decorados
+velones decorados para primera comunion
+velas de bautizo
+velas de bautizo por mayor
+velas bautizo chile
+velon de bautizo
+vela primera comunion
+velas de confirmacion
+velas de adviento
+velas de adviento precio
+velas de adviento donde comprar
+velas de adviento por mayor
+velas de adviento chile
+velas para corona de adviento
+velas moradas para corona de adviento
+velas para funeral
+velas para velorio
+velones para velorios
+velas funerarias
+velas grandes para velorio
+cirios funerarios
+insumos para funerarias
+proveedores para funerarias
+insumos funerarios chile
+velas para difuntos
+velas para cementerio
+velas aromaticas
+velas de soya
+velas esotericas
+velas de cumpleaños
+velas led
+insumos para velas
+curso de velas
+como hacer velas
+velas de colores
+velas decorativas

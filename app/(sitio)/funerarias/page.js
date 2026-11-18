@@ -1,17 +1,25 @@
 import CatalogoCategoria from '../../../components/CatalogoCategoria';
 import { CATEGORIAS } from '../../../lib/categorias';
-import { buildMeta } from '../../../lib/seo';
+import { buildMeta, breadcrumbLd, faqLd } from '../../../lib/seo';
+import { FAQS } from '../../../lib/contenido';
+import JsonLd from '../../../components/JsonLd';
 import productos from '../../../data/productos.json';
 
 const categoria = CATEGORIAS.funerarias;
 
 export const metadata = buildMeta({
-  title: 'Funerarias — Velas que acompañan cada ceremonia',
-  description: categoria.descripcion,
+  title: categoria.metaTitle,
+  description: categoria.metaDescripcion || categoria.descripcion,
   path: '/funerarias',
 });
 
 export default function FunerariasPage() {
   const items = productos.filter((p) => p.categoria === 'funerarias');
-  return <CatalogoCategoria categoria={categoria} productos={items} />;
+  return (
+    <>
+      <JsonLd data={breadcrumbLd(categoria.nombre, '/funerarias')} />
+      <JsonLd data={faqLd(FAQS)} />
+      <CatalogoCategoria categoria={categoria} productos={items} />
+    </>
+  );
 }

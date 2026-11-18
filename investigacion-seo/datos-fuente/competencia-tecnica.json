@@ -1,0 +1,385 @@
+{
+ "fecha_consulta": "2026-11-17",
+ "sitios": {
+  "fabricadevelas.cl": {
+   "title": "Fabrica de Velas",
+   "description": "Tienda de insumos para la fabricación de velas y productos terminados para la venta mayorista y por menor. Envíos a todo Chile. Conoce nuestras sucursales.",
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Nuestras Categorias Principales",
+    "TODO PARA CREAR TUS PROPIAS VELAS",
+    "Insumos",
+    "AMBIENTES QUE INSPIRAN",
+    "Esencias",
+    "FABRICANTES DE MOMENTOS",
+    "Velas",
+    "AROMAS QUE TRASNSFORMAN TU ESPACIO",
+    "Velas Aromaticas",
+    "Más de 20 años iluminando hogares"
+   ],
+   "schema": [
+    "Organization",
+    "SearchAction",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Shopify"
+   ],
+   "canonical": "https://fabricadevelas.cl/",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (7 loc)"
+  },
+  "velas.cl": {
+   "title": "Velas.cl | Cirios - Fanales - Aromas",
+   "description": "Que prender una vela sea mucho más que luz, que convierta cada rincón de tu hogar en una inspiración, ven y encuentra la tuya.",
+   "h1": [
+    "SÓLO VENTAS ONLINE",
+    "Productos más Vendidos",
+    "Categorías TOP",
+    "Cirios",
+    "Fanales",
+    "Aromas",
+    "Flotantes",
+    "Accesorios",
+    "Promociones",
+    "Síguenos en Instagram"
+   ],
+   "h2": [
+    "Cirio 3,5 x 6",
+    "Cirio 5×6",
+    "Cirio 7×11",
+    "Cirio 7×7"
+   ],
+   "schema": [
+    "BreadcrumbList",
+    "EntryPoint",
+    "ListItem",
+    "PropertyValueSpecification",
+    "ReadAction",
+    "SearchAction",
+    "WebPage",
+    "WebSite"
+   ],
+   "plataforma": [
+    "WooCommerce",
+    "WordPress"
+   ],
+   "canonical": "https://velas.cl/",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (5 loc)"
+  },
+  "vishv.cl": {
+   "title": "Vishv.cl primera Tienda Mayorista Online",
+   "description": "Vishv.cl es la Primera Tienda Mayorista Online, administrada por Importadora Vishv India, líderes en ventas por Mayor y Detalle de productos esotéricos, aromaterapia, vestuario, decoración y tabaquería . En Vishv.cl usted podrá comprar productos de calidad al mejor precio.",
+   "h1": [
+    ""
+   ],
+   "h2": [],
+   "schema": [
+    "BreadcrumbList",
+    "EntryPoint",
+    "ListItem",
+    "SearchAction",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Jumpseller"
+   ],
+   "canonical": "https://www.vishv.cl/",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (2916 loc)"
+  },
+  "distribuidorajuanpabloii.cl": {
+   "title": "Distribuidora Juan Pablo II",
+   "description": "Distribuidora Juan Pablo II, Artículos religiosos en chile , Artículos litúrgicos, Ornamentación , Suministros religiosos , Productos ceremoniales.",
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Artículo agregado a tu carrito",
+    "Ofertas por tiempo limitado",
+    "Productos destacados",
+    "¡Nuevo! adaptadores para candelabros",
+    "Nuevos cirios de aceite",
+    "¡Nuevo! Decoración para hogar o iglesias",
+    "¡Nuevas Imagenes!",
+    "Let customers speak for us",
+    "Cirios",
+    "EXCLUSIVO"
+   ],
+   "schema": [
+    "Organization",
+    "SearchAction",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Shopify"
+   ],
+   "canonical": "https://distribuidorajuanpabloii.cl/",
+   "og_image": false,
+   "sitemap": "/sitemap.xml (6 loc)"
+  },
+  "velaslopez.cl": {
+   "title": "Velas López",
+   "description": "Para cada ocasión, una vela.",
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Artículo agregado a tu carrito",
+    "NUESTRAS OFERTAS AQUÍ",
+    "Productos Destacados",
+    "Multimedia collage",
+    "Suscríbete a nuestras ofertas"
+   ],
+   "schema": [
+    "Organization",
+    "SearchAction",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Shopify"
+   ],
+   "canonical": "https://velaslopez.cl/",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (5 loc)"
+  },
+  "kerigma.cl": {
+   "title": "Kerigma",
+   "description": null,
+   "h1": [
+    "Librería Kerigma, más de 25 años de historia",
+    "Nuestros",
+    "Trabajos"
+   ],
+   "h2": [
+    "Productos destacados",
+    "¿Qué dicen nuestros clientes?",
+    "Menú",
+    "Contacto",
+    "Síguenos"
+   ],
+   "schema": [],
+   "plataforma": [
+    "WooCommerce",
+    "WordPress"
+   ],
+   "canonical": "https://kerigma.cl/",
+   "og_image": false,
+   "sitemap": "/sitemap.xml (4 loc)"
+  },
+  "benedic.cl": {
+   "title": "Artículos Religiosos | Benedic | Benedictinos | Chile | Las Condes | Artesanía",
+   "description": "En nuestra Tienda Benedic encontrarás artículos religiosos, artesanías, cerámicas Gres y gourmet. Benedictinos | San Benito | Arte religioso | Tienda Monástica | Chile | Envíos a todo Chile",
+   "h1": [
+    "BENEDIC",
+    "BENEDIC"
+   ],
+   "h2": [
+    "Tienda del",
+    "Monasterio Benedictino de Las Condes",
+    "¿buscas un regalo especial?"
+   ],
+   "schema": [
+    "LocalBusiness",
+    "PostalAddress",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Wix"
+   ],
+   "canonical": "https://www.benedic.cl",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (2 loc)"
+  },
+  "panem.cl": {
+   "title": "Inicio - Recuerdos Panem",
+   "description": "Recuerdos, Primera Comunion, Bautizo, Cofirmacion, Baby Showers, Coronacion, Encuentro en Cristo, Defuncion, Agradecimiento, Velas, La Casa Blanca",
+   "h1": [
+    "¡Contáctanos!"
+   ],
+   "h2": [
+    "Recuerdos y regalos para todos tus momentos…",
+    "Recuerdos de Primera Comunión",
+    "Accesorios de Primera Comunión",
+    "Recuerdos de Bautizo",
+    "Parroquias y Colegios",
+    "Acceder"
+   ],
+   "schema": [
+    "BreadcrumbList",
+    "EntryPoint",
+    "ImageObject",
+    "ListItem",
+    "Organization",
+    "PropertyValueSpecification",
+    "ReadAction",
+    "SearchAction",
+    "WebPage",
+    "WebSite"
+   ],
+   "plataforma": [
+    "WooCommerce",
+    "WordPress"
+   ],
+   "canonical": "https://www.panem.cl/",
+   "og_image": false,
+   "sitemap": "/sitemap.xml (3 loc)"
+  },
+  "delfinazul.cl": {
+   "title": "Fabrica de Velas | Velas Esotericas | Delfin Azul",
+   "description": "El mayor surtido de productos para tarotistas y personas que se dedican a la magia blanca, especializandonos en la fabricación de velas esotericas y cirios.",
+   "h1": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+   ],
+   "h2": [
+    "Ritual de San Valentín",
+    "Ritual de Adviento",
+    "Ritual de Fin de Año",
+    "Tetragrammaton",
+    "Atrapa Angeles",
+    "Porta Velón",
+    "Figuras Religiosas Afro Brasileñas",
+    "Piedras Naturales",
+    "Figuras Religiosas Chinas",
+    "Orgones y Mandalas"
+   ],
+   "schema": [],
+   "plataforma": [],
+   "canonical": null,
+   "og_image": false,
+   "sitemap": "/sitemap.xml (86 loc)"
+  },
+  "secha.cl": {
+   "title": "SECHA | Insumos para Velas y Jabones – En Secha podrás encontrar todos los materiales necesarios para confeccionar velas y jabones, ya sea para uso personal o para comenzar tu propio emprendimiento. Con mas de 30 años en el rubro, te podemos orientar y acompañar en el proceso de creación y elaboración de tus productos. Ofrecemos insumos de alta calidad. Además somos fabricantes de pabilos (mechas), que han sido especialmente diseñados para los distintos tipos y tamaños de velas. También fabricamos otros tipos de pitillas y cuerdas.",
+   "description": null,
+   "h1": [],
+   "h2": [
+    "Bienvenidos",
+    "Productos",
+    "Cera de Abeja",
+    "Moldes de Fanal de Obelisco",
+    "Bases para Jabón",
+    "Molde Silicona Variados",
+    "Hilados",
+    "Ovillos de Algodón",
+    "Despacho a Domicilio dentro de Santiago"
+   ],
+   "schema": [],
+   "plataforma": [
+    "WooCommerce",
+    "WordPress"
+   ],
+   "canonical": "https://secha.cl/",
+   "og_image": false,
+   "sitemap": "/sitemap.xml (6 loc)"
+  },
+  "lacandela.cl": {
+   "title": "La Candela - Almacen de Velas – La Candela - Almacén de Velas",
+   "description": "Velas 100% artesanales, hechas con los mejores insumos para entregar un producto de calidad a nuestros clientes.",
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Artículo agregado a tu carrito",
+    "Navidad hecha a mano",
+    "Para tu mesa de Navidad",
+    "Nuestras velas",
+    "Tu vela no existe todavía",
+    "Ocasiones especiales",
+    "Velas Clásicas",
+    "Set de velas para condolencias",
+    "Let customers speak for us",
+    "Hechas a mano, una por una. Ninguna igual, todas perfectas."
+   ],
+   "schema": [
+    "Organization",
+    "SearchAction",
+    "WebSite"
+   ],
+   "plataforma": [
+    "Shopify"
+   ],
+   "canonical": "https://lacandela.cl/",
+   "og_image": true,
+   "sitemap": "/sitemap.xml (5 loc)"
+  },
+  "artevelas.cl": {
+   "title": "",
+   "description": null,
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Servicios"
+   ],
+   "schema": [],
+   "plataforma": [],
+   "canonical": null,
+   "og_image": false
+  },
+  "velassantiago.com": {
+   "title": "Velas Santiago - Fabricante de Velas Artesanales Madrid desde 1970",
+   "description": "Fabricante de velas artesanales en Madrid desde 1970. Venta de velas para iglesia, eventos, bodas y decoración. Calidad premium y respeto al medio ambiente.",
+   "h1": [
+    "Velas Artesanales",
+    "Velas para bodas",
+    "Velas para producciones"
+   ],
+   "h2": [
+    "Cuidamos Cada Detalle de Nuestras Velas",
+    "Tradición y Calidad en Cada Vela",
+    "55 +",
+    "Especialistas en Velas para Cada Ocasión",
+    "¿Buscas Velas de Calidad para tu Evento Especial?"
+   ],
+   "schema": [],
+   "plataforma": [],
+   "canonical": null,
+   "og_image": false
+  },
+  "beato.cl": {
+   "title": "Inicio - Beato",
+   "description": "Artículos religiosos al por mayor, Crucifijos, cruces, venta, distribución, materiales de rosarios, denarios, estampas",
+   "h1": [
+    ""
+   ],
+   "h2": [
+    "Venta al por mayor",
+    "Categorías",
+    "Acceder",
+    "Registrarse"
+   ],
+   "schema": [
+    "BreadcrumbList",
+    "EntryPoint",
+    "ImageObject",
+    "ListItem",
+    "Organization",
+    "PropertyValueSpecification",
+    "ReadAction",
+    "SearchAction",
+    "WebPage",
+    "WebSite"
+   ],
+   "plataforma": [
+    "WooCommerce",
+    "WordPress"
+   ],
+   "canonical": "https://www.beato.cl/",
+   "og_image": false,
+   "sitemap": "/sitemap.xml (3 loc)"
+  }
+ }
+}

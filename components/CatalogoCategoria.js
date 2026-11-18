@@ -364,7 +364,7 @@ export default function CatalogoCategoria({ categoria, productos }) {
       >
         <Image
           src={categoria.imagen}
-          alt={`Velas de ${categoria.nombre}`}
+          alt={categoria.heroAlt || `Velas de ${categoria.nombre}`}
           fill
           priority
           sizes="100vw"
@@ -394,11 +394,13 @@ export default function CatalogoCategoria({ categoria, productos }) {
               : undefined
           }
         >
-          <p className="type-eyebrow-light eyebrow-rule reveal">
-            {categoria.eyebrow}
-          </p>
+          {/* SEO: el H1 es la línea superior (lleva la palabra clave). El nombre
+              grande de la categoría se ve igual, pero como párrafo. */}
+          <h1 className="type-eyebrow-light eyebrow-rule reveal">
+            {categoria.h1 || categoria.eyebrow}
+          </h1>
           <AnimatedText
-            as="h1"
+            as="p"
             animation="maskReveal"
             className="font-display text-[#F5F5EE] text-[clamp(40px,7vw,72px)] font-normal mt-4 leading-[0.98]"
           >

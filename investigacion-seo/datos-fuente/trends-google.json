@@ -1,0 +1,149 @@
+{
+ "fecha_consulta": "2026-11-17",
+ "geo": "CL",
+ "periodo": "today 12-m",
+ "ancla": "velas aromaticas",
+ "grupos": [
+  {
+   "velas aromaticas": {
+    "promedio": 34.8,
+    "semanas": 53,
+    "semanas_en_cero": 16,
+    "max": 100,
+    "mes_peak": "2025-11",
+    "primera_mitad": 34.3,
+    "segunda_mitad": 35.3
+   },
+   "velas por mayor": {
+    "promedio": 5.5,
+    "semanas": 53,
+    "semanas_en_cero": 45,
+    "max": 65,
+    "mes_peak": "2026-11",
+    "primera_mitad": 3.9,
+    "segunda_mitad": 7.0
+   },
+   "fabrica de velas": {
+    "promedio": 0.1,
+    "semanas": 53,
+    "semanas_en_cero": 52,
+    "max": 7,
+    "mes_peak": "2026-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.3
+   },
+   "velas para matrimonio": {
+    "promedio": 0.0,
+    "semanas": 53,
+    "semanas_en_cero": 53,
+    "max": 0,
+    "mes_peak": "2025-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.0
+   },
+   "velas flotantes": {
+    "promedio": 0.1,
+    "semanas": 53,
+    "semanas_en_cero": 52,
+    "max": 5,
+    "mes_peak": "2026-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.2
+   }
+  },
+  {
+   "velas aromaticas": {
+    "promedio": 34.8,
+    "semanas": 53,
+    "semanas_en_cero": 16,
+    "max": 100,
+    "mes_peak": "2025-11",
+    "primera_mitad": 34.3,
+    "segunda_mitad": 35.3
+   },
+   "cirio pascual": {
+    "promedio": 1.8,
+    "semanas": 53,
+    "semanas_en_cero": 50,
+    "max": 54,
+    "mes_peak": "2026-03",
+    "primera_mitad": 3.5,
+    "segunda_mitad": 0.1
+   },
+   "velas de bautizo": {
+    "promedio": 1.0,
+    "semanas": 53,
+    "semanas_en_cero": 50,
+    "max": 46,
+    "mes_peak": "2025-12",
+    "primera_mitad": 1.8,
+    "segunda_mitad": 0.3
+   },
+   "cirios": {
+    "promedio": 1.6,
+    "semanas": 53,
+    "semanas_en_cero": 49,
+    "max": 38,
+    "mes_peak": "2026-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 3.1
+   },
+   "velones": {
+    "promedio": 0.5,
+    "semanas": 53,
+    "semanas_en_cero": 50,
+    "max": 12,
+    "mes_peak": "2026-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 1.0
+   }
+  },
+  {
+   "velas aromaticas": {
+    "promedio": 34.8,
+    "semanas": 53,
+    "semanas_en_cero": 16,
+    "max": 100,
+    "mes_peak": "2025-11",
+    "primera_mitad": 34.3,
+    "segunda_mitad": 35.3
+   },
+   "velas para eventos": {
+    "promedio": 0.0,
+    "semanas": 53,
+    "semanas_en_cero": 53,
+    "max": 0,
+    "mes_peak": "2025-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.0
+   },
+   "velas funerarias": {
+    "promedio": 0.0,
+    "semanas": 53,
+    "semanas_en_cero": 53,
+    "max": 0,
+    "mes_peak": "2025-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.0
+   },
+   "velas liturgicas": {
+    "promedio": 0.0,
+    "semanas": 53,
+    "semanas_en_cero": 53,
+    "max": 0,
+    "mes_peak": "2025-11",
+    "primera_mitad": 0.0,
+    "segunda_mitad": 0.0
+   },
+   "velas blancas": {
+    "promedio": 2.6,
+    "semanas": 53,
+    "semanas_en_cero": 48,
+    "max": 39,
+    "mes_peak": "2026-11",
+    "primera_mitad": 1.4,
+    "segunda_mitad": 3.7
+   }
+  }
+ ]
+}

@@ -112,7 +112,7 @@ export default function ConfiguradorVelones({
                   <Image
                     key={f.src}
                     src={f.src}
-                    alt="Cirios y velones litúrgicos Devas"
+                    alt={`${titulo || 'Cirios y velones litúrgicos'} Velas Devas, foto ${i + 1}`}
                     fill
                     priority={i === 0}
                     sizes="(max-width: 768px) 100vw, 50vw"

@@ -75,11 +75,12 @@ export default function HomeCategorias() {
           activo !== null ? 'opacity-0 scale-[0.98]' : 'opacity-100 scale-100'
         }`}
       >
-        <p className="type-eyebrow-light eyebrow-rule mx-auto">
-          Fabricación nacional · Todo Chile
-        </p>
+        {/* SEO: el H1 es la línea superior; el lema se ve igual, como párrafo. */}
+        <h1 className="type-eyebrow-light eyebrow-rule mx-auto">
+          Fábrica de velas por mayor · Chile
+        </h1>
         <AnimatedText
-          as="h1"
+          as="p"
           animation="maskReveal"
           duration={1.1}
           className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] tracking-[-0.01em] mt-6 max-w-3xl"
@@ -203,13 +204,13 @@ export default function HomeCategorias() {
         <section className="relative px-6 pt-[104px] pb-6 text-center overflow-hidden">
           <div className="warm-glow pointer-events-none absolute inset-0" />
           <div className="relative reveal">
-            <p className="type-eyebrow-light eyebrow-rule mx-auto">
-              Fabricación nacional · Todo Chile
-            </p>
-            <h1 className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] tracking-[-0.01em] mt-4">
+            <h1 className="type-eyebrow-light eyebrow-rule mx-auto">
+              Fábrica de velas por mayor · Chile
+            </h1>
+            <p className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] tracking-[-0.01em] mt-4">
               Más de 30 años respaldando a quienes{' '}
               <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
-            </h1>
+            </p>
             <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[330px] mx-auto">
               Acompañamos a banqueterías, funerarias, iglesias y empresas con la
               calidad y el cumplimiento que cada pedido exige.
