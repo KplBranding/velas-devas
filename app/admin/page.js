@@ -13,7 +13,22 @@ export const metadata = {
 // Diagnóstico de conexión (para saber POR QUÉ el panel no trae datos): compara el
 // proyecto de la URL vs. el de la llave, y verifica que la llave sea la
 // service_role / secret (no la anon / publishable — esas no leen por RLS).
-function diagnostico(leadsError, eventosError) {
+// Cuando la base no responde, la librería solo dice "fetch failed"; la causa
+// real (dominio que no existe, tiempo agotado, conexión rechazada) viene en
+// `details`. Esto la traduce a algo accionable.
+function causaDeRed(detalle) {
+  const causa = (String(detalle || '').match(/Caused by: ([^\n]*)/) || [])[1];
+  if (!causa) return null;
+  if (/ENOTFOUND|EAI_AGAIN/.test(causa)) {
+    return `No se encuentra el servidor de la base (${causa}). Lo más habitual: el proyecto de Supabase está pausado por inactividad (entra a supabase.com → tu proyecto → "Restore project"), fue eliminado, o SUPABASE_URL en Vercel está mal escrita.`;
+  }
+  if (/TIMEOUT|ETIMEDOUT|UND_ERR_CONNECT/.test(causa)) {
+    return `La base no respondió a tiempo (${causa}). Puede ser una caída momentánea de Supabase o un proyecto que se está reactivando: prueba recargar en unos minutos.`;
+  }
+  return `Fallo de conexión con la base: ${causa}`;
+}
+
+function diagnostico(leadsError, eventosError, detalleRed) {
   const url = process.env.SUPABASE_URL || '';
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
   const urlRef = (url.match(/https?:\/\/([^.]+)\.supabase\./) || [])[1] || null;
@@ -51,6 +66,8 @@ function diagnostico(leadsError, eventosError) {
       `La URL apunta al proyecto "${urlRef}" pero la llave es del proyecto "${keyRef}": no coinciden. Usa la URL y la llave del MISMO proyecto.`
     );
   }
+  const red = /fetch failed/i.test(leadsError || eventosError || '') ? causaDeRed(detalleRed) : null;
+  if (red) problemas.push(red);
   if (leadsError) {
     const faltaTabla = /does not exist|relation|schema/i.test(leadsError);
     problemas.push(
@@ -87,6 +104,7 @@ export default async function AdminPage() {
   let eventos = [];
   let leadsError = null;
   let eventosError = null;
+  let detalleRed = null;
   const sb = getSupabase();
   if (sb) {
     const l = await sb
@@ -106,6 +124,7 @@ export default async function AdminPage() {
     eventos = e.data || [];
     leadsError = l.error?.message || null;
     eventosError = e.error?.message || null;
+    detalleRed = l.error?.details || e.error?.details || null;
   }
 
   return (
@@ -113,7 +132,7 @@ export default async function AdminPage() {
       leads={leads}
       eventos={eventos}
       supabaseHabilitado={supabaseHabilitado}
-      diag={diagnostico(leadsError, eventosError)}
+      diag={diagnostico(leadsError, eventosError, detalleRed)}
     />
   );
 }
