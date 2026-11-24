@@ -60,7 +60,7 @@ export function GET() {
     `- Correo: ${EMPRESA.email}`,
     `- Horario de atención: ${EMPRESA.horario.texto}`,
     '- Venta: únicamente pedidos mayoristas; no hay venta al detalle ni pago en línea. Los pedidos se arman en el sitio y se envían como solicitud de cotización.',
-    '- Colores: blanco nieve y marfil.',
+    '- Colores de la cera: blanco nieve y marfil; la línea religiosa suma el amarillo pascual, un tono más dorado. Los diseños a color son impresiones o adhesivos sobre la vela.',
     '',
     '## Páginas',
     '',
