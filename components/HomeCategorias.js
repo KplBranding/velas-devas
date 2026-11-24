@@ -15,6 +15,9 @@ const COPY_MOVIL = {
   funerarias: 'Velas y velones para funerarias y salas velatorias.',
 };
 
+const ENLACE_NAV =
+  'font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#F5F5EE]/75 hover:text-[#F5F5EE] link-underline pb-1 transition-colors duration-300 press';
+
 export default function HomeCategorias() {
   const [activo, setActivo] = useState(null);
 
@@ -22,6 +25,20 @@ export default function HomeCategorias() {
     <main className="relative md:h-[100svh] w-full md:overflow-hidden bg-black-graphic grain">
       {/* Nav absoluto — logo centrado, botón Contacto a la derecha */}
       <nav className="absolute top-0 left-0 right-0 z-40 flex items-center px-5 md:px-10 h-[96px] md:h-[124px]">
+        {/* Enlaces a las páginas de empresa: sin ellos la portada solo llevaba a
+           los catálogos y a WhatsApp. En escritorio van juntos a la izquierda
+           (a la derecha está el botón de WhatsApp); en móvil, uno a cada lado
+           del logo. */}
+        <Link href="/nosotros" className={ENLACE_NAV}>
+          Nosotros
+        </Link>
+        <Link
+          href="/contacto"
+          className={`${ENLACE_NAV} absolute right-5 md:static md:ml-7`}
+        >
+          Cotizar
+        </Link>
+
         {/* Logo centrado */}
         <Link
           href="/"
@@ -69,33 +86,46 @@ export default function HomeCategorias() {
         }`}
       />
 
-      {/* Texto central (desktop; desaparece al hover) */}
+      {/* Texto de presentación: UN solo bloque para móvil y escritorio (antes
+         había dos copias, y con ellas dos H1). En móvil va en el flujo, sobre
+         las tarjetas; en escritorio se superpone centrado a los paneles y
+         desaparece al pasar el cursor por uno. */}
       <div
-        className={`hidden md:flex pointer-events-none absolute inset-0 z-30 flex-col items-center justify-center text-center px-6 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-          activo !== null ? 'opacity-0 scale-[0.98]' : 'opacity-100 scale-100'
+        className={`relative px-6 pt-[104px] pb-6 text-center overflow-hidden md:pointer-events-none md:absolute md:inset-0 md:z-30 md:flex md:flex-col md:items-center md:justify-center md:py-0 md:overflow-visible md:transition-all md:duration-700 md:ease-[cubic-bezier(0.23,1,0.32,1)] ${
+          activo !== null ? 'md:opacity-0 md:scale-[0.98]' : 'md:opacity-100 md:scale-100'
         }`}
       >
-        {/* SEO: el H1 es la línea superior; el lema se ve igual, como párrafo. */}
-        <h1 className="type-eyebrow-light eyebrow-rule mx-auto">
-          Fábrica de velas por mayor · Chile
-        </h1>
-        <AnimatedText
-          as="p"
-          animation="maskReveal"
-          duration={1.1}
-          className="font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] tracking-[-0.01em] mt-6 max-w-3xl"
-        >
-          Más de 30 años respaldando a quienes
-          <br />
-          <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
-        </AnimatedText>
-        <p className="font-sans text-[15px] md:text-[17px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-6 max-w-xl mx-auto">
-          Acompañamos a banqueterías, funerarias, iglesias y empresas con la
-          calidad y el cumplimiento que cada pedido exige.
-        </p>
-        <p className="font-sans text-[12px] font-light tracking-[0.2em] uppercase text-[#F5F5EE]/50 mt-7">
-          Explora nuestras categorías
-        </p>
+        <div className="md:hidden warm-glow pointer-events-none absolute inset-0" />
+        <div className="relative max-md:reveal md:contents">
+          {/* SEO: el H1 es la línea superior; el lema se ve igual, como párrafo. */}
+          <h1 className="type-eyebrow-light eyebrow-rule mx-auto">
+            Fábrica de velas por mayor · Chile
+          </h1>
+          {/* El lema sí tiene dos versiones: en escritorio entra animado y
+             partido en dos líneas; en móvil es texto corrido, sin animación
+             (es parte de lo primero que se pinta). */}
+          <AnimatedText
+            as="p"
+            animation="maskReveal"
+            duration={1.1}
+            className="hidden md:block font-display text-[#F5F5EE] text-[clamp(32px,5.5vw,64px)] font-normal leading-[1.04] tracking-[-0.01em] mt-6 max-w-3xl"
+          >
+            Más de 30 años respaldando a quienes
+            <br />
+            <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
+          </AnimatedText>
+          <p className="md:hidden font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] tracking-[-0.01em] mt-4">
+            Más de 30 años respaldando a quienes{' '}
+            <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
+          </p>
+          <p className="font-sans text-[13.5px] md:text-[17px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 md:mt-6 max-w-[330px] md:max-w-xl mx-auto">
+            Acompañamos a banqueterías, funerarias, iglesias y empresas con la
+            calidad y el cumplimiento que cada pedido exige.
+          </p>
+          <p className="font-sans text-[11px] md:text-[12px] font-light tracking-[0.18em] md:tracking-[0.2em] uppercase text-[#F5F5EE]/45 md:text-[#F5F5EE]/50 mt-7">
+            Explora nuestras categorías
+          </p>
+        </div>
       </div>
 
       {/* Paneles (solo desktop) */}
@@ -198,29 +228,8 @@ export default function HomeCategorias() {
         })}
       </div>
 
-      {/* ===== MÓVIL: propuesta de valor + categorías ===== */}
+      {/* ===== MÓVIL: categorías ===== */}
       <div className="md:hidden relative">
-        {/* Hero compacto: primero QUIÉNES somos y POR QUÉ elegirnos, luego invita */}
-        <section className="relative px-6 pt-[104px] pb-6 text-center overflow-hidden">
-          <div className="warm-glow pointer-events-none absolute inset-0" />
-          <div className="relative reveal">
-            <h1 className="type-eyebrow-light eyebrow-rule mx-auto">
-              Fábrica de velas por mayor · Chile
-            </h1>
-            <p className="font-display text-[#F5F5EE] text-[clamp(26px,7.2vw,36px)] font-normal leading-[1.14] tracking-[-0.01em] mt-4">
-              Más de 30 años respaldando a quienes{' '}
-              <span className="italic text-[#C8D0A8]">no pueden improvisar.</span>
-            </p>
-            <p className="font-sans text-[13.5px] font-light leading-[1.55] text-[#F5F5EE]/75 mt-5 max-w-[330px] mx-auto">
-              Acompañamos a banqueterías, funerarias, iglesias y empresas con la
-              calidad y el cumplimiento que cada pedido exige.
-            </p>
-            <p className="font-sans text-[11px] font-light tracking-[0.18em] uppercase text-[#F5F5EE]/45 mt-7">
-              Explora nuestras categorías
-            </p>
-          </div>
-        </section>
-
         {/* Categorías: foto protagonista + info siempre visible (sin hover) */}
         <div
           className="px-4 pb-12 space-y-3.5"

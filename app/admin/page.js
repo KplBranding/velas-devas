@@ -97,6 +97,9 @@ export default async function AdminPage() {
     const e = await sb
       .from('eventos')
       .select('*')
+      // Los intentos fallidos de acceso se guardan como eventos (ver
+      // api/admin/login); no son actividad del sitio, así que no se listan.
+      .neq('tipo', 'login_fallido')
       .order('created_at', { ascending: false })
       .limit(1000);
     leads = l.data || [];

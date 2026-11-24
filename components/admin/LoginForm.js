@@ -4,13 +4,13 @@ import { useState } from 'react';
 
 export default function LoginForm() {
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null); // null | 'clave' | 'limite'
   const [cargando, setCargando] = useState(false);
 
   const submit = async (e) => {
     e.preventDefault();
     setCargando(true);
-    setError(false);
+    setError(null);
     try {
       const r = await fetch('/api/admin/login', {
         method: 'POST',
@@ -21,9 +21,9 @@ export default function LoginForm() {
         window.location.reload();
         return;
       }
-      setError(true);
+      setError(r.status === 429 ? 'limite' : 'clave');
     } catch {
-      setError(true);
+      setError('clave');
     }
     setCargando(false);
   };
@@ -47,7 +47,11 @@ export default function LoginForm() {
           className="mt-1.5 w-full bg-bg-hero border border-border-default rounded-[4px] px-3 py-2.5 font-sans text-[14px] text-text-primary focus:outline-none focus:border-accent-mid transition-colors"
         />
         {error && (
-          <p className="mt-2 text-[12px] text-red-500">Contraseña incorrecta.</p>
+          <p className="mt-2 text-[12px] text-red-500">
+            {error === 'limite'
+              ? 'Demasiados intentos. Espera 15 minutos y vuelve a probar.'
+              : 'Contraseña incorrecta.'}
+          </p>
         )}
         <button
           type="submit"
