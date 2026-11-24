@@ -1,13 +1,16 @@
 import ContactForm from '../../../components/ContactForm';
 import AnimatedText from '../../../components/AnimatedText';
 import { EMPRESA } from '../../../lib/categorias';
-import { buildMeta, breadcrumbLd } from '../../../lib/seo';
+import { buildMeta, breadcrumbLd, paginaLd } from '../../../lib/seo';
 import JsonLd from '../../../components/JsonLd';
 
+const TITULO = 'Cotiza velas por mayor: contacto';
+const DESCRIPCION =
+  'Solicita una cotización mayorista de velas para banquetería, iglesias o funerarias. Fabricación propia en Santiago y despacho a todo Chile.';
+
 export const metadata = buildMeta({
-  title: 'Cotiza velas por mayor: contacto',
-  description:
-    'Solicita una cotización mayorista de velas para banquetería, iglesias o funerarias. Fabricación propia en Santiago y despacho a todo Chile.',
+  title: TITULO,
+  description: DESCRIPCION,
   path: '/contacto',
 });
 
@@ -15,6 +18,9 @@ export default function ContactoPage() {
   return (
     <section className="bg-bg-base">
       <JsonLd data={breadcrumbLd('Contacto', '/contacto')} />
+      <JsonLd
+        data={paginaLd('ContactPage', { nombre: TITULO, descripcion: DESCRIPCION, path: '/contacto' })}
+      />
       <div className="max-w-6xl mx-auto px-5 md:px-8 py-16 md:py-20">
         {/* Encabezado */}
         <div className="mb-12 max-w-2xl">

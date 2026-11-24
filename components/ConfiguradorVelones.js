@@ -328,9 +328,11 @@ export default function ConfiguradorVelones({
         </div>
       </div>
 
-      {/* ── Tabla matriz (diámetro × alto) ── */}
-      {tablaAbierta && (
-        <div className="mt-10 pt-8 border-t border-border-default">
+      {/* ── Tabla matriz (diámetro × alto) ──
+         Siempre está en el HTML (oculta con `hidden` hasta abrirla): así los
+         buscadores y asistentes leen todas las medidas y precios, no solo la
+         combinación seleccionada. */}
+      <div hidden={!tablaAbierta} className="mt-10 pt-8 border-t border-border-default">
           <h4 className="type-section text-[clamp(20px,2.4vw,26px)]">
             Tabla de medidas y precios
           </h4>
@@ -378,8 +380,7 @@ export default function ConfiguradorVelones({
               </tbody>
             </table>
           </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }

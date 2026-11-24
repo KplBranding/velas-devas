@@ -106,6 +106,12 @@ const jsonLd = {
         addressCountry: 'CL',
       },
       areaServed: 'CL',
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: EMPRESA.horario.dias,
+        opens: EMPRESA.horario.abre,
+        closes: EMPRESA.horario.cierra,
+      },
       parentOrganization: { '@id': ORG_ID },
     },
     {

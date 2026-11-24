@@ -5,7 +5,7 @@ export default function SitioLayout({ children }) {
   return (
     <>
       <Navbar />
-      <div className="min-h-[60vh]">{children}</div>
+      <main className="min-h-[60vh]">{children}</main>
       <Footer />
     </>
   );

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { track } from '../lib/analytics';
+import { CAMPO_TRAMPA } from '../lib/campoTrampa';
 
 // ── Utilidades RUT (Chile) ──
 function limpiarRut(rut) {
@@ -41,6 +42,7 @@ const EASE = [0.23, 1, 0.32, 1];
 export default function DescargarCatalogo({ className = '', pdf, categoria }) {
   const [abierto, setAbierto] = useState(false);
   const [datos, setDatos] = useState({ empresa: '', rut: '', email: '' });
+  const [trampa, setTrampa] = useState(''); // campo anti-bots (ver lib/campoTrampa.js)
   const [errores, setErrores] = useState({});
   const [enviando, setEnviando] = useState(false);
   const [listo, setListo] = useState(false);
@@ -109,7 +111,12 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
       await fetch('/api/catalogo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...datos, rut: formatRut(datos.rut), categoria }),
+        body: JSON.stringify({
+          ...datos,
+          rut: formatRut(datos.rut),
+          categoria,
+          [CAMPO_TRAMPA]: trampa,
+        }),
       });
     } catch (_) {
       /* silencioso: igual entregamos el PDF (el lead se reintenta luego) */
@@ -246,12 +253,25 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
                     precios en PDF.
                   </p>
 
+                  {/* Campo trampa anti-bots: invisible y fuera de la tabulación. */}
+                  <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                    <input
+                      name={CAMPO_TRAMPA}
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={trampa}
+                      onChange={(e) => setTrampa(e.target.value)}
+                    />
+                  </div>
+
                   <div className="mt-6 space-y-4">
                     <Campo
                       label="Empresa"
                       value={datos.empresa}
                       onChange={set('empresa')}
                       placeholder="Nombre de tu empresa"
+                      maxLength={160}
                       autoComplete="organization"
                       error={errores.empresa}
                     />
@@ -260,6 +280,7 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
                       value={datos.rut}
                       onChange={set('rut')}
                       placeholder="76.123.456-7"
+                      maxLength={14}
                       inputMode="text"
                       error={errores.rut}
                     />
@@ -269,6 +290,7 @@ export default function DescargarCatalogo({ className = '', pdf, categoria }) {
                       value={datos.email}
                       onChange={set('email')}
                       placeholder="tucorreo@empresa.cl"
+                      maxLength={254}
                       inputMode="email"
                       autoComplete="email"
                       error={errores.email}

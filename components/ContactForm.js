@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { EMPRESA } from '../lib/categorias';
 import { track } from '../lib/analytics';
+import { CAMPO_TRAMPA } from '../lib/campoTrampa';
 
 const MSG_VACIO = 'Cuéntanos qué es lo que quieres antes de enviar el correo.';
 
@@ -21,6 +22,7 @@ export default function ContactForm() {
     rubro: 'Banquetería',
     telefono: '',
     mensaje: '',
+    [CAMPO_TRAMPA]: '',
   });
   const mensajeRef = useRef(null);
 
@@ -94,6 +96,7 @@ export default function ContactForm() {
           id="nombre"
           type="text"
           required
+          maxLength={120}
           value={form.nombre}
           onChange={update('nombre')}
           className={CAMPO}
@@ -109,6 +112,7 @@ export default function ContactForm() {
           <input
             id="empresa"
             type="text"
+            maxLength={160}
             value={form.empresa}
             onChange={update('empresa')}
             className={CAMPO}
@@ -142,6 +146,7 @@ export default function ContactForm() {
             id="email"
             type="email"
             required
+            maxLength={254}
             value={form.email}
             onChange={update('email')}
             className={CAMPO}
@@ -155,6 +160,7 @@ export default function ContactForm() {
           <input
             id="telefono"
             type="tel"
+            maxLength={40}
             value={form.telefono}
             onChange={update('telefono')}
             className={CAMPO}
@@ -171,6 +177,7 @@ export default function ContactForm() {
           id="mensaje"
           ref={mensajeRef}
           required
+          maxLength={4000}
           rows={4}
           value={form.mensaje}
           onChange={(e) => {
@@ -200,6 +207,21 @@ export default function ContactForm() {
             .
           </p>
         )}
+      </div>
+
+      {/* Campo trampa anti-bots: fuera de pantalla y fuera del orden de
+         tabulación (va al final para no alterar el espaciado). Las personas no lo ven; el servidor rechaza si llega relleno. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+        <label htmlFor={CAMPO_TRAMPA}>No completar este campo</label>
+        <input
+          id={CAMPO_TRAMPA}
+          name={CAMPO_TRAMPA}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form[CAMPO_TRAMPA]}
+          onChange={update(CAMPO_TRAMPA)}
+        />
       </div>
     </form>
   );

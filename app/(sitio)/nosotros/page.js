@@ -3,13 +3,16 @@ import Image from 'next/image';
 import { IMAGENES } from '../../../lib/categorias';
 import HistoriaScroll from '../../../components/HistoriaScroll';
 import AnimatedText from '../../../components/AnimatedText';
-import { buildMeta, breadcrumbLd } from '../../../lib/seo';
+import { buildMeta, breadcrumbLd, paginaLd } from '../../../lib/seo';
 import JsonLd from '../../../components/JsonLd';
 
+const TITULO = 'Fabricantes de velas desde 1992';
+const DESCRIPCION =
+  'Más de 30 años fabricando velas para banqueterías, funerarias, parroquias y distribuidores de todo Chile. Calidad, consistencia y fabricación nacional.';
+
 export const metadata = buildMeta({
-  title: 'Fabricantes de velas desde 1992',
-  description:
-    'Más de 30 años fabricando velas para banqueterías, funerarias, parroquias y distribuidores de todo Chile. Calidad, consistencia y fabricación nacional.',
+  title: TITULO,
+  description: DESCRIPCION,
   path: '/nosotros',
 });
 
@@ -39,6 +42,9 @@ export default function NosotrosPage() {
   return (
     <>
       <JsonLd data={breadcrumbLd('Nosotros', '/nosotros')} />
+      <JsonLd
+        data={paginaLd('AboutPage', { nombre: TITULO, descripcion: DESCRIPCION, path: '/nosotros' })}
+      />
       {/* ── Hero fotográfico ── */}
       <section className="relative h-[440px] md:h-[540px] flex items-end overflow-hidden grain">
         <Image

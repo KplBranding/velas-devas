@@ -234,6 +234,10 @@ export default function DolorScrolly({
                     ) : (
                       l
                     )}
+                    {/* Espacio invisible: sin él, quien lee el HTML sin CSS
+                       (buscadores, asistentes) pega la última palabra de una
+                       línea con la primera de la siguiente. */}
+                    {!last && ' '}
                   </span>
                 </span>
               );
@@ -329,6 +333,7 @@ export default function DolorScrolly({
                   ) : (
                     l
                   )}
+                  {!last && ' '}
                 </span>
               </span>
             );

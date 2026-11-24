@@ -1,6 +1,6 @@
 import CatalogoCategoria from '../../../components/CatalogoCategoria';
 import { CATEGORIAS } from '../../../lib/categorias';
-import { buildMeta, breadcrumbLd, faqLd } from '../../../lib/seo';
+import { buildMeta, breadcrumbLd, faqLd, catalogoLd } from '../../../lib/seo';
 import { FAQS } from '../../../lib/contenido';
 import JsonLd from '../../../components/JsonLd';
 import productos from '../../../data/productos.json';
@@ -19,6 +19,7 @@ export default function ReligiosasPage() {
     <>
       <JsonLd data={breadcrumbLd(categoria.nombre, '/religiosas')} />
       <JsonLd data={faqLd(FAQS)} />
+      <JsonLd data={catalogoLd(categoria, items)} />
       <CatalogoCategoria categoria={categoria} productos={items} />
     </>
   );
