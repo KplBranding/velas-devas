@@ -14,6 +14,7 @@ import { PARALLAX } from '../lib/motion/config';
 import { getLenis } from '../lib/motion/engine';
 import ProductCard from './ProductCard';
 import ConfiguradorVelones from './ConfiguradorVelones';
+import TablaPrecios from './TablaPrecios';
 import AnimatedText from './AnimatedText';
 import ComoCotizar from './ComoCotizar';
 import LeyendaColores from './LeyendaColores';
@@ -349,6 +350,8 @@ export default function CatalogoCategoria({ categoria, productos }) {
               No hay formatos para este filtro.
             </p>
           )}
+
+          <TablaPrecios productos={lista} />
         </div>
       )}
     </div>
